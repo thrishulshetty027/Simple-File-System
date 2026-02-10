@@ -25,7 +25,7 @@ jobs:
           OPENAI_BASE_URL: https://openrouter.ai/api/v1
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          model: qwen/qwen-2.5-coder-32b
+          model: model: mistralai/mistral-7b-instruct
           prompt: |
             Write unit tests in C for the changes in this pull request.
             Focus on modified functions, edge cases, and error handling.
