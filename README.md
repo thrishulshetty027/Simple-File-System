@@ -35,3 +35,4 @@ As you can see in the image, our associated structures for the organization of t
 It is also worth mentioning that although it is not stored on disk, we have the following auxiliary structure that contains support information when handling the file system information. This structure is:
 
 - Auxiliary structure for i-nodes: The objective of this structure is to store information for each one of the i-nodes that are in the system so that the state of a file is easily found. A structure is defined for each file (i-node), the attributes of this structure are the read/write position of the file associated to the i-node and whether it is open or closed.
+Second test change
