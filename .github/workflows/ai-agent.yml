@@ -29,7 +29,9 @@ jobs:
           prompt: |
             Write unit tests in C for the changes in this pull request.
             Focus on modified functions, edge cases, and error handling.
-            Place tests in a tests/ directory.
+            Place tests in a tests/ directory. Clearly print the different 
+            steps you follow and print any JSON files you generate. Create 
+            the log file in the folder C:\Users\uik03287.
 
       - name: Compile and run tests
         shell: powershell
