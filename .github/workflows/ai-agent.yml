@@ -24,8 +24,9 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.MY_API_KEY }}
           OPENAI_BASE_URL: https://openrouter.ai/api/v1
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENCODE_DISABLE_PR_COMMENTS: true
         with:
-          model: model: mistralai/mistral-7b-instruct
+          model: mistralai/mistral-7b-instruct
           prompt: |
             Write unit tests in C for the changes in this pull request.
             Focus on modified functions, edge cases, and error handling.
@@ -38,5 +39,9 @@ jobs:
             Write-Host "No tests directory found."
             exit 0
           }
+          else {
+            Write-Host "Test path exists. Running tests now."
+          }
+
           gcc -o tests_runner tests/*.c
           .\tests_runner.exe
