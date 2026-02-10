@@ -1,32 +1,42 @@
-name: AI Agent (Windows Controlled)
+name: OpenCode PR Test Generator
 
 on:
   pull_request:
-    types: [labeled]
+    types: [opened, synchronize, reopened, ready_for_review]
 
 jobs:
-  ai-agent:
-    if: github.event.label.name == 'run-opencode'
+  opencode:
     runs-on: windows-latest
 
+    permissions:
+      id-token: write
+      contents: write
+      pull-requests: write
+      issues: write
+
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Call your AI API
-        shell: powershell
+      - name: OpenCode test generation
+        uses: anomalyco/opencode/github@latest
         env:
-          MY_AI_API_KEY: ${{ secrets.APIKEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          OPENAI_BASE_URL: https://openrouter.ai/api/v1
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          model: qwen/qwen-2.5-coder-32b
+          prompt: |
+            Write unit tests in C for the changes in this pull request.
+            Focus on modified functions, edge cases, and error handling.
+            Place tests in a tests/ directory.
+
+      - name: Compile and run tests
+        shell: powershell
         run: |
-          $prompt = "Analyze this repo and list files."
-
-          $body = @{
-            prompt = $prompt
-          } | ConvertTo-Json
-
-          Invoke-RestMethod `
-            -Uri "https://vio.automotive-wan.com/" `
-            -Method POST `
-            -Headers @{ Authorization = "Bearer $env:MY_AI_API_KEY" } `
-            -ContentType "application/json" `
-            -Body $body
+          if (!(Test-Path tests)) {
+            Write-Host "No tests directory found."
+            exit 0
+          }
+          gcc -o tests_runner tests/*.c
+          .\tests_runner.exe
