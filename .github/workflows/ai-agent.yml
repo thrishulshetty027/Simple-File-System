@@ -25,12 +25,20 @@ jobs:
           OPENAI_BASE_URL: https://openrouter.ai/api/v1
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENCODE_DISABLE_PR_COMMENTS: true
+          OPENCODE_DISABLE_METADATA: true
+          OPENCODE_PLAIN_OUTPUT: true
+
         with:
           model: mistralai/mistral-7b-instruct
           prompt: |
             Write unit tests in C for the changes in this pull request.
             Focus on modified functions, edge cases, and error handling.
             Place tests in a tests/ directory.
+            Rules:
+            - Output ONLY valid C code
+            - Do NOT include markdown
+            - Do NOT include explanations
+            - Write files into tests/ directory
 
       - name: Compile and run tests
         shell: powershell
