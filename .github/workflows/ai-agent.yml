@@ -25,11 +25,13 @@ jobs:
           OPENAI_BASE_URL: https://openrouter.ai/api/v1
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          model: model: mistralai/mistral-7b-instruct
+          model: mistralai/mistral-7b-instruct
           prompt: |
             Write unit tests in C for the changes in this pull request.
             Focus on modified functions, edge cases, and error handling.
-            Place tests in a tests/ directory.
+            Place tests in a tests/ directory. Clearly print the different 
+            steps you follow and print any JSON files you generate. Create 
+            the log file in the folder C:\Users\uik03287.
 
       - name: Compile and run tests
         shell: powershell
@@ -37,6 +39,6 @@ jobs:
           if (!(Test-Path tests)) {
             Write-Host "No tests directory found."
             exit 0
-          }
+          } else (Test-Path tests) { Write-Host "Test path exists. Running tests now." }
           gcc -o tests_runner tests/*.c
           .\tests_runner.exe
