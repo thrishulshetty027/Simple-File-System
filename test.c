@@ -349,8 +349,7 @@ int main()
 
 	return 0;
 }
-/* Added AI Agent to the workflow */
-/*Manual changes to Trigger AI */
-/*Trying a Cloud model */
-/* checking to see if the agent  works */
-/* Trigger AI agent test2 */
+
+int add(int a, int b) {
+    return a + b;
+}
