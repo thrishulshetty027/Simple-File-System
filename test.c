@@ -348,9 +348,11 @@ int main()
 	///////
 
 	return 0;
+int add(int a, int b) {
+    return a + b;
 }
-/* Added AI Agent to the workflow */
-/*Manual changes to Trigger AI */
-/*Trying a Cloud model */
-/* checking to see if the agent  works */
-/* Trigger AI agent test2 */
+
+int safe_divide(int a, int b) {
+    if (b == 0) return -1;
+    return a / b;
+}
