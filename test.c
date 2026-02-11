@@ -353,3 +353,23 @@ int main()
 int add(int a, int b) {
     return a + b;
 }
+
+
+// New function added to test AI-generated module tests
+int safe_divide(int a, int b) {
+    if (b == 0) {
+        return -1;   // error code for divide by zero
+    }
+    if (a == 0) {
+        return 0;
+    }
+    return a / b;
+}
+
+// Another small function for multi-case testing
+int clamp(int value, int min, int max) {
+    if (value < min) return min;
+    if (value > max) return max;
+    return value;
+}
+
