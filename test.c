@@ -1,4 +1,7 @@
-/*CHECKING OUT THIS NEW LLM 
+/*m  NEW POLL METHOD FOR MODULE TEST GENERATION */
+
+/*
+
  *
  * Operating System Design / Diseño de Sistemas Operativos
  * (c) ARCOS.INF.UC3M.ES
@@ -349,14 +352,3 @@ int main()
 
 	return 0;
 }
-/* Added AI Agent to the workflow */
-/*Manual changes to Trigger AI */
-/*Trying a Cloud model */
-/* checking to see if the agent  works */
-/* Trigger AI agent test2 */
-/*Trigger agent for test3 */
-/*Trigger agent for test4 */
-/* checking to see if the agent  works for B4 */
-/* checking to see if the agentwith test 5 */
-
-
