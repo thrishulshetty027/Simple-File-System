@@ -357,3 +357,25 @@ int safe_divide(int a, int b) {
 int multiply(int a, int b) {
     return a * b;
 }
+#include <stdio.h>
+
+int divide(int a, int b) {
+    if (b == 0) {
+        return -1;   // error code for division by zero
+    }
+    return a / b;
+}
+
+int is_even(int number) {
+    return number % 2 == 0;
+}
+
+int main() {
+    printf("10 / 2 = %d\n", divide(10, 2));
+    printf("10 / 0 = %d\n", divide(10, 0));
+
+    printf("4 is even: %d\n", is_even(4));
+    printf("5 is even: %d\n", is_even(5));
+
+    return 0;
+}

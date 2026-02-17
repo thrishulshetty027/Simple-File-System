@@ -1,0 +1,79 @@
+* [33m0466c54[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mlocal-agent[m[33m, [m[1;31morigin/local-agent[m[33m)[m local model MT testing
+* [33m3d64735[m[33m ([m[1;31morigin/newB[m[33m, [m[1;32mnewB[m[33m)[m add simple add() function for test generation
+*   [33m8cd0d80[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m Merge pull request #3 from thrishulshetty027/agent-test-2
+[32m|[m[33m\[m  
+* [33m\[m   [33mc5a66cc[m Merge pull request #2 from thrishulshetty027/ai-test
+[34m|[m[35m\[m [33m\[m  
+[34m|[m [35m|[m [33m|[m * [33mf0b485b[m[33m ([m[1;32mnew_pro[m[33m)[m remove old github actions workflow
+[34m|[m [35m|[m [33m|[m * [33mc07a8c4[m[33m ([m[1;31morigin/new_pro[m[33m)[m new change
+[34m|[m [35m|[m [33m|[m * [33m101f562[m[33m ([m[1;31morigin/test_agent_new[m[33m, [m[1;32mtest_agent_new[m[33m)[m  newmod
+[34m|[m [35m|[m [33m|[m * [33m6f3335d[m[33m ([m[1;31morigin/test-agent-6[m[33m, [m[1;32mtest-agent-6[m[33m)[m added readme file
+[34m|[m [35m|[m [33m|[m * [33mc89ad71[m[33m ([m[1;31morigin/agent-test-5[m[33m, [m[1;32magent-test-5[m[33m)[m new check
+[34m|[m [35m|[m [33m|[m * [33m88a0f64[m[33m ([m[1;31morigin/test-agent-4[m[33m, [m[1;32mtest-agent-4[m[33m)[m new B4
+[34m|[m [35m|[m [33m|[m * [33m69842e0[m[33m ([m[1;31morigin/agent-test-3[m[33m, [m[1;32magent-test-3[m[33m)[m New PR
+[34m|[m [35m|[m [33m|[m * [33m58f84ca[m Trigger Agent AI
+[34m|[m [35m|[m [33m|[m[33m/[m  
+[34m|[m [35m|[m * [33m7e93438[m[33m ([m[1;31morigin/agent-test-2[m[33m, [m[1;32magent-test-2[m[33m)[m Trigger opencode agent again
+[34m|[m [35m|[m * [33m75a1026[m[33m ([m[1;31morigin/ai-test[m[33m, [m[1;32mai-test[m[33m)[m check statment added
+[34m|[m [35m|[m[35m/[m  
+[34m|[m * [33m22deba7[m Switch to stable OpenRouter model
+[34m|[m * [33m831eb08[m new Statement added
+[34m|[m * [33mc2f4e09[m[33m ([m[1;31morigin/test-ai[m[33m, [m[1;32mtest-ai[m[33m)[m Configure OpenCode PR agent
+[34m|[m * [33m4dcd29b[m manual changes to trigger AI
+[34m|[m * [33m269c3c6[m Second test change for AI
+[34m|[m * [33ma7de9fb[m Test change for AI trigger
+[34m|[m[34m/[m  
+* [33m94a8116[m Add AI agent workflow
+* [33m822c945[m Update README.md
+* [33md58cc4b[m README.md added
+* [33mb5ebff1[m New test file
+* [33mb632442[m Minor improvements
+* [33m7eb8bd6[m Before modifying read and write
+* [33m5cb21bf[m Improvements with links behaviour
+* [33md1060e8[m New text file
+* [33mab26c02[m Functions were adapted to links
+* [33m57d5b96[m Minor fixes
+* [33m8c59514[m Symbolic links support
+* [33m7872045[m Problems fixed, code working
+* [33m3afa34d[m Starting Ln
+* [33m45701e6[m Write and read are working
+* [33mcfbdfba[m After advices from the proffesor
+* [33mba75ead[m Code organized
+* [33m2ce0db0[m bitmaps modified
+* [33mb478ba1[m Autores añadido
+* [33m586a3ca[m Problems with write and read functions
+* [33mb7cf9ca[m open and close file integrity
+* [33m58af186[m includeIntegrity and checkIntegrity done
+* [33mdab13d2[m Some problems fixed like function computePositionInodeX
+* [33m4a1517e[m Disk space optimization Char Boolean Integridad
+* [33m2702571[m Prueba lseekFile
+* [33mfd9033b[m lseekFile first aproach
+* [33m61bdc32[m Improvements, WriteFile does not work yet
+* [33mb8a071d[m Some improvements
+* [33m6112b0d[m Tutoría con Calderon
+* [33mf2d233d[m Tutoría con Calderon
+* [33m77038e1[m Tutoría con Calderon
+* [33m47ef1c1[m writeFile started
+* [33mca10c40[m readFile started
+* [33m956ba75[m Some corrections were done
+* [33m2bc1bda[m OpenFile and CloseFile done. Integrity to be completed
+* [33m07dada4[m RemoveFile function created and more, but things to be checked
+* [33ma08d1ce[m Create function works and more
+* [33m267b07f[m code cleaned
+* [33m271acaa[m createFile started
+* [33m60f48b2[m mkfs, mount, sync functions done
+* [33mb143587[m Disk structure redifined
+* [33m26d7332[m Meeting with the teacher
+* [33m8d78f84[m Comments cleaned
+* [33m3c1bfb0[m Comments cleaned
+* [33mfd54d8d[m Mount and Unmount correct
+* [33m1b8b3f9[m Errors checked
+* [33m9faf23b[m Errors checked
+* [33m3629ea1[m Errors checked
+* [33m18f9672[m Functions mfks, mount and unmount redifined
+* [33me2ffa16[m Structures were redefined
+* [33m156fbca[m &superbloque issue solved
+* [33mdf072cf[m Mount & Unmount functions started
+* [33m891b714[m mkfs done
+* [33m22fe8da[m MAX_FILE_SIZE issue fixed
+* [33m96f4675[m Project started
