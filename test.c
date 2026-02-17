@@ -379,3 +379,44 @@ int main() {
 
     return 0;
 }
+
+
+
+
+#include <stdarg.h>
+#include <stddef.h>
+#include <setjmp.h>
+#include <cmocka.h>
+
+/* Include the header of the C module you're testing */
+#include "calc.h"
+
+/* --- Test cases --- */
+
+static void test_add_basic(void **state) {
+    (void) state;
+    assert_int_equal(add(2, 3), 5);
+}
+
+static void test_add_negative(void **state) {
+    (void) state;
+    assert_int_equal(add(-2, -3), -5);
+}
+
+static void test_divide_by_zero(void **state) {
+    (void) state;
+    /* adjust expected behavior based on your implementation */
+    assert_int_equal(divide(10, 0), 0);
+}
+
+/* --- Test runner --- */
+
+int main(void) {
+    const struct CMUnitTest tests[] = {
+        cmocka_unit_test(test_add_basic),
+        cmocka_unit_test(test_add_negative),
+        cmocka_unit_test(test_divide_by_zero),
+    };
+
+    return cmocka_run_group_tests(tests, NULL, NULL);
+}
