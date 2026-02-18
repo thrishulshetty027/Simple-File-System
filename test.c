@@ -421,3 +421,65 @@ int main(void) {
     return cmocka_run_group_tests(tests, NULL, NULL);
 }
 #LLLL
+
+
+
+#include <stdio.h>
+#include <limits.h>
+
+/* Returns sum, but clamps on overflow */
+int safe_add(int a, int b) {
+    if (b > 0 && a > INT_MAX - b)
+        return INT_MAX;
+    if (b < 0 && a < INT_MIN - b)
+        return INT_MIN;
+    return a + b;
+}
+
+/* Returns -1 on division by zero */
+int safe_divide(int a, int b) {
+    if (b == 0)
+        return -1;
+    return a / b;
+}
+
+/* Returns 1 if number is prime, 0 otherwise */
+int is_prime(int n) {
+    if (n <= 1) return 0;
+    if (n <= 3) return 1;
+
+    if (n % 2 == 0 || n % 3 == 0)
+        return 0;
+
+    for (int i = 5; i * i <= n; i += 6) {
+        if (n % i == 0 || n % (i + 2) == 0)
+            return 0;
+    }
+    return 1;
+}
+
+/* Copies string safely, returns length copied */
+int safe_copy(char *dest, int dest_size, const char *src) {
+    if (!dest || !src || dest_size <= 0)
+        return -1;
+
+    int i = 0;
+    for (; i < dest_size - 1 && src[i]; i++) {
+        dest[i] = src[i];
+    }
+    dest[i] = '\0';
+    return i;
+}
+
+/* Finds max element, returns -1 if array invalid */
+int find_max(int *arr, int size) {
+    if (!arr || size <= 0)
+        return -1;
+
+    int max = arr[0];
+    for (int i = 1; i < size; i++) {
+        if (arr[i] > max)
+            max = arr[i];
+    }
+    return max;
+}
