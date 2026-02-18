@@ -565,3 +565,70 @@ int main() {
     return 0;
 }
 
+
+#include <stdio.h>
+#include <stdlib.h>
+
+double** allocate_matrix(int n) {
+    double **m = malloc(n * sizeof(double*));
+    if (!m) return NULL;
+
+    for (int i = 0; i < n; i++) {
+        m[i] = calloc(n, sizeof(double));
+        if (!m[i]) return NULL;
+    }
+    return m;
+}
+
+void free_matrix(double **m, int n) {
+    for (int i = 0; i < n; i++)
+        free(m[i]);
+    free(m);
+}
+
+void multiply(double **A, double **B, double **C, int n) {
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            for (int k = 0; k < n; k++)
+                C[i][j] += A[i][k] * B[k][j];
+}
+
+void print_matrix(double **m, int n) {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++)
+            printf("%6.2f ", m[i][j]);
+        printf("\n");
+    }
+}
+
+int main() {
+    int n = 3;
+
+    double **A = allocate_matrix(n);
+    double **B = allocate_matrix(n);
+    double **C = allocate_matrix(n);
+
+    if (!A || !B || !C) {
+        printf("Memory allocation failed\n");
+        return 1;
+    }
+
+    // Initialize matrices
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++) {
+            A[i][j] = i + j + 1;
+            B[i][j] = (i == j) ? 1 : 0; // identity matrix
+        }
+
+    multiply(A, B, C, n);
+
+    printf("Result matrix:\n");
+    print_matrix(C, n);
+
+    free_matrix(A, n);
+    free_matrix(B, n);
+    free_matrix(C, n);
+
+    return 0;
+}
+
