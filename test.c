@@ -483,3 +483,66 @@ int find_max(int *arr, int size) {
     }
     return max;
 }
+
+#include <math.h>
+#include <limits.h>
+
+/* Calculates power safely (positive exponent only) */
+int power(int base, int exp) {
+    if (exp < 0) return -1;
+
+    int result = 1;
+    for (int i = 0; i < exp; i++) {
+        if (result > INT_MAX / base)
+            return INT_MAX;   // overflow clamp
+        result *= base;
+    }
+    return result;
+}
+
+/* Returns factorial, -1 if invalid or overflow risk */
+int factorial(int n) {
+    if (n < 0) return -1;
+    if (n == 0) return 1;
+
+    int result = 1;
+    for (int i = 1; i <= n; i++) {
+        if (result > INT_MAX / i)
+            return -1;
+        result *= i;
+    }
+    return result;
+}
+
+/* Average of array values */
+double average(int *arr, int size) {
+    if (!arr || size <= 0)
+        return 0.0;
+
+    long sum = 0;
+    for (int i = 0; i < size; i++)
+        sum += arr[i];
+
+    return (double)sum / size;
+}
+
+/* Solves quadratic equation: ax² + bx + c = 0 
+   returns number of real roots */
+int solve_quadratic(double a, double b, double c, double *r1, double *r2) {
+    if (a == 0) return 0;
+
+    double d = b * b - 4 * a * c;
+
+    if (d < 0) return 0;
+
+    if (d == 0) {
+        *r1 = -b / (2 * a);
+        return 1;
+    }
+
+    double sqrt_d = sqrt(d);
+    *r1 = (-b + sqrt_d) / (2 * a);
+    *r2 = (-b - sqrt_d) / (2 * a);
+    return 2;
+}
+
