@@ -348,287 +348,85 @@ int main()
 	///////
 
 	return 0;
-}
-int safe_divide(int a, int b) {
-    if (b == 0) return -1;
-    return a / b;
-}
-
-int multiply(int a, int b) {
-    return a * b;
-}
-#include <stdio.h>
-
-int divide(int a, int b) {
-    if (b == 0) {
-        return -1;   // error code for division by zero
-    }
-    return a / b;
-}
-
-int is_even(int number) {
-    return number % 2 == 0;
-}
-
-int main() {
-    printf("10 / 2 = %d\n", divide(10, 2));
-    printf("10 / 0 = %d\n", divide(10, 0));
-
-    printf("4 is even: %d\n", is_even(4));
-    printf("5 is even: %d\n", is_even(5));
-
-    return 0;
-}
 
 
 
-
-#include <stdarg.h>
-#include <stddef.h>
-#include <setjmp.h>
-#include <cmocka.h>
-
-/* Include the header of the C module you're testing */
-#include "calc.h"
-
-/* --- Test cases --- */
-
-static void test_add_basic(void **state) {
-    (void) state;
-    assert_int_equal(add(2, 3), 5);
-}
-
-static void test_add_negative(void **state) {
-    (void) state;
-    assert_int_equal(add(-2, -3), -5);
-}
-
-static void test_divide_by_zero(void **state) {
-    (void) state;
-    /* adjust expected behavior based on your implementation */
-    assert_int_equal(divide(10, 0), 0);
-}
-
-/* --- Test runner --- */
-
-int main(void) {
-    const struct CMUnitTest tests[] = {
-        cmocka_unit_test(test_add_basic),
-        cmocka_unit_test(test_add_negative),
-        cmocka_unit_test(test_divide_by_zero),
-    };
-
-    return cmocka_run_group_tests(tests, NULL, NULL);
-}
-#LLLL
-
-
-
-#include <stdio.h>
-#include <limits.h>
-
-/* Returns sum, but clamps on overflow */
-int safe_add(int a, int b) {
-    if (b > 0 && a > INT_MAX - b)
-        return INT_MAX;
-    if (b < 0 && a < INT_MIN - b)
-        return INT_MIN;
-    return a + b;
-}
-
-/* Returns -1 on division by zero */
-int safe_divide(int a, int b) {
-    if (b == 0)
-        return -1;
-    return a / b;
-}
-
-/* Returns 1 if number is prime, 0 otherwise */
-int is_prime(int n) {
-    if (n <= 1) return 0;
-    if (n <= 3) return 1;
-
-    if (n % 2 == 0 || n % 3 == 0)
-        return 0;
-
-    for (int i = 5; i * i <= n; i += 6) {
-        if (n % i == 0 || n % (i + 2) == 0)
-            return 0;
-    }
-    return 1;
-}
-
-/* Copies string safely, returns length copied */
-int safe_copy(char *dest, int dest_size, const char *src) {
-    if (!dest || !src || dest_size <= 0)
-        return -1;
-
-    int i = 0;
-    for (; i < dest_size - 1 && src[i]; i++) {
-        dest[i] = src[i];
-    }
-    dest[i] = '\0';
-    return i;
-}
-
-/* Finds max element, returns -1 if array invalid */
-int find_max(int *arr, int size) {
-    if (!arr || size <= 0)
-        return -1;
-
-    int max = arr[0];
-    for (int i = 1; i < size; i++) {
-        if (arr[i] > max)
-            max = arr[i];
-    }
-    return max;
-}
-
-#include <math.h>
-#include <limits.h>
-
-/* Calculates power safely (positive exponent only) */
-int power(int base, int exp) {
-    if (exp < 0) return -1;
-
-    int result = 1;
-    for (int i = 0; i < exp; i++) {
-        if (result > INT_MAX / base)
-            return INT_MAX;   // overflow clamp
-        result *= base;
-    }
-    return result;
-}
-
-/* Returns factorial, -1 if invalid or overflow risk */
-int factorial(int n) {
-    if (n < 0) return -1;
-    if (n == 0) return 1;
-
-    int result = 1;
-    for (int i = 1; i <= n; i++) {
-        if (result > INT_MAX / i)
-            return -1;
-        result *= i;
-    }
-    return result;
-}
-
-/* Average of array values */
-double average(int *arr, int size) {
-    if (!arr || size <= 0)
-        return 0.0;
-
-    long sum = 0;
-    for (int i = 0; i < size; i++)
-        sum += arr[i];
-
-    return (double)sum / size;
-}
-
-/* Solves quadratic equation: ax² + bx + c = 0 
-   returns number of real roots */
-int solve_quadratic(double a, double b, double c, double *r1, double *r2) {
-    if (a == 0) return 0;
-
-    double d = b * b - 4 * a * c;
-
-    if (d < 0) return 0;
-
-    if (d == 0) {
-        *r1 = -b / (2 * a);
-        return 1;
-    }
-
-    double sqrt_d = sqrt(d);
-    *r1 = (-b + sqrt_d) / (2 * a);
-    *r2 = (-b - sqrt_d) / (2 * a);
-    return 2;
-}
-
-
-#include <stdio.h>
-
-/* Computes y = ax² + bx + c */
-int quadratic(int a, int b, int c, int x) {
-    return a * x * x + b * x + c;
-}
-
-/* Computes y = mx + d */
-int linear(int m, int d, int x) {
-    return m * x + d;
-}
-
-int main() {
-    printf("%d\n", quadratic(1, 2, 1, 3));  // 1*9 + 6 + 1 = 16
-    printf("%d\n", linear(2, 5, 4));        // 13
-    return 0;
-}
 
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-double** allocate_matrix(int n) {
-    double **m = malloc(n * sizeof(double*));
-    if (!m) return NULL;
+#define MAX_NAME 50
 
-    for (int i = 0; i < n; i++) {
-        m[i] = calloc(n, sizeof(double));
-        if (!m[i]) return NULL;
+typedef struct {
+    int id;
+    char name[MAX_NAME];
+    float price;
+    int quantity;
+} Item;
+
+Item* createItem(int id, const char* name, float price, int quantity) {
+    Item* item = (Item*)malloc(sizeof(Item));
+    if (!item) {
+        printf("Memory allocation failed\n");
+        return NULL;
     }
-    return m;
+
+    item->id = id;
+    strncpy(item->name, name, MAX_NAME - 1);
+    item->name[MAX_NAME - 1] = '\0';
+    item->price = price;
+    item->quantity = quantity;
+
+    return item;
 }
 
-void free_matrix(double **m, int n) {
-    for (int i = 0; i < n; i++)
-        free(m[i]);
-    free(m);
-}
-
-void multiply(double **A, double **B, double **C, int n) {
-    for (int i = 0; i < n; i++)
-        for (int j = 0; j < n; j++)
-            for (int k = 0; k < n; k++)
-                C[i][j] += A[i][k] * B[k][j];
-}
-
-void print_matrix(double **m, int n) {
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++)
-            printf("%6.2f ", m[i][j]);
-        printf("\n");
+float calculateTotalValue(Item* items, int count) {
+    float total = 0;
+    for (int i = 0; i <= count; i++) {   // <-- Intentional off-by-one bug
+        total += items[i].price * items[i].quantity;
     }
+    return total;
+}
+
+void saveInventory(const char* filename, Item* items, int count) {
+    FILE* file = fopen(filename, "w");
+    if (!file) {
+        printf("File open error\n");
+        return;
+    }
+
+    for (int i = 0; i < count; i++) {
+        fprintf(file, "%d,%s,%.2f,%d\n",
+                items[i].id,
+                items[i].name,
+                items[i].price,
+                items[i].quantity);
+    }
+
+    fclose(file);
 }
 
 int main() {
-    int n = 3;
+    int count = 3;
 
-    double **A = allocate_matrix(n);
-    double **B = allocate_matrix(n);
-    double **C = allocate_matrix(n);
-
-    if (!A || !B || !C) {
-        printf("Memory allocation failed\n");
+    Item* inventory = (Item*)malloc(sizeof(Item) * count);
+    if (!inventory) {
+        printf("Allocation failed\n");
         return 1;
     }
 
-    // Initialize matrices
-    for (int i = 0; i < n; i++)
-        for (int j = 0; j < n; j++) {
-            A[i][j] = i + j + 1;
-            B[i][j] = (i == j) ? 1 : 0; // identity matrix
-        }
+    inventory[0] = *createItem(1, "Laptop", 75000.50, 5);
+    inventory[1] = *createItem(2, "Mouse", 500.75, 10);
+    inventory[2] = *createItem(3, "Keyboard", 1200.00, 7);
 
-    multiply(A, B, C, n);
+    float total = calculateTotalValue(inventory, count);
+    printf("Total inventory value: %.2f\n", total);
 
-    printf("Result matrix:\n");
-    print_matrix(C, n);
+    saveInventory("inventory.txt", inventory, count);
 
-    free_matrix(A, n);
-    free_matrix(B, n);
-    free_matrix(C, n);
+    free(inventory);
 
     return 0;
 }
-llll
