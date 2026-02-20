@@ -21,7 +21,7 @@
 #define ANSI_COLOR_GREEN "\x1b[32m"
 #define ANSI_COLOR_BLUE "\x1b[34m"
 
-#define N_BLOCKS 250					  // Number of blocks in the device
+#define N_BLOCKS 250			// Number of blocks in the device
 #define DEV_SIZE N_BLOCKS *BLOCK_SIZE // Device size, in bytes
 
 int main()
@@ -517,3 +517,16 @@ int* create_array(int size) {
 
     return arr;
 }
+}
+
+
+from testcase_generator import generate_testcases
+
+diff = """
++ int add(int a, int b) {
++     return a + b;
++ }
+"""
+
+output = generate_testcases(diff)
+print(output)
