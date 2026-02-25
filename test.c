@@ -565,3 +565,131 @@ int main() {
 
     return 0;
 }
+
+
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct {
+    int id;
+    char name[50];
+    float marks;
+} Student;
+
+int main() {
+    int n;
+
+    printf("Enter number of students: ");
+    scanf("%d", &n);
+
+    // Dynamically allocate memory
+    Student *students = (Student *)malloc(n * sizeof(Student));
+
+    if (students == NULL) {
+        printf("Memory allocation failed!\n");
+        return 1;
+    }
+
+    // Input data
+    for (int i = 0; i < n; i++) {
+        printf("\nStudent %d\n", i + 1);
+        printf("ID: ");
+        scanf("%d", &students[i].id);
+        printf("Name: ");
+        scanf("%s", students[i].name);
+        printf("Marks: ");
+        scanf("%f", &students[i].marks);
+    }
+
+    // Display data
+    printf("\n--- Student Records ---\n");
+    for (int i = 0; i < n; i++) {
+        printf("ID: %d | Name: %s | Marks: %.2f\n",
+               students[i].id,
+               students[i].name,
+               students[i].marks);
+    }
+
+    // Free allocated memory
+    free(students);
+
+    return 0;
+}
+
+
+/new c code snippet /
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <pthread.h>
+#include <unistd.h>
+
+#define BUFFER_SIZE 5
+#define ITEMS_TO_PRODUCE 10
+
+int buffer[BUFFER_SIZE];
+int count = 0;
+
+pthread_mutex_t mutex;
+pthread_cond_t not_full;
+pthread_cond_t not_empty;
+
+void* producer(void* arg) {
+    for (int i = 1; i <= ITEMS_TO_PRODUCE; i++) {
+        pthread_mutex_lock(&mutex);
+
+        while (count == BUFFER_SIZE) {
+            pthread_cond_wait(&not_full, &mutex);
+        }
+
+        buffer[count++] = i;
+        printf("Produced: %d\n", i);
+
+        pthread_cond_signal(&not_empty);
+        pthread_mutex_unlock(&mutex);
+
+        sleep(1);
+    }
+    return NULL;
+}
+
+void* consumer(void* arg) {
+    for (int i = 1; i <= ITEMS_TO_PRODUCE; i++) {
+        pthread_mutex_lock(&mutex);
+
+        while (count == 0) {
+            pthread_cond_wait(&not_empty, &mutex);
+        }
+
+        int item = buffer[--count];
+        printf("Consumed: %d\n", item);
+
+        pthread_cond_signal(&not_full);
+        pthread_mutex_unlock(&mutex);
+
+        sleep(2);
+    }
+    return NULL;
+}
+
+int main() {
+    pthread_t prod_thread, cons_thread;
+
+    pthread_mutex_init(&mutex, NULL);
+    pthread_cond_init(&not_full, NULL);
+    pthread_cond_init(&not_empty, NULL);
+
+    pthread_create(&prod_thread, NULL, producer, NULL);
+    pthread_create(&cons_thread, NULL, consumer, NULL);
+
+    pthread_join(prod_thread, NULL);
+    pthread_join(cons_thread, NULL);
+
+    pthread_mutex_destroy(&mutex);
+    pthread_cond_destroy(&not_full);
+    pthread_cond_destroy(&not_empty);
+
+    return 0;
+}
