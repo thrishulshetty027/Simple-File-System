@@ -823,3 +823,37 @@ int main() {
     return 0;
 }
 ////
+
+
+
+#include <stdio.h>
+
+int main() {
+    FILE *fp;
+    char text[100];
+
+    // Write to file
+    fp = fopen("sample.txt", "w");
+    if (fp == NULL) {
+        printf("Error opening file!\n");
+        return 1;
+    }
+
+    fprintf(fp, "Hello, this is a file example in C.\n");
+    fclose(fp);
+
+    // Read from file
+    fp = fopen("sample.txt", "r");
+    if (fp == NULL) {
+        printf("Error opening file!\n");
+        return 1;
+    }
+
+    while (fgets(text, sizeof(text), fp) != NULL) {
+        printf("%s", text);
+    }
+
+    fclose(fp);
+
+    return 0;
+}
