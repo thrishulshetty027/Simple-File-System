@@ -694,3 +694,54 @@ int main() {
     return 0;
 }
 /this should generate a pr diff/
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/ipc.h>
+#include <sys/shm.h>
+#include <sys/wait.h>
+#include <string.h>
+
+#define SHM_SIZE 1024
+
+int main() {
+    key_t key = ftok("shmfile", 65);
+
+    int shmid = shmget(key, SHM_SIZE, 0666 | IPC_CREAT);
+    if (shmid < 0) {
+        perror("shmget failed");
+        exit(1);
+    }
+
+    char *shared_memory = (char *)shmat(shmid, NULL, 0);
+    if (shared_memory == (char *) -1) {
+        perror("shmat failed");
+        exit(1);
+    }
+
+    pid_t pid = fork();
+
+    if (pid < 0) {
+        perror("fork failed");
+        exit(1);
+    }
+
+    if (pid == 0) {
+        // Child process
+        sleep(1);  // Wait for parent to write
+        printf("Child read from shared memory: %s\n", shared_memory);
+
+        shmdt(shared_memory);
+    } else {
+        // Parent process
+        strcpy(shared_memory, "Hello from Parent via Shared Memory!");
+        printf("Parent wrote to shared memory.\n");
+
+        wait(NULL);
+
+        shmdt(shared_memory);
+        shmctl(shmid, IPC_RMID, NULL);  // Remove shared memory
+    }
+
+    return 0;
+}
