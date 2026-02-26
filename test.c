@@ -960,3 +960,212 @@ int main() {
 
     return 0;
 }
+
+
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+#include <math.h>
+
+/* ============================================================
+   MODULE: calc_utils
+   Purpose: Mathematical utilities with safety checks
+   ============================================================ */
+
+/* Basic arithmetic */
+int add(int a, int b) {
+    return a + b;
+}
+
+int subtract(int a, int b) {
+    return a - b;
+}
+
+int multiply(int a, int b) {
+    return a * b;
+}
+
+int divide(int a, int b) {
+    if (b == 0) return -1;
+    return a / b;
+}
+
+/* Safe addition with overflow detection */
+int safe_add(int a, int b) {
+    if ((b > 0 && a > INT_MAX - b) ||
+        (b < 0 && a < INT_MIN - b)) {
+        return -1;  // overflow
+    }
+    return a + b;
+}
+
+/* Safe division */
+int safe_divide(int a, int b) {
+    if (b == 0) return -1;
+    return a / b;
+}
+
+/* Even check */
+int is_even(int n) {
+    return (n % 2 == 0);
+}
+
+/* Factorial with validation */
+int factorial(int n) {
+    if (n < 0) return -1;
+    if (n == 0) return 1;
+
+    int result = 1;
+    for (int i = 1; i <= n; i++) {
+        if (result > INT_MAX / i) return -1;  // overflow
+        result *= i;
+    }
+    return result;
+}
+
+/* Power function */
+int power(int base, int exp) {
+    if (exp < 0) return -1;
+
+    int result = 1;
+    for (int i = 0; i < exp; i++) {
+        if (result > INT_MAX / base) return -1;
+        result *= base;
+    }
+    return result;
+}
+
+/* Find maximum in array */
+int find_max(int *arr, int size) {
+    if (!arr || size <= 0) return -1;
+
+    int max = arr[0];
+    for (int i = 1; i < size; i++) {
+        if (arr[i] > max)
+            max = arr[i];
+    }
+    return max;
+}
+
+/* Average of array */
+double average(int *arr, int size) {
+    if (!arr || size <= 0) return 0.0;
+
+    long sum = 0;
+    for (int i = 0; i < size; i++)
+        sum += arr[i];
+
+    return (double)sum / size;
+}
+
+/* Safe string copy */
+int safe_copy(char *dest, int dest_size, const char *src) {
+    if (!dest || !src || dest_size <= 0)
+        return -1;
+
+    int len = strlen(src);
+    int copy_len = (len < dest_size) ? len : dest_size;
+
+    strncpy(dest, src, copy_len);
+
+    if (copy_len < dest_size)
+        dest[copy_len] = '\0';
+
+    return copy_len;
+}
+
+/* Dynamic array creation */
+int* create_array(int size) {
+    if (size <= 0) return NULL;
+
+    int *arr = (int*)malloc(size * sizeof(int));
+    if (!arr) return NULL;
+
+    for (int i = 0; i < size; i++)
+        arr[i] = 0;
+
+    return arr;
+}
+
+/* ============================================================
+   MODULE: linear_algebra
+   Purpose: Equation solvers
+   ============================================================ */
+
+/* Solve quadratic: ax^2 + bx + c = 0
+   Returns:
+   0 = no real roots
+   1 = one root
+   2 = two real roots
+*/
+int solve_quadratic(double a, double b, double c,
+                    double *r1, double *r2) {
+
+    if (!r1 || !r2) return -1;
+
+    if (a == 0) return -1;  // Not quadratic
+
+    double discriminant = b*b - 4*a*c;
+
+    if (discriminant < 0)
+        return 0;
+
+    if (discriminant == 0) {
+        *r1 = -b / (2*a);
+        return 1;
+    }
+
+    double sqrt_d = sqrt(discriminant);
+
+    *r1 = (-b + sqrt_d) / (2*a);
+    *r2 = (-b - sqrt_d) / (2*a);
+
+    return 2;
+}
+
+/* Linear function: f(x) = mx + d */
+double linear(double m, double d, double x) {
+    return m*x + d;
+}
+
+/* Quadratic function evaluation */
+double quadratic(double a, double b, double c, double x) {
+    return a*x*x + b*x + c;
+}
+
+/* ============================================================
+   MAIN (Demo Execution)
+   ============================================================ */
+
+int main() {
+
+    printf("Add: %d\n", add(10, 5));
+    printf("Safe Add (overflow test): %d\n", safe_add(INT_MAX, 1));
+    printf("Factorial 5: %d\n", factorial(5));
+    printf("Power 2^3: %d\n", power(2, 3));
+
+    int arr[] = {1, 5, 3, 9, 2};
+    printf("Max: %d\n", find_max(arr, 5));
+    printf("Average: %.2f\n", average(arr, 5));
+
+    char buffer[10];
+    safe_copy(buffer, 10, "hello");
+    printf("Copied string: %s\n", buffer);
+
+    double r1, r2;
+    int roots = solve_quadratic(1, -5, 6, &r1, &r2);
+    printf("Quadratic roots count: %d\n", roots);
+    if (roots > 0) printf("Root1: %.2f\n", r1);
+    if (roots > 1) printf("Root2: %.2f\n", r2);
+
+    int *dyn = create_array(5);
+    if (dyn) {
+        printf("Dynamic array created.\n");
+        free(dyn);
+    }
+
+    return 0;
+}
