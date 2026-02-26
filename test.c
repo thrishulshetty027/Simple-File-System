@@ -883,3 +883,80 @@ int main() {
 
     return 0;
 }
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+/* =========================
+   MODULE FUNCTIONS
+   ========================= */
+
+int add(int a, int b) { return a + b; }
+int subtract(int a, int b) { return a - b; }
+int multiply(int a, int b) { return a * b; }
+
+/* =========================
+   TEST ENGINE
+   ========================= */
+
+typedef int (*operation_func)(int, int);
+
+typedef struct {
+    const char *name;
+    operation_func func;
+} Operation;
+
+void run_tests(Operation op, int test_count) {
+    int passed = 0;
+
+    for (int i = 0; i < test_count; i++) {
+        int a = rand() % 100;
+        int b = rand() % 100;
+
+        int expected;
+
+        // Reference logic
+        if (op.func == add)
+            expected = a + b;
+        else if (op.func == subtract)
+            expected = a - b;
+        else
+            expected = a * b;
+
+        int result = op.func(a, b);
+
+        if (result == expected) {
+            passed++;
+        } else {
+            printf("FAIL [%s] | %d, %d | Expected: %d | Got: %d\n",
+                   op.name, a, b, expected, result);
+        }
+    }
+
+    printf("Operation: %s | Passed: %d/%d\n",
+           op.name, passed, test_count);
+}
+
+/* =========================
+   MAIN
+   ========================= */
+
+int main() {
+    srand(time(NULL));
+
+    Operation operations[] = {
+        {"Addition", add},
+        {"Subtraction", subtract},
+        {"Multiplication", multiply}
+    };
+
+    int total_operations = sizeof(operations) / sizeof(operations[0]);
+
+    for (int i = 0; i < total_operations; i++) {
+        run_tests(operations[i], 500);
+    }
+
+    return 0;
+}
