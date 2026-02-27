@@ -1366,3 +1366,61 @@ int main() {
     free(students);  // Free allocated memory
     return 0;
 }
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+// Insert at beginning
+struct Node* insert(struct Node* head, int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    if (newNode == NULL) {
+        printf("Memory allocation failed\n");
+        exit(1);
+    }
+
+    newNode->data = value;
+    newNode->next = head;
+    return newNode;
+}
+
+// Display list
+void display(struct Node* head) {
+    struct Node* temp = head;
+    while (temp != NULL) {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+
+// Free memory
+void freeList(struct Node* head) {
+    struct Node* temp;
+    while (head != NULL) {
+        temp = head;
+        head = head->next;
+        free(temp);
+    }
+}
+
+int main() {
+    struct Node* head = NULL;
+
+    head = insert(head, 30);
+    head = insert(head, 20);
+    head = insert(head, 10);
+
+    printf("Linked List:\n");
+    display(head);
+
+    freeList(head);
+    return 0;
+}
+
+
