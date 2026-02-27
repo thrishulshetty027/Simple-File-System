@@ -1456,3 +1456,66 @@ void swap(int *a, int *b) {
     *a = *b;
     *b = temp;
 }
+
+#include <stdlib.h>
+
+/* Dynamic Array Structure */
+typedef struct {
+    int *data;
+    size_t size;
+    size_t capacity;
+} DynamicArray;
+
+/* Initialize dynamic array */
+int initArray(DynamicArray *arr, size_t initialCapacity) {
+    if (!arr || initialCapacity == 0)
+        return 0;
+
+    arr->data = (int *)malloc(initialCapacity * sizeof(int));
+    if (!arr->data)
+        return 0;
+
+    arr->size = 0;
+    arr->capacity = initialCapacity;
+    return 1;
+}
+
+/* Resize dynamic array */
+int resizeArray(DynamicArray *arr) {
+    if (!arr)
+        return 0;
+
+    size_t newCapacity = arr->capacity * 2;
+    int *newData = (int *)realloc(arr->data, newCapacity * sizeof(int));
+    if (!newData)
+        return 0;
+
+    arr->data = newData;
+    arr->capacity = newCapacity;
+    return 1;
+}
+
+/* Insert element */
+int insertElement(DynamicArray *arr, int value) {
+    if (!arr)
+        return 0;
+
+    if (arr->size >= arr->capacity) {
+        if (!resizeArray(arr))
+            return 0;
+    }
+
+    arr->data[arr->size++] = value;
+    return 1;
+}
+
+/* Free dynamic array */
+void freeArray(DynamicArray *arr) {
+    if (!arr)
+        return;
+
+    free(arr->data);
+    arr->data = NULL;
+    arr->size = 0;
+    arr->capacity = 0;
+}
