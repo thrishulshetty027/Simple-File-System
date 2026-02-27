@@ -1318,3 +1318,51 @@ int main() {
 
     return 0;
 }
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct {
+    int id;
+    char name[50];
+    float marks;
+} Student;
+
+int main() {
+    int n;
+
+    printf("Enter number of students: ");
+    scanf("%d", &n);
+
+    // Dynamic memory allocation
+    Student *students = (Student *)malloc(n * sizeof(Student));
+
+    if (students == NULL) {
+        printf("Memory allocation failed!\n");
+        return 1;
+    }
+
+    // Input student data
+    for (int i = 0; i < n; i++) {
+        printf("\nStudent %d\n", i + 1);
+        printf("ID: ");
+        scanf("%d", &students[i].id);
+        printf("Name: ");
+        scanf("%s", students[i].name);
+        printf("Marks: ");
+        scanf("%f", &students[i].marks);
+    }
+
+    // Display student data
+    printf("\n--- Student Records ---\n");
+    for (int i = 0; i < n; i++) {
+        printf("ID: %d | Name: %s | Marks: %.2f\n",
+               students[i].id,
+               students[i].name,
+               students[i].marks);
+    }
+
+    free(students);  // Free allocated memory
+    return 0;
+}
