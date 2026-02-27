@@ -1424,3 +1424,35 @@ int main() {
 }
 
 
+#include <stdio.h>
+
+/* Function to calculate factorial recursively */
+unsigned long long factorial(int n) {
+    if (n < 0)
+        return 0;  // Invalid input
+    if (n == 0 || n == 1)
+        return 1;
+    return n * factorial(n - 1);
+}
+
+/* Function to check if a number is prime */
+int isPrime(int n) {
+    if (n <= 1)
+        return 0;
+
+    for (int i = 2; i * i <= n; i++) {
+        if (n % i == 0)
+            return 0;
+    }
+    return 1;
+}
+
+/* Function to swap two integers using pointers */
+void swap(int *a, int *b) {
+    if (a == NULL || b == NULL)
+        return;
+
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
