@@ -1247,3 +1247,39 @@ int main() {
 }
 
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+
+int countWords(FILE *file) {
+    int count = 0;
+    int inWord = 0;
+    char ch;
+
+    while ((ch = fgetc(file)) != EOF) {
+        if (isspace(ch)) {
+            inWord = 0;
+        } else if (!inWord) {
+            inWord = 1;
+            count++;
+        }
+    }
+    return count;
+}
+
+int main() {
+    FILE *file = fopen("sample.txt", "r");
+
+    if (file == NULL) {
+        perror("Error opening file");
+        return EXIT_FAILURE;
+    }
+
+    int words = countWords(file);
+    printf("Total words: %d\n", words);
+
+    fclose(file);
+    return EXIT_SUCCESS;
+}
+
+
