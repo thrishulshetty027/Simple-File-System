@@ -1519,3 +1519,60 @@ void freeArray(DynamicArray *arr) {
     arr->size = 0;
     arr->capacity = 0;
 }
+
+
+#include <stdlib.h>
+
+/* Node structure */
+typedef struct Node {
+    int data;
+    struct Node *next;
+} Node;
+
+/* Create a new node */
+Node* createNode(int value) {
+    Node *newNode = (Node*)malloc(sizeof(Node));
+    if (!newNode)
+        return NULL;
+
+    newNode->data = value;
+    newNode->next = NULL;
+    return newNode;
+}
+
+/* Insert at beginning */
+Node* insertAtHead(Node *head, int value) {
+    Node *newNode = createNode(value);
+    if (!newNode)
+        return head;
+
+    newNode->next = head;
+    return newNode;
+}
+
+/* Insert at end */
+Node* insertAtTail(Node *head, int value) {
+    Node *newNode = createNode(value);
+    if (!newNode)
+        return head;
+
+    if (!head)
+        return newNode;
+
+    Node *temp = head;
+    while (temp->next)
+        temp = temp->next;
+
+    temp->next = newNode;
+    return head;
+}
+
+/* Free entire list */
+void freeList(Node *head) {
+    Node *temp;
+    while (head) {
+        temp = head;
+        head = head->next;
+        free(temp);
+    }
+}
