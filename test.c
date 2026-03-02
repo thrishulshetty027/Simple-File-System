@@ -1526,3 +1526,73 @@ int safe_binary_search(int arr[], int size, int target) {
 
     return binary_search(arr, size, target);
 }
+
+#include <stdio.h>
+#include <stdlib.h>
+
+/* Write text to a file */
+int write_to_file(const char *filename, const char *content) {
+    if (!filename || !content)
+        return 0;
+
+    FILE *fp = fopen(filename, "w");
+    if (!fp)
+        return 0;
+
+    if (fputs(content, fp) == EOF) {
+        fclose(fp);
+        return 0;
+    }
+
+    fclose(fp);
+    return 1;
+}
+
+/* Append text to a file */
+int append_to_file(const char *filename, const char *content) {
+    if (!filename || !content)
+        return 0;
+
+    FILE *fp = fopen(filename, "a");
+    if (!fp)
+        return 0;
+
+    if (fputs(content, fp) == EOF) {
+        fclose(fp);
+        return 0;
+    }
+
+    fclose(fp);
+    return 1;
+}
+
+/* Read entire file into dynamically allocated buffer */
+char* read_from_file(const char *filename) {
+    if (!filename)
+        return NULL;
+
+    FILE *fp = fopen(filename, "r");
+    if (!fp)
+        return NULL;
+
+    fseek(fp, 0, SEEK_END);
+    long size = ftell(fp);
+    rewind(fp);
+
+    if (size < 0) {
+        fclose(fp);
+        return NULL;
+    }
+
+    char *buffer = (char*)malloc(size + 1);
+    if (!buffer) {
+        fclose(fp);
+        return NULL;
+    }
+
+    size_t read_size = fread(buffer, 1, size, fp);
+    buffer[read_size] = '\0';
+
+    fclose(fp);
+    return buffer;  // Caller must free()
+}
