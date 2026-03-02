@@ -1480,3 +1480,49 @@ int peek(Stack *s, int *topValue) {
 
     return 1;
 }
+
+
+#include <stddef.h>
+
+/* Iterative Binary Search */
+int binary_search(int arr[], int size, int target) {
+    if (!arr || size <= 0)
+        return -1;
+
+    int left = 0;
+    int right = size - 1;
+
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+
+        if (arr[mid] == target)
+            return mid;
+        else if (arr[mid] < target)
+            left = mid + 1;
+        else
+            right = mid - 1;
+    }
+
+    return -1;  // Not found
+}
+
+/* Check if array is sorted (ascending) */
+int is_sorted(int arr[], int size) {
+    if (!arr || size <= 1)
+        return 1;
+
+    for (int i = 1; i < size; i++) {
+        if (arr[i] < arr[i - 1])
+            return 0;
+    }
+
+    return 1;
+}
+
+/* Safe wrapper: only search if sorted */
+int safe_binary_search(int arr[], int size, int target) {
+    if (!is_sorted(arr, size))
+        return -1;
+
+    return binary_search(arr, size, target);
+}
