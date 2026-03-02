@@ -1596,3 +1596,44 @@ char* read_from_file(const char *filename) {
     fclose(fp);
     return buffer;  // Caller must free()
 }
+
+
+/ new line of c code / 
+
+#include <stddef.h>
+
+/* Calculate string length */
+size_t my_strlen(const char *str) {
+    if (!str)
+        return 0;
+
+    size_t len = 0;
+    while (str[len] != '\0')
+        len++;
+
+    return len;
+}
+
+/* Copy string (destination must have enough space) */
+char* my_strcpy(char *dest, const char *src) {
+    if (!dest || !src)
+        return NULL;
+
+    char *ptr = dest;
+    while ((*ptr++ = *src++) != '\0');
+
+    return dest;
+}
+
+/* Compare two strings */
+int my_strcmp(const char *s1, const char *s2) {
+    if (!s1 || !s2)
+        return -1;
+
+    while (*s1 && (*s1 == *s2)) {
+        s1++;
+        s2++;
+    }
+
+    return (unsigned char)*s1 - (unsigned char)*s2;
+}
