@@ -1424,3 +1424,59 @@ int main() {
 }
 
 
+#include <stdlib.h>
+
+#define MAX_SIZE 100
+
+typedef struct {
+    int items[MAX_SIZE];
+    int top;
+} Stack;
+
+/* Initialize stack */
+void initStack(Stack *s) {
+    if (!s) return;
+    s->top = -1;
+}
+
+/* Check if stack is empty */
+int isEmpty(Stack *s) {
+    return (s && s->top == -1);
+}
+
+/* Check if stack is full */
+int isFull(Stack *s) {
+    return (s && s->top == MAX_SIZE - 1);
+}
+
+/* Push element onto stack */
+int push(Stack *s, int value) {
+    if (!s || isFull(s))
+        return 0;
+
+    s->items[++(s->top)] = value;
+    return 1;
+}
+
+/* Pop element from stack */
+int pop(Stack *s, int *poppedValue) {
+    if (!s || isEmpty(s))
+        return 0;
+
+    if (poppedValue)
+        *poppedValue = s->items[(s->top)];
+
+    s->top--;
+    return 1;
+}
+
+/* Peek top element */
+int peek(Stack *s, int *topValue) {
+    if (!s || isEmpty(s))
+        return 0;
+
+    if (topValue)
+        *topValue = s->items[s->top];
+
+    return 1;
+}
