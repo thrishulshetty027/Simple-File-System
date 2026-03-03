@@ -1752,3 +1752,25 @@ bool is_prime(int n) {
 
     return true;
 }
+
+
+
+#include <limits.h>
+
+/* Calculates factorial of n
+   Returns -1 if input is negative or overflow occurs */
+long long factorial(int n) {
+    if (n < 0)
+        return -1;  // Invalid input
+
+    long long result = 1;
+
+    for (int i = 1; i <= n; i++) {
+        if (result > LLONG_MAX / i)
+            return -1;  // Overflow detected
+
+        result *= i;
+    }
+
+    return result;
+}
