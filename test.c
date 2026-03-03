@@ -1713,3 +1713,20 @@ int is_sorted(int arr[], int size) {
 
     return 1;
 }
+
+
+#include <stddef.h>
+
+/* Returns the length of a string safely */
+size_t safe_strlen(const char *str) {
+    if (str == NULL) {
+        return 0;  // Handle NULL pointer safely
+    }
+
+    size_t length = 0;
+    while (str[length] != '\0') {
+        length++;
+    }
+
+    return length;
+}
