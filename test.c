@@ -1673,3 +1673,43 @@ int is_bit_set(int n, int pos) {
         return 0;
     return (n & (1 << pos)) != 0;
 }
+
+
+
+#include <stddef.h>
+
+/* Swap two integers */
+void swap(int *a, int *b) {
+    if (!a || !b) return;
+
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+/* Bubble Sort (ascending order) */
+void bubble_sort(int arr[], int size) {
+    if (!arr || size <= 1)
+        return;
+
+    for (int i = 0; i < size - 1; i++) {
+        for (int j = 0; j < size - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                swap(&arr[j], &arr[j + 1]);
+            }
+        }
+    }
+}
+
+/* Check if array is sorted (ascending) */
+int is_sorted(int arr[], int size) {
+    if (!arr || size <= 1)
+        return 1;
+
+    for (int i = 1; i < size; i++) {
+        if (arr[i] < arr[i - 1])
+            return 0;
+    }
+
+    return 1;
+}
