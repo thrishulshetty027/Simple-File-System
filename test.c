@@ -1637,3 +1637,39 @@ int my_strcmp(const char *s1, const char *s2) {
 
     return (unsigned char)*s1 - (unsigned char)*s2;
 }
+
+
+#include <limits.h>
+
+/* Check if a number is even */
+int is_even(int n) {
+    return !(n & 1);
+}
+
+/* Set a specific bit (0-based position) */
+int set_bit(int n, int pos) {
+    if (pos < 0 || pos >= (int)(sizeof(int) * CHAR_BIT))
+        return -1;
+    return n | (1 << pos);
+}
+
+/* Clear a specific bit */
+int clear_bit(int n, int pos) {
+    if (pos < 0 || pos >= (int)(sizeof(int) * CHAR_BIT))
+        return -1;
+    return n & ~(1 << pos);
+}
+
+/* Toggle a specific bit */
+int toggle_bit(int n, int pos) {
+    if (pos < 0 || pos >= (int)(sizeof(int) * CHAR_BIT))
+        return -1;
+    return n ^ (1 << pos);
+}
+
+/* Check if a specific bit is set */
+int is_bit_set(int n, int pos) {
+    if (pos < 0 || pos >= (int)(sizeof(int) * CHAR_BIT))
+        return 0;
+    return (n & (1 << pos)) != 0;
+}
