@@ -720,3 +720,24 @@ int append_int(int **array, size_t *size, int value) {
 }
 
 //new code//
+
+#include <stdlib.h>
+
+/* Definition of linked list node */
+typedef struct Node {
+    int data;
+    struct Node *next;
+} Node;
+
+/* Inserts a new node at the beginning of the list
+   Returns new head pointer, or NULL on failure */
+Node* insert_front(Node *head, int value) {
+    Node *new_node = (Node*)malloc(sizeof(Node));
+    if (new_node == NULL)
+        return NULL;
+
+    new_node->data = value;
+    new_node->next = head;
+
+    return new_node;
+}
