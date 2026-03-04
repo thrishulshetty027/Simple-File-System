@@ -718,3 +718,5 @@ int append_int(int **array, size_t *size, int value) {
 
     return 0;
 }
+
+//new code//
