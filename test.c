@@ -741,3 +741,28 @@ Node* insert_front(Node *head, int value) {
 
     return new_node;
 }
+
+
+#include <string.h>
+
+/* Reverses a string in place */
+void reverse_string(char *str) {
+    if (str == NULL)
+        return;
+
+    size_t len = strlen(str);
+    if (len == 0)
+        return;
+
+    size_t start = 0;
+    size_t end = len - 1;
+
+    while (start < end) {
+        char temp = str[start];
+        str[start] = str[end];
+        str[end] = temp;
+
+        start++;
+        end--;
+    }
+}
