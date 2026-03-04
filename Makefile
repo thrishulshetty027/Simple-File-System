@@ -37,7 +37,7 @@ create_disk: create_disk.c
 	$(CC) $(CFLAGS) -o $@ $<
 
 test: $(LIBFS_NAME)
-	$(CC) $(CFLAGS) -o test test.c libfs.a
+	$(CC) $(CFLAGS) -o test test.c pr_54_module_tests.c libfs.a cmocka.dll
 
 $(LIBFS_NAME): $(LIBFS_OBJS)
 	$(AR) rcv $@ $^
