@@ -786,3 +786,40 @@ void bubble_sort(int *arr, size_t size) {
         }
     }
 }
+
+#include <stddef.h>
+#include <limits.h>
+
+/* Returns the maximum value in the array
+   If array is NULL or size is 0, returns INT_MIN */
+int find_max(const int *arr, size_t size) {
+    if (arr == NULL || size == 0)
+        return INT_MIN;
+
+    int max = arr[0];
+
+    for (size_t i = 1; i < size; i++) {
+        if (arr[i] > max) {
+            max = arr[i];
+        }
+    }
+
+    return max;
+}
+
+
+
+
+#include <stdio.h>
+
+void checkEvenOdd(int num)
+{
+    if (num % 2 == 0)
+    {
+        printf("Even\n");
+    }
+    else
+    {
+        printf("Odd\n");
+    }
+}
