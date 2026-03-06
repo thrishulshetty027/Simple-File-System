@@ -847,3 +847,73 @@ void swap(int *a, int *b)
     *a = *b;
     *b = temp;
 }
+
+
+#include <stdlib.h>
+
+typedef struct StackNode {
+    int data;
+    struct StackNode* next;
+} StackNode;
+
+typedef struct {
+    StackNode* top;
+} Stack;
+
+Stack* createStack()
+{
+    Stack* stack = (Stack*)malloc(sizeof(Stack));
+    if (stack)
+        stack->top = NULL;
+    return stack;
+}
+
+int isEmpty(Stack* stack)
+{
+    return stack->top == NULL;
+}
+
+void push(Stack* stack, int value)
+{
+    StackNode* newNode = (StackNode*)malloc(sizeof(StackNode));
+    if (!newNode)
+        return;
+
+    newNode->data = value;
+    newNode->next = stack->top;
+    stack->top = newNode;
+}
+
+int pop(Stack* stack)
+{
+    if (isEmpty(stack))
+        return -1;
+
+    StackNode* temp = stack->top;
+    int value = temp->data;
+
+    stack->top = temp->next;
+    free(temp);
+
+    return value;
+}
+
+int peek(Stack* stack)
+{
+    if (isEmpty(stack))
+        return -1;
+
+    return stack->top->data;
+}
+
+void freeStack(Stack* stack)
+{
+    StackNode* current = stack->top;
+    while (current)
+    {
+        StackNode* temp = current;
+        current = current->next;
+        free(temp);
+    }
+    free(stack);
+}
