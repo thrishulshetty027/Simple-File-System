@@ -917,3 +917,69 @@ void freeStack(Stack* stack)
     }
     free(stack);
 }
+
+
+
+#include <stdlib.h>
+
+typedef struct Node {
+    int data;
+    struct Node* left;
+    struct Node* right;
+} Node;
+
+Node* createNode(int value)
+{
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    if (newNode == NULL)
+        return NULL;
+
+    newNode->data = value;
+    newNode->left = NULL;
+    newNode->right = NULL;
+    return newNode;
+}
+
+Node* insert(Node* root, int value)
+{
+    if (root == NULL)
+        return createNode(value);
+
+    if (value < root->data)
+        root->left = insert(root->left, value);
+    else if (value > root->data)
+        root->right = insert(root->right, value);
+
+    return root;
+}
+
+Node* search(Node* root, int key)
+{
+    if (root == NULL || root->data == key)
+        return root;
+
+    if (key < root->data)
+        return search(root->left, key);
+
+    return search(root->right, key);
+}
+
+void inorderTraversal(Node* root, void (*visit)(int))
+{
+    if (root == NULL)
+        return;
+
+    inorderTraversal(root->left, visit);
+    visit(root->data);
+    inorderTraversal(root->right, visit);
+}
+
+void freeTree(Node* root)
+{
+    if (root == NULL)
+        return;
+
+    freeTree(root->left);
+    freeTree(root->right);
+    free(root);
+}
