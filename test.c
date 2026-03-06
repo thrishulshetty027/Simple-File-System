@@ -1134,3 +1134,30 @@ char* rle_compress(const char* input)
     output[j] = '\0';
     return output;
 }
+
+
+#include <stdlib.h>
+
+void reverse(int arr[], int start, int end)
+{
+    while (start < end)
+    {
+        int temp = arr[start];
+        arr[start] = arr[end];
+        arr[end] = temp;
+        start++;
+        end--;
+    }
+}
+
+void rotateLeft(int arr[], int n, int k)
+{
+    if (n <= 0)
+        return;
+
+    k = k % n;
+
+    reverse(arr, 0, k - 1);
+    reverse(arr, k, n - 1);
+    reverse(arr, 0, n - 1);
+}
