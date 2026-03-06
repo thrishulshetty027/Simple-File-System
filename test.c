@@ -983,3 +983,115 @@ void freeTree(Node* root)
     freeTree(root->right);
     free(root);
 }
+
+
+#include <stdlib.h>
+#include <string.h>
+
+#define TABLE_SIZE 100
+
+typedef struct HashNode {
+    char key[50];
+    int value;
+    struct HashNode* next;
+} HashNode;
+
+typedef struct {
+    HashNode* table[TABLE_SIZE];
+} HashTable;
+
+unsigned int hash(const char* key)
+{
+    unsigned int hashValue = 0;
+
+    while (*key)
+    {
+        hashValue = (hashValue * 31) + *key;
+        key++;
+    }
+
+    return hashValue % TABLE_SIZE;
+}
+
+HashTable* createHashTable()
+{
+    HashTable* ht = (HashTable*)malloc(sizeof(HashTable));
+    if (!ht)
+        return NULL;
+
+    for (int i = 0; i < TABLE_SIZE; i++)
+        ht->table[i] = NULL;
+
+    return ht;
+}
+
+void insert(HashTable* ht, const char* key, int value)
+{
+    unsigned int index = hash(key);
+
+    HashNode* newNode = (HashNode*)malloc(sizeof(HashNode));
+    if (!newNode)
+        return;
+
+    strcpy(newNode->key, key);
+    newNode->value = value;
+    newNode->next = ht->table[index];
+
+    ht->table[index] = newNode;
+}
+
+int search(HashTable* ht, const char* key)
+{
+    unsigned int index = hash(key);
+    HashNode* node = ht->table[index];
+
+    while (node)
+    {
+        if (strcmp(node->key, key) == 0)
+            return node->value;
+
+        node = node->next;
+    }
+
+    return -1;
+}
+
+void deleteKey(HashTable* ht, const char* key)
+{
+    unsigned int index = hash(key);
+    HashNode* current = ht->table[index];
+    HashNode* prev = NULL;
+
+    while (current)
+    {
+        if (strcmp(current->key, key) == 0)
+        {
+            if (prev)
+                prev->next = current->next;
+            else
+                ht->table[index] = current->next;
+
+            free(current);
+            return;
+        }
+
+        prev = current;
+        current = current->next;
+    }
+}
+
+void freeHashTable(HashTable* ht)
+{
+    for (int i = 0; i < TABLE_SIZE; i++)
+    {
+        HashNode* node = ht->table[i];
+        while (node)
+        {
+            HashNode* temp = node;
+            node = node->next;
+            free(temp);
+        }
+    }
+
+    free(ht);
+}
