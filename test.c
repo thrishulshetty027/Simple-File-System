@@ -823,3 +823,27 @@ void checkEvenOdd(int num)
         printf("Odd\n");
     }
 }
+
+
+int factorial(int n)
+{
+    int result = 1;
+    int i;
+
+    for (i = 1; i <= n; i++)
+    {
+        result = result * i;
+    }
+
+    return result;
+}
+
+
+void swap(int *a, int *b)
+{
+    int temp;
+
+    temp = *a;
+    *a = *b;
+    *b = temp;
+}
