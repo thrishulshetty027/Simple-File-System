@@ -1095,3 +1095,42 @@ void freeHashTable(HashTable* ht)
 
     free(ht);
 }
+
+#include <stdlib.h>
+#include <string.h>
+
+char* rle_compress(const char* input)
+{
+    int len = strlen(input);
+    char* output = (char*)malloc(len * 2 + 1);
+    int i = 0, j = 0;
+
+    while (i < len)
+    {
+        char current = input[i];
+        int count = 1;
+
+        while (i + 1 < len && input[i] == input[i + 1])
+        {
+            count++;
+            i++;
+        }
+
+        output[j++] = current;
+
+        if (count > 1)
+        {
+            char buffer[10];
+            sprintf(buffer, "%d", count);
+            for (int k = 0; buffer[k] != '\0'; k++)
+            {
+                output[j++] = buffer[k];
+            }
+        }
+
+        i++;
+    }
+
+    output[j] = '\0';
+    return output;
+}
