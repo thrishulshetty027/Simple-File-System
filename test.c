@@ -1134,3 +1134,73 @@ char* rle_compress(const char* input)
     output[j] = '\0';
     return output;
 }
+
+
+#include <stdlib.h>
+
+void reverse(int arr[], int start, int end)
+{
+    while (start < end)
+    {
+        int temp = arr[start];
+        arr[start] = arr[end];
+        arr[end] = temp;
+        start++;
+        end--;
+    }
+}
+
+void rotateLeft(int arr[], int n, int k)
+{
+    if (n <= 0)
+        return;
+
+    k = k % n;
+
+    reverse(arr, 0, k - 1);
+    reverse(arr, k, n - 1);
+    reverse(arr, 0, n - 1);
+}
+
+#include <stdlib.h>
+
+int* merge_sorted_arrays(int* a, int sizeA, int* b, int sizeB)
+{
+    int* result = (int*)malloc((sizeA + sizeB) * sizeof(int));
+    int i = 0, j = 0, k = 0;
+
+    while (i < sizeA && j < sizeB)
+    {
+        if (a[i] < b[j])
+            result[k++] = a[i++];
+        else
+            result[k++] = b[j++];
+    }
+
+    while (i < sizeA)
+        result[k++] = a[i++];
+
+    while (j < sizeB)
+        result[k++] = b[j++];
+
+    return result;
+}
+
+int removeDuplicates(int arr[], int n)
+{
+    if (n == 0 || n == 1)
+        return n;
+
+    int j = 0;
+
+    for (int i = 1; i < n; i++)
+    {
+        if (arr[i] != arr[j])
+        {
+            j++;
+            arr[j] = arr[i];
+        }
+    }
+
+    return j + 1;
+}
