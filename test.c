@@ -1204,3 +1204,36 @@ int removeDuplicates(int arr[], int n)
 
     return j + 1;
 }
+
+#include <string.h>
+
+int longestCommonPrefix(char **strs, int count, char *result)
+{
+    if (count == 0)
+        return 0;
+
+    int index = 0;
+
+    while (1)
+    {
+        char current = strs[0][index];
+
+        if (current == '\0')
+            break;
+
+        for (int i = 1; i < count; i++)
+        {
+            if (strs[i][index] != current)
+            {
+                result[index] = '\0';
+                return index;
+            }
+        }
+
+        result[index] = current;
+        index++;
+    }
+
+    result[index] = '\0';
+    return index;
+}
