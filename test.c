@@ -1265,3 +1265,16 @@ int areAnagrams(const char *str1, const char *str2)
 
     return 1;
 }
+
+
+int gcd(int a, int b)
+{
+    while (b != 0)
+    {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+
+    return a;
+}
