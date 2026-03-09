@@ -1161,3 +1161,27 @@ void rotateLeft(int arr[], int n, int k)
     reverse(arr, k, n - 1);
     reverse(arr, 0, n - 1);
 }
+
+#include <stdlib.h>
+
+int* merge_sorted_arrays(int* a, int sizeA, int* b, int sizeB)
+{
+    int* result = (int*)malloc((sizeA + sizeB) * sizeof(int));
+    int i = 0, j = 0, k = 0;
+
+    while (i < sizeA && j < sizeB)
+    {
+        if (a[i] < b[j])
+            result[k++] = a[i++];
+        else
+            result[k++] = b[j++];
+    }
+
+    while (i < sizeA)
+        result[k++] = a[i++];
+
+    while (j < sizeB)
+        result[k++] = b[j++];
+
+    return result;
+}
