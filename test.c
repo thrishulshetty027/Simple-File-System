@@ -1325,3 +1325,26 @@ int isPalindrome(const char *str)
 
     return 1;
 }
+
+
+#include <ctype.h>
+
+int countVowels(const char *str)
+{
+    int count = 0;
+
+    while (*str)
+    {
+        char c = tolower(*str);
+
+        if (c == 'a' || c == 'e' || c == 'i' || 
+            c == 'o' || c == 'u')
+        {
+            count++;
+        }
+
+        str++;
+    }
+
+    return count;
+}
