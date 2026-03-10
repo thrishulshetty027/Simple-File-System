@@ -1204,3 +1204,104 @@ int removeDuplicates(int arr[], int n)
 
     return j + 1;
 }
+
+#include <string.h>
+
+int longestCommonPrefix(char **strs, int count, char *result)
+{
+    if (count == 0)
+        return 0;
+
+    int index = 0;
+
+    while (1)
+    {
+        char current = strs[0][index];
+
+        if (current == '\0')
+            break;
+
+        for (int i = 1; i < count; i++)
+        {
+            if (strs[i][index] != current)
+            {
+                result[index] = '\0';
+                return index;
+            }
+        }
+
+        result[index] = current;
+        index++;
+    }
+
+    result[index] = '\0';
+    return index;
+}
+
+
+#include <string.h>
+
+int areAnagrams(const char *str1, const char *str2)
+{
+    int count[256] = {0};
+
+    while (*str1)
+    {
+        count[(unsigned char)*str1]++;
+        str1++;
+    }
+
+    while (*str2)
+    {
+        count[(unsigned char)*str2]--;
+        str2++;
+    }
+
+    for (int i = 0; i < 256; i++)
+    {
+        if (count[i] != 0)
+            return 0;
+    }
+
+    return 1;
+}
+
+
+int gcd(int a, int b)
+{
+    while (b != 0)
+    {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+
+    return a;
+}
+
+
+#include <limits.h>
+
+int findSecondLargest(int arr[], int n)
+{
+    if (n < 2)
+        return INT_MIN;
+
+    int largest = INT_MIN;
+    int second = INT_MIN;
+
+    for (int i = 0; i < n; i++)
+    {
+        if (arr[i] > largest)
+        {
+            second = largest;
+            largest = arr[i];
+        }
+        else if (arr[i] > second && arr[i] != largest)
+        {
+            second = arr[i];
+        }
+    }
+
+    return second;
+}
