@@ -1278,3 +1278,30 @@ int gcd(int a, int b)
 
     return a;
 }
+
+
+#include <limits.h>
+
+int findSecondLargest(int arr[], int n)
+{
+    if (n < 2)
+        return INT_MIN;
+
+    int largest = INT_MIN;
+    int second = INT_MIN;
+
+    for (int i = 0; i < n; i++)
+    {
+        if (arr[i] > largest)
+        {
+            second = largest;
+            largest = arr[i];
+        }
+        else if (arr[i] > second && arr[i] != largest)
+        {
+            second = arr[i];
+        }
+    }
+
+    return second;
+}
