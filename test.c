@@ -1435,3 +1435,33 @@ void swap(int *a, int *b)
     *a = *b;
     *b = temp;
 }
+
+
+#include <stdio.h>
+
+/* Function to add two numbers */
+int add(int a, int b)
+{
+    return a + b;
+}
+
+/* Function to subtract two numbers */
+int subtract(int a, int b)
+{
+    return a - b;
+}
+
+/* Function to print a message */
+void printMessage(const char *msg)
+{
+    printf("Message: %s\n", msg);
+}
+
+/* Function to check if a number is even */
+int isEven(int num)
+{
+    if (num % 2 == 0)
+        return 1;
+    else
+        return 0;
+}
