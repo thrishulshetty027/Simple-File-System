@@ -1523,3 +1523,50 @@ void reverseArray(int arr[], int size)
         end--;
     }
 }
+
+#include <stdio.h>
+#include <string.h>
+
+typedef struct
+{
+    int id;
+    char name[50];
+    float salary;
+} Employee;
+
+/* Initialize employee */
+void initEmployee(Employee *emp, int id, const char *name, float salary)
+{
+    emp->id = id;
+    strncpy(emp->name, name, sizeof(emp->name) - 1);
+    emp->name[sizeof(emp->name) - 1] = '\0';
+    emp->salary = salary;
+}
+
+/* Print employee details */
+void printEmployee(const Employee *emp)
+{
+    printf("ID: %d\n", emp->id);
+    printf("Name: %s\n", emp->name);
+    printf("Salary: %.2f\n", emp->salary);
+}
+
+/* Update salary */
+void updateSalary(Employee *emp, float newSalary)
+{
+    if (newSalary > 0)
+    {
+        emp->salary = newSalary;
+    }
+}
+
+/* Compare two employees by salary */
+int compareSalary(const Employee *e1, const Employee *e2)
+{
+    if (e1->salary > e2->salary)
+        return 1;
+    else if (e1->salary < e2->salary)
+        return -1;
+    else
+        return 0;
+}
