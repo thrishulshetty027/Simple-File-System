@@ -1370,3 +1370,98 @@ int binarySearch(int arr[], int size, int target)
 
     return -1;
 }
+
+
+#include <stdio.h>
+
+int add(int a, int b)
+{
+    return a + b;
+}
+
+int subtract(int a, int b)
+{
+    return a - b;
+}
+
+int multiply(int a, int b)
+{
+    return a * b;
+}
+
+int divide(int a, int b)
+{
+    if (b == 0)
+    {
+        return -1; 
+    }
+    return a / b;
+}
+
+int is_prime(int num)
+{
+    if (num <= 1)
+        return 0;
+
+    for (int i = 2; i <= num / 2; i++)
+    {
+        if (num % i == 0)
+            return 0;
+    }
+
+    return 1;
+}
+
+int factorial(int n)
+{
+    if (n < 0)
+        return -1;
+
+    int result = 1;
+
+    for (int i = 1; i <= n; i++)
+    {
+        result = result * i;
+    }
+
+    return result;
+}
+
+void swap(int *a, int *b)
+{
+    int temp;
+
+    temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+
+#include <stdio.h>
+
+/* Function to add two numbers */
+int add(int a, int b)
+{
+    return a + b;
+}
+
+/* Function to subtract two numbers */
+int subtract(int a, int b)
+{
+    return a - b;
+}
+
+/* Function to print a message */
+void printMessage(const char *msg)
+{
+    printf("Message: %s\n", msg);
+}
+
+/* Function to check if a number is even */
+int isEven(int num)
+{
+    if (num % 2 == 0)
+        return 1;
+    else
+        return 0;
+}
