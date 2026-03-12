@@ -1465,3 +1465,61 @@ int isEven(int num)
     else
         return 0;
 }
+
+#include <stdio.h>
+
+/* Function to find the maximum value in an array */
+int findMax(int arr[], int size)
+{
+    int max = arr[0];
+
+    for (int i = 1; i < size; i++)
+    {
+        if (arr[i] > max)
+        {
+            max = arr[i];
+        }
+    }
+
+    return max;
+}
+
+/* Function to calculate the sum of array elements */
+int calculateSum(int arr[], int size)
+{
+    int sum = 0;
+
+    for (int i = 0; i < size; i++)
+    {
+        sum += arr[i];
+    }
+
+    return sum;
+}
+
+/* Function to print array elements */
+void printArray(int arr[], int size)
+{
+    for (int i = 0; i < size; i++)
+    {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+/* Function to reverse an array */
+void reverseArray(int arr[], int size)
+{
+    int start = 0;
+    int end = size - 1;
+
+    while (start < end)
+    {
+        int temp = arr[start];
+        arr[start] = arr[end];
+        arr[end] = temp;
+
+        start++;
+        end--;
+    }
+}
