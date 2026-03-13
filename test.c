@@ -1725,3 +1725,19 @@ int main() {
 
     return 0;
 }
+
+
+#include <stdio.h>
+
+int main() {
+    int base = 2, exponent = 5;
+    int result = 1;
+
+    for (int i = 0; i < exponent; i++) {
+        result = result * base;
+    }
+
+    printf("Result: %d\n", result);
+
+    return 0;
+}
