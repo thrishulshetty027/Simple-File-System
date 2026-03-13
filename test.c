@@ -1570,3 +1570,67 @@ int compareSalary(const Employee *e1, const Employee *e2)
     else
         return 0;
 }
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node
+{
+    int data;
+    struct Node *next;
+} Node;
+
+/* Create a new node */
+Node* createNode(int value)
+{
+    Node *newNode = (Node*)malloc(sizeof(Node));
+    if (newNode == NULL)
+    {
+        return NULL;
+    }
+
+    newNode->data = value;
+    newNode->next = NULL;
+    return newNode;
+}
+
+/* Insert node at the beginning */
+Node* insertAtBeginning(Node *head, int value)
+{
+    Node *newNode = createNode(value);
+    if (newNode == NULL)
+    {
+        return head;
+    }
+
+    newNode->next = head;
+    return newNode;
+}
+
+/* Print linked list */
+void printList(Node *head)
+{
+    Node *temp = head;
+
+    while (temp != NULL)
+    {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+
+    printf("NULL\n");
+}
+
+/* Free the entire list */
+void freeList(Node *head)
+{
+    Node *temp;
+
+    while (head != NULL)
+    {
+        temp = head;
+        head = head->next;
+        free(temp);
+    }
+}
