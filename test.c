@@ -1757,3 +1757,28 @@ int main() {
 
     return 0;
 }
+
+#include <stdio.h>
+
+int main() {
+    int a = 10, b = 20, c = 30;
+    float average;
+
+    average = (a + b + c) / 3.0;
+
+    printf("Average: %.2f\n", average);
+
+    return 0;
+}
+#include <stdio.h>
+
+int main() {
+    float radius = 5.0;
+    float area;
+
+    area = 3.14159 * radius * radius;
+
+    printf("Area of circle: %.2f\n", area);
+
+    return 0;
+}
