@@ -1782,3 +1782,26 @@ int main() {
 
     return 0;
 }
+
+
+#include <stdio.h>
+
+int main() {
+    int num = 49;
+    int i;
+    int isSquare = 0;
+
+    for (i = 1; i * i <= num; i++) {
+        if (i * i == num) {
+            isSquare = 1;
+            break;
+        }
+    }
+
+    if (isSquare)
+        printf("%d is a perfect square\n", num);
+    else
+        printf("%d is not a perfect square\n", num);
+
+    return 0;
+}
