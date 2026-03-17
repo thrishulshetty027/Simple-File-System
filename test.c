@@ -508,3 +508,75 @@ void printArray(int arr[], int n) {
     }
     printf("\n");
 }
+
+#include <stdio.h>
+#include <stdlib.h>
+
+/* Node structure */
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+/* Insert at beginning */
+struct Node* insertAtBeginning(struct Node* head, int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    if (newNode == NULL) return head;
+
+    newNode->data = value;
+    newNode->next = head;
+    return newNode;
+}
+
+/* Insert at end */
+struct Node* insertAtEnd(struct Node* head, int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    if (newNode == NULL) return head;
+
+    newNode->data = value;
+    newNode->next = NULL;
+
+    if (head == NULL) return newNode;
+
+    struct Node* temp = head;
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+    temp->next = newNode;
+    return head;
+}
+
+/* Delete a node by value */
+struct Node* deleteValue(struct Node* head, int value) {
+    if (head == NULL) return NULL;
+
+    if (head->data == value) {
+        struct Node* temp = head;
+        head = head->next;
+        free(temp);
+        return head;
+    }
+
+    struct Node* current = head;
+    while (current->next != NULL && current->next->data != value) {
+        current = current->next;
+    }
+
+    if (current->next != NULL) {
+        struct Node* temp = current->next;
+        current->next = temp->next;
+        free(temp);
+    }
+
+    return head;
+}
+
+/* Print list */
+void printList(struct Node* head) {
+    struct Node* temp = head;
+    while (temp != NULL) {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
