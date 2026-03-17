@@ -470,3 +470,41 @@ void printMatrix(int r, int c, int M[r][c]) {
         printf("\n");
     }
 }
+
+#include <stdio.h>
+
+/* Bubble Sort */
+void bubbleSort(int arr[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
+
+/* Binary Search (array must be sorted) */
+int binarySearch(int arr[], int left, int right, int key) {
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+
+        if (arr[mid] == key)
+            return mid;
+        else if (arr[mid] < key)
+            left = mid + 1;
+        else
+            right = mid - 1;
+    }
+    return -1; // not found
+}
+
+/* Print Array */
+void printArray(int arr[], int n) {
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
