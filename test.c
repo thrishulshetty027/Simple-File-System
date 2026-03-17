@@ -404,3 +404,35 @@ double calculate(double a, double b, char operator) {
             return 0;
     }
 }
+
+#include <stdio.h>
+
+/* Power function: calculates base^exp */
+double power(double base, int exp) {
+    double result = 1;
+    for (int i = 0; i < exp; i++) {
+        result *= base;
+    }
+    return result;
+}
+
+/* Factorial function */
+int factorial(int n) {
+    if (n < 0) return -1; // error case
+    int result = 1;
+    for (int i = 1; i <= n; i++) {
+        result *= i;
+    }
+    return result;
+}
+
+/* Average of array */
+double average(int arr[], int size) {
+    if (size == 0) return 0;
+
+    int sum = 0;
+    for (int i = 0; i < size; i++) {
+        sum += arr[i];
+    }
+    return (double)sum / size;
+}
