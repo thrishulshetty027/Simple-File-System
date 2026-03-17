@@ -404,3 +404,69 @@ double calculate(double a, double b, char operator) {
             return 0;
     }
 }
+
+#include <stdio.h>
+
+/* Power function: calculates base^exp */
+double power(double base, int exp) {
+    double result = 1;
+    for (int i = 0; i < exp; i++) {
+        result *= base;
+    }
+    return result;
+}
+
+/* Factorial function */
+int factorial(int n) {
+    if (n < 0) return -1; // error case
+    int result = 1;
+    for (int i = 1; i <= n; i++) {
+        result *= i;
+    }
+    return result;
+}
+
+/* Average of array */
+double average(int arr[], int size) {
+    if (size == 0) return 0;
+
+    int sum = 0;
+    for (int i = 0; i < size; i++) {
+        sum += arr[i];
+    }
+    return (double)sum / size;
+}
+
+#include <stdio.h>
+
+/* Matrix Addition */
+void addMatrices(int r, int c, int A[r][c], int B[r][c], int result[r][c]) {
+    for (int i = 0; i < r; i++) {
+        for (int j = 0; j < c; j++) {
+            result[i][j] = A[i][j] + B[i][j];
+        }
+    }
+}
+
+/* Matrix Multiplication */
+void multiplyMatrices(int r1, int c1, int c2,
+                      int A[r1][c1], int B[c1][c2], int result[r1][c2]) {
+    for (int i = 0; i < r1; i++) {
+        for (int j = 0; j < c2; j++) {
+            result[i][j] = 0;
+            for (int k = 0; k < c1; k++) {
+                result[i][j] += A[i][k] * B[k][j];
+            }
+        }
+    }
+}
+
+/* Print Matrix */
+void printMatrix(int r, int c, int M[r][c]) {
+    for (int i = 0; i < r; i++) {
+        for (int j = 0; j < c; j++) {
+            printf("%d ", M[i][j]);
+        }
+        printf("\n");
+    }
+}
