@@ -580,3 +580,57 @@ void printList(struct Node* head) {
     }
     printf("NULL\n");
 }
+
+#include <stdio.h>
+
+#define MAX 100
+
+/* Stack structure */
+typedef struct {
+    int items[MAX];
+    int top;
+} Stack;
+
+/* Initialize stack */
+void initStack(Stack *s) {
+    s->top = -1;
+}
+
+/* Check if stack is empty */
+int isEmpty(Stack *s) {
+    return s->top == -1;
+}
+
+/* Check if stack is full */
+int isFull(Stack *s) {
+    return s->top == MAX - 1;
+}
+
+/* Push element */
+int push(Stack *s, int value) {
+    if (isFull(s)) {
+        printf("Stack Overflow\n");
+        return -1;
+    }
+    s->items[++(s->top)] = value;
+    return 0;
+}	
+
+/* Pop element */
+int pop(Stack *s, int *value) {
+    if (isEmpty(s)) {
+        printf("Stack Underflow\n");
+        return -1;
+    }
+    *value = s->items[(s->top)--];
+    return 0;
+}
+
+/* Peek top element */
+int peek(Stack *s, int *value) {
+    if (isEmpty(s)) {
+        return -1;
+    }
+    *value = s->items[s->top];
+    return 0;	
+}												
