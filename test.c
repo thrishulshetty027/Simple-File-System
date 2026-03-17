@@ -436,3 +436,37 @@ double average(int arr[], int size) {
     }
     return (double)sum / size;
 }
+
+#include <stdio.h>
+
+/* Matrix Addition */
+void addMatrices(int r, int c, int A[r][c], int B[r][c], int result[r][c]) {
+    for (int i = 0; i < r; i++) {
+        for (int j = 0; j < c; j++) {
+            result[i][j] = A[i][j] + B[i][j];
+        }
+    }
+}
+
+/* Matrix Multiplication */
+void multiplyMatrices(int r1, int c1, int c2,
+                      int A[r1][c1], int B[c1][c2], int result[r1][c2]) {
+    for (int i = 0; i < r1; i++) {
+        for (int j = 0; j < c2; j++) {
+            result[i][j] = 0;
+            for (int k = 0; k < c1; k++) {
+                result[i][j] += A[i][k] * B[k][j];
+            }
+        }
+    }
+}
+
+/* Print Matrix */
+void printMatrix(int r, int c, int M[r][c]) {
+    for (int i = 0; i < r; i++) {
+        for (int j = 0; j < c; j++) {
+            printf("%d ", M[i][j]);
+        }
+        printf("\n");
+    }
+}
