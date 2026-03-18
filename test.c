@@ -664,4 +664,60 @@ int isPrime(int n) {
             return 0;
     }
     return 1;
+}
+
+#include <stdio.h>
+#include <math.h>
+
+/* Calculate mean */
+double mean(double arr[], int n) {
+    if (n == 0) return 0;
+
+    double sum = 0;
+    for (int i = 0; i < n; i++) {
+        sum += arr[i];
+    }
+    return sum / n;
+}
+
+/* Calculate variance */
+double variance(double arr[], int n) {
+    if (n == 0) return 0;
+
+    double m = mean(arr, n);
+    double sum = 0;
+
+    for (int i = 0; i < n; i++) {
+        double diff = arr[i] - m;
+        sum += diff * diff;
+    }
+    return sum / n;
+}
+
+/* Calculate standard deviation */
+double standardDeviation(double arr[], int n) {
+    return sqrt(variance(arr, n));
+}
+
+#include <stdio.h>
+
+/* Evaluate polynomial using Horner's Method
+   coeffs[0] = highest degree coefficient */
+double evaluatePolynomial(double coeffs[], int degree, double x) {
+    double result = coeffs[0];
+
+    for (int i = 1; i <= degree; i++) {
+        result = result * x + coeffs[i];
+    }
+    return result;
+}
+
+/* Evaluate derivative of polynomial at x */
+double evaluateDerivative(double coeffs[], int degree, double x) {
+    double result = 0;
+
+    for (int i = 0; i < degree; i++) {
+        result = result * x + coeffs[i] * (degree - i);
+    }
+    return result;
 }												
