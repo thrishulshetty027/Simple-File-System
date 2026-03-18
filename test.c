@@ -697,4 +697,27 @@ double variance(double arr[], int n) {
 /* Calculate standard deviation */
 double standardDeviation(double arr[], int n) {
     return sqrt(variance(arr, n));
+}
+
+#include <stdio.h>
+
+/* Evaluate polynomial using Horner's Method
+   coeffs[0] = highest degree coefficient */
+double evaluatePolynomial(double coeffs[], int degree, double x) {
+    double result = coeffs[0];
+
+    for (int i = 1; i <= degree; i++) {
+        result = result * x + coeffs[i];
+    }
+    return result;
+}
+
+/* Evaluate derivative of polynomial at x */
+double evaluateDerivative(double coeffs[], int degree, double x) {
+    double result = 0;
+
+    for (int i = 0; i < degree; i++) {
+        result = result * x + coeffs[i] * (degree - i);
+    }
+    return result;
 }												
