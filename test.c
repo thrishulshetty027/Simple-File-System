@@ -720,4 +720,25 @@ double evaluateDerivative(double coeffs[], int degree, double x) {
         result = result * x + coeffs[i] * (degree - i);
     }
     return result;
+}
+
+#include <stdio.h>
+
+/* Example function: f(x) = x^2 */
+double func(double x) {
+    return x * x;
+}
+
+/* Trapezoidal Rule for numerical integration */
+double trapezoidal(double a, double b, int n) {
+    if (n <= 0) return 0;
+
+    double h = (b - a) / n;
+    double sum = (func(a) + func(b)) / 2.0;
+
+    for (int i = 1; i < n; i++) {
+        sum += func(a + i * h);
+    }
+
+    return sum * h;
 }												
