@@ -741,4 +741,29 @@ double trapezoidal(double a, double b, int n) {
     }
 
     return sum * h;
+}
+
+#include <stdio.h>
+#include <math.h>
+
+/* Solve quadratic equation: ax^2 + bx + c = 0 */
+int solveQuadratic(double a, double b, double c, double *root1, double *root2) {
+    if (a == 0) return -1; // not a quadratic equation
+
+    double discriminant = b * b - 4 * a * c;
+
+    if (discriminant > 0) {
+        *root1 = (-b + sqrt(discriminant)) / (2 * a);
+        *root2 = (-b - sqrt(discriminant)) / (2 * a);
+        return 1; // two real roots
+    } 
+    else if (discriminant == 0) {
+        *root1 = *root2 = -b / (2 * a);
+        return 0; // one real root
+    } 
+    else {
+        *root1 = -b / (2 * a);
+        *root2 = sqrt(-discriminant) / (2 * a); // imaginary part
+        return 2; // complex roots
+    }
 }												
