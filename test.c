@@ -633,4 +633,35 @@ int peek(Stack *s, int *value) {
     }
     *value = s->items[s->top];
     return 0;	
+}
+
+
+#include <stdio.h>
+
+/* Compute GCD using Euclidean algorithm */
+int gcd(int a, int b) {
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+
+/* Compute LCM using GCD */
+int lcm(int a, int b) {
+    if (a == 0 || b == 0) return 0;
+    return (a * b) / gcd(a, b);
+}
+
+/* Check if a number is prime */
+int isPrime(int n) {
+    if (n <= 1) return 0;
+    if (n == 2) return 1;
+
+    for (int i = 2; i * i <= n; i++) {
+        if (n % i == 0)
+            return 0;
+    }
+    return 1;
 }												
