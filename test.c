@@ -580,3 +580,88 @@ void printList(struct Node* head) {
     }
     printf("NULL\n");
 }
+
+#include <stdio.h>
+
+#define MAX 100
+
+/* Stack structure */
+typedef struct {
+    int items[MAX];
+    int top;
+} Stack;
+
+/* Initialize stack */
+void initStack(Stack *s) {
+    s->top = -1;
+}
+
+/* Check if stack is empty */
+int isEmpty(Stack *s) {
+    return s->top == -1;
+}
+
+/* Check if stack is full */
+int isFull(Stack *s) {
+    return s->top == MAX - 1;
+}
+
+/* Push element */
+int push(Stack *s, int value) {
+    if (isFull(s)) {
+        printf("Stack Overflow\n");
+        return -1;
+    }
+    s->items[++(s->top)] = value;
+    return 0;
+}	
+
+/* Pop element */
+int pop(Stack *s, int *value) {
+    if (isEmpty(s)) {
+        printf("Stack Underflow\n");
+        return -1;
+    }
+    *value = s->items[(s->top)--];
+    return 0;
+}
+
+/* Peek top element */
+int peek(Stack *s, int *value) {
+    if (isEmpty(s)) {
+        return -1;
+    }
+    *value = s->items[s->top];
+    return 0;	
+}
+
+
+#include <stdio.h>
+
+/* Compute GCD using Euclidean algorithm */
+int gcd(int a, int b) {
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+
+/* Compute LCM using GCD */
+int lcm(int a, int b) {
+    if (a == 0 || b == 0) return 0;
+    return (a * b) / gcd(a, b);
+}
+
+/* Check if a number is prime */
+int isPrime(int n) {
+    if (n <= 1) return 0;
+    if (n == 2) return 1;
+
+    for (int i = 2; i * i <= n; i++) {
+        if (n % i == 0)
+            return 0;
+    }
+    return 1;
+}												
