@@ -766,4 +766,13 @@ int solveQuadratic(double a, double b, double c, double *root1, double *root2) {
         *root2 = sqrt(-discriminant) / (2 * a); // imaginary part
         return 2; // complex roots
     }
+}
+
+
+int factorial(int n) {
+    if (n < 0)
+        return -1; // error case
+    if (n == 0 || n == 1)
+        return 1;
+    return n * factorial(n - 1);
 }												
