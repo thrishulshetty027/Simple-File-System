@@ -784,4 +784,16 @@ double power(double base, int exp) {
         result *= base;
     }
     return result;
+}
+
+double squareRoot(double num) {
+    double x = num;
+    double y = 1;
+    double e = 0.000001; // precision
+
+    while (x - y > e) {
+        x = (x + y) / 2;
+        y = num / x;
+    }
+    return x;
 }												
