@@ -882,4 +882,39 @@ double log_base10(double x) {
 // Function to calculate absolute difference
 double abs_diff(double a, double b) {
     return fabs(a - b);
+}
+
+#include <math.h>
+
+// Function to compute average of an array
+double compute_average(double arr[], int size) {
+    double sum = 0.0;
+    for (int i = 0; i < size; i++) {
+        sum += arr[i];
+    }
+    return (size > 0) ? (sum / size) : 0.0;
+}
+
+// Function to find maximum value in an array
+double find_max(double arr[], int size) {
+    if (size <= 0) return 0.0;
+
+    double max = arr[0];
+    for (int i = 1; i < size; i++) {
+        if (arr[i] > max)
+            max = arr[i];
+    }
+    return max;
+}
+
+// Function to compute exponential (e^x)
+double compute_exp(double x) {
+    return exp(x);
+}
+
+// Function to calculate distance between two points
+double distance_2d(double x1, double y1, double x2, double y2) {
+    double dx = x2 - x1;
+    double dy = y2 - y1;
+    return sqrt(dx * dx + dy * dy);
 }										
