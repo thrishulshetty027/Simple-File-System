@@ -813,4 +813,35 @@ int stringLength(const char *str) {
         count++;
     }
     return count;
+}
+
+
+#include <math.h>
+
+// Function to calculate factorial (recursive)
+int factorial(int n) {
+    if (n <= 1)
+        return 1;
+    return n * factorial(n - 1);
+}
+
+// Function to calculate power (x^y)
+double power(double x, int y) {
+    double result = 1.0;
+    for (int i = 0; i < y; i++) {
+        result *= x;
+    }
+    return result;
+}
+
+// Function to calculate GCD using Euclidean algorithm
+int gcd(int a, int b) {
+    if (b == 0)
+        return a;
+    return gcd(b, a % b);
+}
+
+// Function to compute sine using math library
+double compute_sine(double angle) {
+    return sin(angle);
 }										
