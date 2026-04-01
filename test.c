@@ -917,4 +917,33 @@ double distance_2d(double x1, double y1, double x2, double y2) {
     double dx = x2 - x1;
     double dy = y2 - y1;
     return sqrt(dx * dx + dy * dy);
+}
+
+
+#include <math.h>
+
+// Function to compute sum of squares up to n
+int sum_of_squares(int n) {
+    int sum = 0;
+    for (int i = 1; i <= n; i++) {
+        sum += i * i;
+    }
+    return sum;
+}
+
+// Function to compute cube of a number
+double cube(double x) {
+    return x * x * x;
+}
+
+// Function to normalize a value between min and max
+double normalize(double value, double min, double max) {
+    if (max - min == 0)
+        return 0.0;
+    return (value - min) / (max - min);
+}
+
+// Function to calculate hypotenuse using Pythagoras
+double hypotenuse(double a, double b) {
+    return sqrt(a * a + b * b);
 }										
