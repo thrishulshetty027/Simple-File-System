@@ -844,4 +844,42 @@ int gcd(int a, int b) {
 // Function to compute sine using math library
 double compute_sine(double angle) {
     return sin(angle);
+}
+
+
+#include <math.h>
+
+// Function to check if a number is prime
+int is_prime(int n) {
+    if (n <= 1)
+        return 0;
+    for (int i = 2; i <= sqrt(n); i++) {
+        if (n % i == 0)
+            return 0;
+    }
+    return 1;
+}
+
+// Function to calculate nth Fibonacci number (iterative)
+int fibonacci(int n) {
+    if (n <= 1)
+        return n;
+
+    int a = 0, b = 1, temp;
+    for (int i = 2; i <= n; i++) {
+        temp = a + b;
+        a = b;
+        b = temp;
+    }
+    return b;
+}
+
+// Function to compute logarithm base 10
+double log_base10(double x) {
+    return log10(x);
+}
+
+// Function to calculate absolute difference
+double abs_diff(double a, double b) {
+    return fabs(a - b);
 }										
