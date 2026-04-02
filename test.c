@@ -988,4 +988,42 @@ int gcd_internal(int a, int b) {
 int lcm(int a, int b) {
     if (a == 0 || b == 0) return 0;
     return (a / gcd_internal(a, b)) * b;
-}										
+}
+
+
+#include <math.h>
+
+// Function to compute geometric series sum
+double geometric_sum(double a, double r, int n) {
+    if (r == 1.0)
+        return a * n;
+    return a * (1 - pow(r, n)) / (1 - r);
+}
+
+// Function to compute variance of an array
+double variance(double arr[], int size) {
+    if (size <= 0) return 0.0;
+
+    double mean = 0.0, var = 0.0;
+
+    for (int i = 0; i < size; i++)
+        mean += arr[i];
+    mean /= size;
+
+    for (int i = 0; i < size; i++)
+        var += (arr[i] - mean) * (arr[i] - mean);
+
+    return var / size;
+}
+
+// Function to clamp a value within a range
+double clamp(double value, double min, double max) {
+    if (value < min) return min;
+    if (value > max) return max;
+    return value;
+}
+
+// Function to convert degrees to radians
+double deg_to_rad(double degrees) {
+    return degrees * (M_PI / 180.0);
+}				
