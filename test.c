@@ -1155,4 +1155,38 @@ double angle_between_slopes(double m1, double m2) {
 // Function to compute cube root
 double cube_root(double x) {
     return cbrt(x);
+}
+
+#include <math.h>
+
+// Function to compute sum of even numbers up to n
+int sum_even(int n) {
+    int sum = 0;
+    for (int i = 2; i <= n; i += 2) {
+        sum += i;
+    }
+    return sum;
+}
+
+// Function to compute quadratic expression ax^2 + bx + c
+double quadratic(double a, double b, double c, double x) {
+    return a * x * x + b * x + c;
+}
+
+// Function to compute RMS (root mean square) of two numbers
+double rms(double a, double b) {
+    return sqrt((a * a + b * b) / 2.0);
+}
+
+// Function to compute fractional part of a number
+double fractional_part(double x) {
+    return x - floor(x);
+}
+
+// Function to compute minimum of three numbers
+double min3(double a, double b, double c) {
+    double min = a;
+    if (b < min) min = b;
+    if (c < min) min = c;
+    return min;
 }				
