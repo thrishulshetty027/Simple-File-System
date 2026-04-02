@@ -1055,4 +1055,37 @@ double inverse(double x) {
 // Function to compute tangent using math library
 double compute_tangent(double angle) {
     return tan(angle);
+}
+
+
+#include <math.h>
+
+// Function to compute sum of cubes up to n
+int sum_of_cubes(int n) {
+    int sum = 0;
+    for (int i = 1; i <= n; i++) {
+        sum += i * i * i;
+    }
+    return sum;
+}
+
+// Function to compute sigmoid function
+double sigmoid(double x) {
+    return 1.0 / (1.0 + exp(-x));
+}
+
+// Function to compute distance in 3D space
+double distance_3d(double x1, double y1, double z1,
+                   double x2, double y2, double z2) {
+    double dx = x2 - x1;
+    double dy = y2 - y1;
+    double dz = z2 - z1;
+    return sqrt(dx*dx + dy*dy + dz*dz);
+}
+
+// Function to compute median of three numbers
+double median3(double a, double b, double c) {
+    if ((a >= b && a <= c) || (a >= c && a <= b)) return a;
+    if ((b >= a && b <= c) || (b >= c && b <= a)) return b;
+    return c;
 }				
