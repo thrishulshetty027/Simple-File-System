@@ -1088,4 +1088,39 @@ double median3(double a, double b, double c) {
     if ((a >= b && a <= c) || (a >= c && a <= b)) return a;
     if ((b >= a && b <= c) || (b >= c && b <= a)) return b;
     return c;
+}
+
+#include <math.h>
+
+// Function to compute alternating sum: 1 - 2 + 3 - 4 + ... ± n
+int alternating_sum(int n) {
+    int sum = 0;
+    for (int i = 1; i <= n; i++) {
+        if (i % 2 == 0)
+            sum -= i;
+        else
+            sum += i;
+    }
+    return sum;
+}
+
+// Function to compute nth term of arithmetic progression
+double arithmetic_nth(double a, double d, int n) {
+    return a + (n - 1) * d;
+}
+
+// Function to compute area of a circle
+double circle_area(double radius) {
+    return M_PI * radius * radius;
+}
+
+// Function to compute natural logarithm safely
+double safe_log(double x) {
+    if (x <= 0.0) return 0.0; // avoid domain error
+    return log(x);
+}
+
+// Function to compute max of two values
+double max_val(double a, double b) {
+    return (a > b) ? a : b;
 }				
