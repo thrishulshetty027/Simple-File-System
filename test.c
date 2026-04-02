@@ -1385,3 +1385,25 @@ double inv_square(double x) {
 double compute_atan(double x) {
     return atan(x);
 }
+
+#include <math.h>
+
+// Find minimum in array
+double array_min(double arr[], int size) {
+    if (size <= 0) return 0.0;
+    double min = arr[0];
+    for (int i = 1; i < size; i++)
+        if (arr[i] < min)
+            min = arr[i];
+    return min;
+}
+
+// Compute exponential decay
+double exp_decay(double x, double lambda) {
+    return exp(-lambda * x);
+}
+
+// Compute ceiling
+double compute_ceil(double x) {
+    return ceil(x);
+}
