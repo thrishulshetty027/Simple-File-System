@@ -1225,4 +1225,42 @@ int sign(double x) {
     if (x > 0) return 1;
     if (x < 0) return -1;
     return 0;
+}
+
+#include <math.h>
+
+// Function to compute sum of digits of an integer
+int sum_digits(int n) {
+    int sum = 0;
+    n = (n < 0) ? -n : n; // handle negative numbers
+    while (n > 0) {
+        sum += n % 10;
+        n /= 10;
+    }
+    return sum;
+}
+
+// Function to compute exponential moving average (single step)
+double ema(double prev_ema, double value, double alpha) {
+    return alpha * value + (1.0 - alpha) * prev_ema;
+}
+
+// Function to compute cotangent (1/tan)
+double compute_cot(double angle) {
+    double t = tan(angle);
+    if (t == 0.0) return 0.0; // avoid division by zero
+    return 1.0 / t;
+}
+
+// Function to compute squared distance (no sqrt)
+double squared_distance(double x1, double y1, double x2, double y2) {
+    double dx = x2 - x1;
+    double dy = y2 - y1;
+    return dx * dx + dy * dy;
+}
+
+// Function to compute modulo for doubles
+double mod_double(double a, double b) {
+    if (b == 0.0) return 0.0;
+    return fmod(a, b);
 }				
