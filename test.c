@@ -1189,4 +1189,40 @@ double min3(double a, double b, double c) {
     if (b < min) min = b;
     if (c < min) min = c;
     return min;
+}
+
+#include <math.h>
+
+// Function to compute sum of odd numbers up to n
+int sum_odd(int n) {
+    int sum = 0;
+    for (int i = 1; i <= n; i += 2) {
+        sum += i;
+    }
+    return sum;
+}
+
+// Function to compute weighted average of two values
+double weighted_avg(double a, double b, double w1, double w2) {
+    if (w1 + w2 == 0.0) return 0.0;
+    return (a * w1 + b * w2) / (w1 + w2);
+}
+
+// Function to compute secant (1/cos)
+double compute_secant(double angle) {
+    double c = cos(angle);
+    if (c == 0.0) return 0.0; // avoid division by zero
+    return 1.0 / c;
+}
+
+// Function to compute linear interpolation
+double lerp(double a, double b, double t) {
+    return a + t * (b - a);
+}
+
+// Function to compute sign of a number
+int sign(double x) {
+    if (x > 0) return 1;
+    if (x < 0) return -1;
+    return 0;
 }				
