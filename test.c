@@ -946,4 +946,46 @@ double normalize(double value, double min, double max) {
 // Function to calculate hypotenuse using Pythagoras
 double hypotenuse(double a, double b) {
     return sqrt(a * a + b * b);
+}
+
+#include <math.h>
+
+// Function to compute harmonic sum up to n
+double harmonic_sum(int n) {
+    double sum = 0.0;
+    for (int i = 1; i <= n; i++) {
+        sum += 1.0 / i;
+    }
+    return sum;
+}
+
+// Function to compute square root using Newton-Raphson method
+double sqrt_newton(double x) {
+    if (x < 0) return -1; // error for negative input
+
+    double guess = x / 2.0;
+    for (int i = 0; i < 10; i++) {
+        guess = (guess + x / guess) / 2.0;
+    }
+    return guess;
+}
+
+// Function to compute cosine using math library
+double compute_cosine(double angle) {
+    return cos(angle);
+}
+
+// Function to calculate LCM using GCD
+int gcd_internal(int a, int b) {
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+
+int lcm(int a, int b) {
+    if (a == 0 || b == 0) return 0;
+    return (a / gcd_internal(a, b)) * b;
 }										
