@@ -1026,4 +1026,33 @@ double clamp(double value, double min, double max) {
 // Function to convert degrees to radians
 double deg_to_rad(double degrees) {
     return degrees * (M_PI / 180.0);
+}
+
+#include <math.h>
+
+// Function to compute triangular number
+int triangular_number(int n) {
+    return (n * (n + 1)) / 2;
+}
+
+// Function to compute mean of two numbers
+double mean(double a, double b) {
+    return (a + b) / 2.0;
+}
+
+// Function to compute standard deviation (simple version)
+double stddev(double a, double b) {
+    double m = mean(a, b);
+    return sqrt(((a - m) * (a - m) + (b - m) * (b - m)) / 2.0);
+}
+
+// Function to compute inverse (1/x)
+double inverse(double x) {
+    if (x == 0.0) return 0.0; // avoid division by zero
+    return 1.0 / x;
+}
+
+// Function to compute tangent using math library
+double compute_tangent(double angle) {
+    return tan(angle);
 }				
