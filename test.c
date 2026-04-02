@@ -1362,3 +1362,26 @@ double cube_sum(double arr[], int size) {
 double compute_asin(double x) {
     return asin(x);
 }
+
+#include <math.h>
+
+// Sum of factorial series up to n
+double factorial_series(int n) {
+    double sum = 0.0, fact = 1.0;
+    for (int i = 1; i <= n; i++) {
+        fact *= i;
+        sum += fact;
+    }
+    return sum;
+}
+
+// Compute inverse square
+double inv_square(double x) {
+    if (x == 0.0) return 0.0;
+    return 1.0 / (x * x);
+}
+
+// Compute atan
+double compute_atan(double x) {
+    return atan(x);
+}
