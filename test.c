@@ -1123,4 +1123,36 @@ double safe_log(double x) {
 // Function to compute max of two values
 double max_val(double a, double b) {
     return (a > b) ? a : b;
+}
+
+#include <math.h>
+
+// Function to compute sum of first n natural numbers
+int sum_n(int n) {
+    return n * (n + 1) / 2;
+}
+
+// Function to compute product of array elements
+double product_array(double arr[], int size) {
+    double prod = 1.0;
+    for (int i = 0; i < size; i++) {
+        prod *= arr[i];
+    }
+    return prod;
+}
+
+// Function to compute hyperbolic sine
+double compute_sinh(double x) {
+    return sinh(x);
+}
+
+// Function to compute angle between two slopes
+double angle_between_slopes(double m1, double m2) {
+    double tan_theta = fabs((m2 - m1) / (1 + m1 * m2));
+    return atan(tan_theta);
+}
+
+// Function to compute cube root
+double cube_root(double x) {
+    return cbrt(x);
 }				
