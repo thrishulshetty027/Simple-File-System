@@ -1263,4 +1263,40 @@ double squared_distance(double x1, double y1, double x2, double y2) {
 double mod_double(double a, double b) {
     if (b == 0.0) return 0.0;
     return fmod(a, b);
+}
+
+#include <math.h>
+
+// Function to count number of digits in an integer
+int count_digits(int n) {
+    int count = 0;
+    n = (n == 0) ? 1 : (n < 0 ? -n : n);
+    while (n > 0) {
+        count++;
+        n /= 10;
+    }
+    return count;
+}
+
+// Function to compute nth root using pow
+double nth_root(double x, int n) {
+    if (n == 0) return 0.0;
+    return pow(x, 1.0 / n);
+}
+
+// Function to compute softplus function: ln(1 + e^x)
+double softplus(double x) {
+    return log(1.0 + exp(x));
+}
+
+// Function to compute midpoint between two values
+double midpoint(double a, double b) {
+    return (a + b) / 2.0;
+}
+
+// Function to wrap value within range [0, max)
+double wrap(double value, double max) {
+    if (max == 0.0) return 0.0;
+    double result = fmod(value, max);
+    return (result < 0) ? result + max : result;
 }				
