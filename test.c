@@ -1319,4 +1319,26 @@ double square(double x) {
 // Compute log base e of (1 + x)
 double log1p_safe(double x) {
     return log1p(x);
+}
+
+#include <math.h>
+
+// Reverse digits of a number
+int reverse_number(int n) {
+    int rev = 0;
+    while (n != 0) {
+        rev = rev * 10 + (n % 10);
+        n /= 10;
+    }
+    return rev;
+}
+
+// Compute cosine hyperbolic
+double compute_cosh(double x) {
+    return cosh(x);
+}
+
+// Difference of squares
+double diff_squares(double a, double b) {
+    return a*a - b*b;
 }				
