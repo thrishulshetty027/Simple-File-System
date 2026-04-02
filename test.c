@@ -1299,4 +1299,24 @@ double wrap(double value, double max) {
     if (max == 0.0) return 0.0;
     double result = fmod(value, max);
     return (result < 0) ? result + max : result;
+}
+
+#include <math.h>
+
+// Sum of multiples of k up to n
+int sum_multiples(int n, int k) {
+    int sum = 0;
+    for (int i = k; i <= n; i += k)
+        sum += i;
+    return sum;
+}
+
+// Compute square
+double square(double x) {
+    return x * x;
+}
+
+// Compute log base e of (1 + x)
+double log1p_safe(double x) {
+    return log1p(x);
 }				
