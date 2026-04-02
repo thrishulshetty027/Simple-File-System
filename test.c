@@ -1342,3 +1342,23 @@ double compute_cosh(double x) {
 double diff_squares(double a, double b) {
     return a*a - b*b;
 }				
+
+#include <math.h>
+
+// Check if number is even
+int is_even(int n) {
+    return (n % 2 == 0);
+}
+
+// Compute cube sum of array
+double cube_sum(double arr[], int size) {
+    double sum = 0.0;
+    for (int i = 0; i < size; i++)
+        sum += arr[i]*arr[i]*arr[i];
+    return sum;
+}
+
+// Compute arcsine
+double compute_asin(double x) {
+    return asin(x);
+}
