@@ -1628,3 +1628,34 @@ double log_base2(double x) {
     if (x <= 0.0) return 0.0;
     return log(x) / log(2.0);
 }
+
+#include <math.h>
+
+// Function to compute product of array elements
+double product_array(double arr[], int size) {
+    double product = 1.0;
+    for (int i = 0; i < size; i++) {
+        product *= arr[i];
+    }
+    return product;
+}
+
+// Function to compute nth term of arithmetic progression
+double nth_term_ap(double a, double d, int n) {
+    return a + (n - 1) * d;
+}
+
+// Function to compute cube root using pow
+double cube_root(double x) {
+    return pow(x, 1.0 / 3.0);
+}
+
+// Function to compute midpoint between two numbers
+double midpoint(double a, double b) {
+    return (a + b) / 2.0;
+}
+
+// Function to compute sigmoid function
+double sigmoid(double x) {
+    return 1.0 / (1.0 + exp(-x));
+}
