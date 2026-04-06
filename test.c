@@ -1582,3 +1582,26 @@ double inv_cube(double x) {
     if (x == 0.0) return 0.0;
     return 1.0 / (x * x * x);
 }
+#include <math.h>
+
+// Function to compute alternating product: 1 * 2 * 3 * ... * n with sign flips
+int alternating_product(int n) {
+    int prod = 1;
+    for (int i = 1; i <= n; i++) {
+        if (i % 2 == 0)
+            prod *= -i;
+        else
+            prod *= i;
+    }
+    return prod;
+}
+
+// Function to compute average of three numbers
+double avg3(double a, double b, double c) {
+    return (a + b + c) / 3.0;
+}
+
+// Function to compute exponential scaling: a * e^(kx)
+double exp_scale(double a, double k, double x) {
+    return a * exp(k * x);
+}
