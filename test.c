@@ -1605,3 +1605,26 @@ double avg3(double a, double b, double c) {
 double exp_scale(double a, double k, double x) {
     return a * exp(k * x);
 }
+
+#include <math.h>
+
+// Function to compute sum of divisors of n
+int sum_divisors(int n) {
+    int sum = 0;
+    for (int i = 1; i <= n; i++) {
+        if (n % i == 0)
+            sum += i;
+    }
+    return sum;
+}
+
+// Function to compute midpoint of three numbers (average)
+double midpoint3(double a, double b, double c) {
+    return (a + b + c) / 3.0;
+}
+
+// Function to compute log base 2
+double log_base2(double x) {
+    if (x <= 0.0) return 0.0;
+    return log(x) / log(2.0);
+}
