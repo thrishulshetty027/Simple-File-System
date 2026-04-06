@@ -1484,3 +1484,21 @@ double inverse(double x) {
     if (x == 0.0) return 0.0; // simple guard
     return 1.0 / x;
 }
+
+#include <math.h>
+
+// Function to compute sum of first n odd numbers
+int sum_first_n_odds(int n) {
+    return n * n;
+}
+
+// Function to compute square difference |a^2 - b^2|
+double square_diff(double a, double b) {
+    return fabs(a*a - b*b);
+}
+
+// Function to compute reciprocal square root
+double inv_sqrt(double x) {
+    if (x <= 0.0) return 0.0;
+    return 1.0 / sqrt(x);
+}
