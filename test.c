@@ -1450,3 +1450,37 @@ double linear_decay(double start, double rate, int steps) {
 double fractional_power(double x, double p) {
     return pow(x, p);
 }
+
+#include <math.h>
+
+// Function to compute sum of an arithmetic progression
+double arithmetic_sum(double a, double d, int n) {
+    return (n / 2.0) * (2 * a + (n - 1) * d);
+}
+
+// Function to compute standard deviation
+double standard_deviation(double arr[], int size) {
+    if (size <= 0) return 0.0;
+
+    double mean = 0.0, sum_sq = 0.0;
+
+    for (int i = 0; i < size; i++)
+        mean += arr[i];
+    mean /= size;
+
+    for (int i = 0; i < size; i++)
+        sum_sq += (arr[i] - mean) * (arr[i] - mean);
+
+    return sqrt(sum_sq / size);
+}
+
+// Function to compute nth triangular number
+int triangular_number(int n) {
+    return (n * (n + 1)) / 2;
+}
+
+// Function to compute inverse (1/x)
+double inverse(double x) {
+    if (x == 0.0) return 0.0; // simple guard
+    return 1.0 / x;
+}
