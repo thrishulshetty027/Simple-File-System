@@ -1502,3 +1502,21 @@ double inv_sqrt(double x) {
     if (x <= 0.0) return 0.0;
     return 1.0 / sqrt(x);
 }
+
+#include <math.h>
+
+// Function to compute sum of first n even numbers
+int sum_first_n_evens(int n) {
+    return n * (n + 1);
+}
+
+// Function to compute absolute ratio |a/b|
+double abs_ratio(double a, double b) {
+    if (b == 0.0) return 0.0;
+    return fabs(a / b);
+}
+
+// Function to compute natural exponent minus 1 (e^x - 1)
+double exp_minus_one(double x) {
+    return exp(x) - 1.0;
+}
