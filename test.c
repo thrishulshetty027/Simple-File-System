@@ -1520,3 +1520,44 @@ double abs_ratio(double a, double b) {
 double exp_minus_one(double x) {
     return exp(x) - 1.0;
 }
+
+#include <math.h>
+
+// Function to compute sum of first n squares
+int sum_first_n_squares(int n) {
+    return n * (n + 1) * (2 * n + 1) / 6;
+}
+
+// Function to compute difference ratio (a - b) / (a + b)
+double diff_ratio(double a, double b) {
+    if ((a + b) == 0.0) return 0.0;
+    return (a - b) / (a + b);
+}
+
+// Function to compute sign-preserving square
+double signed_square(double x) {
+    return (x >= 0) ? x * x : -x * x;
+}
+
+#include <math.h>
+
+// Function to compute nth triangular number using loop
+int triangular_loop(int n) {
+    int sum = 0;
+    for (int i = 1; i <= n; i++) {
+        sum += i;
+    }
+    return sum;
+}
+
+// Function to compute harmonic mean of three numbers
+double harmonic_mean3(double a, double b, double c) {
+    double denom = (1.0/a + 1.0/b + 1.0/c);
+    if (denom == 0.0) return 0.0;
+    return 3.0 / denom;
+}
+
+// Function to compute cube difference a^3 - b^3
+double cube_diff(double a, double b) {
+    return a*a*a - b*b*b;
+}
