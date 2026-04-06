@@ -1561,3 +1561,24 @@ double harmonic_mean3(double a, double b, double c) {
 double cube_diff(double a, double b) {
     return a*a*a - b*b*b;
 }
+
+#include <math.h>
+
+// Function to compute sum of first n cubes using formula
+int sum_cubes_formula(int n) {
+    int s = n * (n + 1) / 2;
+    return s * s;
+}
+
+// Function to compute normalized difference |a - b| / max(a, b)
+double normalized_diff(double a, double b) {
+    double m = fmax(fabs(a), fabs(b));
+    if (m == 0.0) return 0.0;
+    return fabs(a - b) / m;
+}
+
+// Function to compute inverse cube
+double inv_cube(double x) {
+    if (x == 0.0) return 0.0;
+    return 1.0 / (x * x * x);
+}
