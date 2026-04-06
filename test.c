@@ -1407,3 +1407,46 @@ double exp_decay(double x, double lambda) {
 double compute_ceil(double x) {
     return ceil(x);
 }
+
+#include <math.h>
+
+// Function to compute digital root
+int digital_root(int n) {
+    n = (n < 0) ? -n : n;
+    while (n >= 10) {
+        int sum = 0;
+        while (n > 0) {
+            sum += n % 10;
+            n /= 10;
+        }
+        n = sum;
+    }
+    return n;
+}
+
+// Function to compute harmonic mean of two numbers
+double harmonic_mean(double a, double b) {
+    if (a + b == 0.0) return 0.0;
+    return (2.0 * a * b) / (a + b);
+}
+
+// Function to compute sec^2(x)
+double sec_squared(double angle) {
+    double c = cos(angle);
+    if (c == 0.0) return 0.0;
+    return 1.0 / (c * c);
+}
+
+// Function to compute linear decay
+double linear_decay(double start, double rate, int steps) {
+    double value = start;
+    for (int i = 0; i < steps; i++) {
+        value -= rate;
+    }
+    return value;
+}
+
+// Function to compute fractional power
+double fractional_power(double x, double p) {
+    return pow(x, p);
+}
