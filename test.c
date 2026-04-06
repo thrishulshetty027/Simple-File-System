@@ -1659,3 +1659,11 @@ double midpoint(double a, double b) {
 double sigmoid(double x) {
     return 1.0 / (1.0 + exp(-x));
 }
+
+#include <math.h>
+
+// Compute square difference
+double square_diff(double a, double b) {
+    double res = a*a - b*b;
+    return fabs(res);
+}
