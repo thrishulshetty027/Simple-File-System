@@ -1667,3 +1667,125 @@ double square_diff(double a, double b) {
     double res = a*a - b*b;
     return fabs(res);
 }
+
+
+
+#include <math.h>
+
+#define EPS 1e-9
+
+int isPrime(int n) {
+    if (n <= 1) return 0;
+    if (n % 2 == 0 && n != 2) return 0;
+
+    for (int i = 3; i * i <= n; i += 2) {
+        if (n % i == 0)
+            return 0;
+    }
+    return 1;
+}
+
+int gcd(int a, int b) {
+    if (b == 0) return a;
+    return gcd(b, a % b);
+}
+
+int lcm(int a, int b) {
+    if (a == 0 || b == 0) return 0;
+    return (a / gcd(a, b)) * b;
+}
+
+long long factorial(int n) {
+    if (n < 0) return -1;
+    if (n == 0) return 1;
+
+    long long res = 1;
+    for (int i = 1; i <= n; i++) {
+        res *= i;
+    }
+    return res;
+}
+
+double power(double base, int exp) {
+    if (exp == 0) return 1;
+
+    double result = 1;
+    int e = exp > 0 ? exp : -exp;
+
+    for (int i = 0; i < e; i++) {
+        result *= base;
+    }
+
+    return (exp < 0) ? 1 / result : result;
+}
+
+int sumOfDigits(int n) {
+    int sum = 0;
+    n = (n < 0) ? -n : n;
+
+    while (n > 0) {
+        sum += n % 10;
+        n /= 10;
+    }
+    return sum;
+}
+
+int isPalindrome(int n) {
+    int original = n;
+    int reversed = 0;
+
+    while (n > 0) {
+        reversed = reversed * 10 + (n % 10);
+        n /= 10;
+    }
+    return original == reversed;
+}
+
+double squareRoot(double x) {
+    if (x < 0) return -1;
+
+    double guess = x;
+    while (fabs(guess * guess - x) > EPS) {
+        guess = (guess + x / guess) / 2;
+    }
+    return guess;
+}
+
+int countDivisors(int n) {
+    if (n <= 0) return 0;
+
+    int count = 0;
+    for (int i = 1; i * i <= n; i++) {
+        if (n % i == 0) {
+            count += (i * i == n) ? 1 : 2;
+        }
+    }
+    return count;
+}
+
+int isPerfectSquare(int n) {
+    if (n < 0) return 0;
+
+    int root = (int)sqrt(n);
+    return root * root == n;
+}
+
+int sumOfN(int n) {
+    if (n < 0) return -1;
+    return n * (n + 1) / 2;
+}
+
+int sumOfSquares(int n) {
+    if (n < 0) return -1;
+    return n * (n + 1) * (2 * n + 1) / 6;
+}
+
+double harmonicSum(int n) {
+    if (n <= 0) return 0;
+
+    double sum = 0.0;
+    for (int i = 1; i <= n; i++) {
+        sum += 1.0 / i;
+    }
+    return sum;
+}
