@@ -370,3 +370,166 @@ int findPeak(int arr[], int size) {
     }
     return -1;
 }
+
+#include <math.h>
+
+#define MOD 1000000007
+
+long long modAdd(long long a, long long b) {
+    return (a % MOD + b % MOD) % MOD;
+}
+
+long long modMul(long long a, long long b) {
+    return (a % MOD * b % MOD) % MOD;
+}
+
+long long modPow(long long base, long long exp) {
+    long long result = 1;
+    base %= MOD;
+
+    while (exp > 0) {
+        if (exp & 1)
+            result = modMul(result, base);
+        base = modMul(base, base);
+        exp >>= 1;
+    }
+    return result;
+}
+
+long long gcdExtended(long long a, long long b, long long *x, long long *y) {
+    if (b == 0) {
+        *x = 1;
+        *y = 0;
+        return a;
+    }
+
+    long long x1, y1;
+    long long gcd = gcdExtended(b, a % b, &x1, &y1);
+
+    *x = y1;
+    *y = x1 - (a / b) * y1;
+
+    return gcd;
+}
+
+long long modInverse(long long a) {
+    long long x, y;
+    long long g = gcdExtended(a, MOD, &x, &y);
+
+    if (g != 1) return -1;
+
+    return (x % MOD + MOD) % MOD;
+}
+
+long long nCr(int n, int r) {
+    if (r < 0 || r > n) return 0;
+
+    long long res = 1;
+    for (int i = 1; i <= r; i++) {
+        res = modMul(res, (n - i + 1));
+        res = modMul(res, modInverse(i));
+    }
+    return res;
+}
+
+int countBits(int n) {
+    int count = 0;
+    while (n) {
+        n &= (n - 1);
+        count++;
+    }
+    return count;
+}
+
+int parity(int n) {
+    return countBits(n) % 2;
+}
+
+int setBit(int n, int pos) {
+    return n | (1 << pos);
+}
+
+int clearBit(int n, int pos) {
+    return n & ~(1 << pos);
+}
+
+int toggleBit(int n, int pos) {
+    return n ^ (1 << pos);
+}
+
+int isBitSet(int n, int pos) {
+    return (n >> pos) & 1;
+}
+
+long long catalan(int n) {
+    if (n <= 1) return 1;
+
+    long long res = 0;
+    for (int i = 0; i < n; i++) {
+        res += catalan(i) * catalan(n - i - 1);
+    }
+    return res;
+}
+
+int isPower(int n, int base) {
+    if (n < 1 || base <= 1) return 0;
+
+    while (n % base == 0) {
+        n /= base;
+    }
+    return n == 1;
+}
+
+double logBase(double x, double base) {
+    if (x <= 0 || base <= 0 || base == 1) return -1;
+    return log(x) / log(base);
+}
+
+int trailingZerosFactorial(int n) {
+    int count = 0;
+    for (int i = 5; i <= n; i *= 5) {
+        count += n / i;
+    }
+    return count;
+}
+
+int josephus(int n, int k) {
+    if (n == 1) return 0;
+    return (josephus(n - 1, k) + k) % n;
+}
+
+int pascalValue(int row, int col) {
+    if (col == 0 || col == row) return 1;
+    return pascalValue(row - 1, col - 1) + pascalValue(row - 1, col);
+}
+
+int sumOfSquares(int n) {
+    return n * (n + 1) * (2 * n + 1) / 6;
+}
+
+int sumOfCubes(int n) {
+    int sum = n * (n + 1) / 2;
+    return sum * sum;
+}
+
+int digitalRoot(int n) {
+    if (n == 0) return 0;
+    return 1 + (n - 1) % 9;
+}
+
+int compareDoubles(double a, double b) {
+    return fabs(a - b) < 1e-9;
+}
+
+int quadraticRoots(double a, double b, double c, double *r1, double *r2) {
+    if (a == 0) return 0;
+
+    double d = b*b - 4*a*c;
+
+    if (d < 0) return -1;
+
+    *r1 = (-b + sqrt(d)) / (2*a);
+    *r2 = (-b - sqrt(d)) / (2*a);
+
+    return (d == 0) ? 1 : 2;
+}
