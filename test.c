@@ -2115,3 +2115,47 @@ double median(double arr[], int n) {
     else
         return (arr[n / 2 - 1] + arr[n / 2]) / 2.0;
 
+}
+
+
+int square(int x) {
+    return x * x;
+}
+
+int cube(int x) {
+    return x * x * x;
+}
+
+int maxOfThree(int a, int b, int c) {
+    int max = a;
+    if (b > max) max = b;
+    if (c > max) max = c;
+    return max;
+}
+
+int minOfThree(int a, int b, int c) {
+    int min = a;
+    if (b < min) min = b;
+    if (c < min) min = c;
+    return min;
+}
+
+int isPositive(int n) {
+    return n > 0;
+}
+
+int isNegative(int n) {
+    return n < 0;
+}
+
+int absolute(int n) {
+    return (n < 0) ? -n : n;
+}
+
+int sum(int a, int b) {
+    return a + b;
+}
+
+int difference(int a, int b) {
+    return a - b;
+}
