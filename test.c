@@ -1789,3 +1789,163 @@ double harmonicSum(int n) {
     }
     return sum;
 }
+
+#include <math.h>
+
+#define EPS 1e-7
+
+double geometricSum(double a, double r, int n) {
+    if (n <= 0) return 0;
+
+    if (fabs(r - 1.0) < EPS)
+        return a * n;
+
+    return a * (1 - pow(r, n)) / (1 - r);
+}
+
+double arithmeticSum(double a, double d, int n) {
+    if (n <= 0) return 0;
+    return (n / 2.0) * (2 * a + (n - 1) * d);
+}
+
+int isHarshad(int n) {
+    if (n <= 0) return 0;
+
+    int sum = 0, temp = n;
+    while (temp > 0) {
+        sum += temp % 10;
+        temp /= 10;
+    }
+
+    return (sum != 0 && n % sum == 0);
+}
+
+int nextPrime(int n) {
+    int num = n + 1;
+
+    while (1) {
+        int prime = 1;
+        if (num <= 1) prime = 0;
+
+        for (int i = 2; i * i <= num; i++) {
+            if (num % i == 0) {
+                prime = 0;
+                break;
+            }
+        }
+
+        if (prime) return num;
+        num++;
+    }
+}
+
+int eulerTotient(int n) {
+    if (n <= 0) return 0;
+
+    int result = n;
+    for (int i = 2; i * i <= n; i++) {
+        if (n % i == 0) {
+            while (n % i == 0)
+                n /= i;
+            result -= result / i;
+        }
+    }
+
+    if (n > 1)
+        result -= result / n;
+
+    return result;
+}
+
+double exponentialApprox(double x, int terms) {
+    if (terms <= 0) return 1;
+
+    double sum = 1.0;
+    double term = 1.0;
+
+    for (int i = 1; i < terms; i++) {
+        term *= x / i;
+        sum += term;
+    }
+    return sum;
+}
+
+double sineApprox(double x, int terms) {
+    double sum = 0.0;
+    int sign = 1;
+
+    for (int i = 0; i < terms; i++) {
+        int power = 2 * i + 1;
+        double fact = 1;
+
+        for (int j = 1; j <= power; j++)
+            fact *= j;
+
+        sum += sign * pow(x, power) / fact;
+        sign *= -1;
+    }
+    return sum;
+}
+
+double cosineApprox(double x, int terms) {
+    double sum = 0.0;
+    int sign = 1;
+
+    for (int i = 0; i < terms; i++) {
+        int power = 2 * i;
+        double fact = 1;
+
+        for (int j = 1; j <= power; j++)
+            fact *= j;
+
+        sum += sign * pow(x, power) / fact;
+        sign *= -1;
+    }
+    return sum;
+}
+
+int isCoPrime(int a, int b) {
+    while (b != 0) {
+        int t = b;
+        b = a % b;
+        a = t;
+    }
+    return a == 1;
+}
+
+int sumOfProperDivisors(int n) {
+    if (n <= 1) return 0;
+
+    int sum = 1;
+    for (int i = 2; i * i <= n; i++) {
+        if (n % i == 0) {
+            if (i * i == n)
+                sum += i;
+            else
+                sum += i + (n / i);
+        }
+    }
+    return sum;
+}
+
+int isAbundant(int n) {
+    return sumOfProperDivisors(n) > n;
+}
+
+int isDeficient(int n) {
+    return sumOfProperDivisors(n) < n;
+}
+
+double logApprox(double x) {
+    if (x <= 0) return -1;
+
+    double y = (x - 1) / (x + 1);
+    double y2 = y * y;
+    double result = 0.0;
+
+    for (int i = 1; i < 20; i += 2) {
+        result += (1.0 / i) * pow(y, i);
+    }
+
+    return 2 * result;
+}
