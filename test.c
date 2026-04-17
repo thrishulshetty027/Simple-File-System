@@ -1949,3 +1949,169 @@ double logApprox(double x) {
 
     return 2 * result;
 }
+
+#include <math.h>
+
+#define EPS 1e-6
+#define MAX_ITER 1000
+
+double evaluatePolynomial(double coeffs[], int degree, double x) {
+    double result = 0.0;
+
+    for (int i = 0; i <= degree; i++) {
+        result += coeffs[i] * pow(x, i);
+    }
+    return result;
+}
+
+double derivativePolynomial(double coeffs[], int degree, double x) {
+    double result = 0.0;
+
+    for (int i = 1; i <= degree; i++) {
+        result += i * coeffs[i] * pow(x, i - 1);
+    }
+    return result;
+}
+
+double newtonRaphson(double coeffs[], int degree, double initialGuess) {
+    double x = initialGuess;
+
+    for (int i = 0; i < MAX_ITER; i++) {
+        double fx = evaluatePolynomial(coeffs, degree, x);
+        double dfx = derivativePolynomial(coeffs, degree, x);
+
+        if (fabs(dfx) < EPS)
+            break;
+
+        double x1 = x - fx / dfx;
+
+        if (fabs(x1 - x) < EPS)
+            return x1;
+
+        x = x1;
+    }
+    return x;
+}
+
+double bisection(double coeffs[], int degree, double low, double high) {
+    double mid;
+
+    for (int i = 0; i < MAX_ITER; i++) {
+        mid = (low + high) / 2;
+        double fmid = evaluatePolynomial(coeffs, degree, mid);
+
+        if (fabs(fmid) < EPS)
+            return mid;
+
+        double flow = evaluatePolynomial(coeffs, degree, low);
+
+        if (flow * fmid < 0)
+            high = mid;
+        else
+            low = mid;
+    }
+    return mid;
+}
+
+double integrateTrapezoidal(double coeffs[], int degree, double a, double b, int n) {
+    if (n <= 0) return 0;
+
+    double h = (b - a) / n;
+    double sum = 0.5 * (evaluatePolynomial(coeffs, degree, a) +
+                        evaluatePolynomial(coeffs, degree, b));
+
+    for (int i = 1; i < n; i++) {
+        double x = a + i * h;
+        sum += evaluatePolynomial(coeffs, degree, x);
+    }
+
+    return sum * h;
+}
+
+double integrateSimpson(double coeffs[], int degree, double a, double b, int n) {
+    if (n <= 0 || n % 2 != 0) return 0;
+
+    double h = (b - a) / n;
+    double sum = evaluatePolynomial(coeffs, degree, a) +
+                 evaluatePolynomial(coeffs, degree, b);
+
+    for (int i = 1; i < n; i++) {
+        double x = a + i * h;
+        if (i % 2 == 0)
+            sum += 2 * evaluatePolynomial(coeffs, degree, x);
+        else
+            sum += 4 * evaluatePolynomial(coeffs, degree, x);
+    }
+
+    return sum * h / 3;
+}
+
+double mean(double arr[], int n) {
+    if (n <= 0) return 0;
+
+    double sum = 0;
+    for (int i = 0; i < n; i++)
+        sum += arr[i];
+
+    return sum / n;
+}
+
+double standardDeviation(double arr[], int n) {
+    if (n <= 1) return 0;
+
+    double m = mean(arr, n);
+    double sum = 0;
+
+    for (int i = 0; i < n; i++) {
+        double diff = arr[i] - m;
+        sum += diff * diff;
+    }
+
+    return sqrt(sum / n);
+}
+
+int linearRecurrence(int n) {
+    if (n <= 1) return n;
+
+    int a = 0, b = 1, c;
+    for (int i = 2; i <= n; i++) {
+        c = 2 * b + a;
+        a = b;
+        b = c;
+    }
+    return b;
+}
+
+int isGeometricProgression(int arr[], int n) {
+    if (n < 2) return 1;
+    if (arr[0] == 0) return 0;
+
+    double ratio = (double)arr[1] / arr[0];
+
+    for (int i = 2; i < n; i++) {
+        if (fabs((double)arr[i] / arr[i - 1] - ratio) > EPS)
+            return 0;
+    }
+    return 1;
+}
+
+int isArithmeticProgression(int arr[], int n) {
+    if (n < 2) return 1;
+
+    int diff = arr[1] - arr[0];
+
+    for (int i = 2; i < n; i++) {
+        if (arr[i] - arr[i - 1] != diff)
+            return 0;
+    }
+    return 1;
+}
+
+double median(double arr[], int n) {
+    if (n <= 0) return 0;
+
+    if (n % 2 == 1)
+        return arr[n / 2];
+    else
+        return (arr[n / 2 - 1] + arr[n / 2]) / 2.0;
+
