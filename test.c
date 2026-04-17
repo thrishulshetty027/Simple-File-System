@@ -2159,3 +2159,79 @@ int sum(int a, int b) {
 int difference(int a, int b) {
     return a - b;
 }
+
+int sumArray(int arr[], int size) {
+    int sum = 0;
+    for (int i = 0; i < size; i++) {
+        sum += arr[i];
+    }
+    return sum;
+}
+
+int maxArray(int arr[], int size) {
+    if (size <= 0) return -1;
+
+    int max = arr[0];
+    for (int i = 1; i < size; i++) {
+        if (arr[i] > max)
+            max = arr[i];
+    }
+    return max;
+}
+
+int minArray(int arr[], int size) {
+    if (size <= 0) return -1;
+
+    int min = arr[0];
+    for (int i = 1; i < size; i++) {
+        if (arr[i] < min)
+            min = arr[i];
+    }
+    return min;
+}
+
+double averageArray(int arr[], int size) {
+    if (size <= 0) return 0;
+
+    int sum = sumArray(arr, size);
+    return (double)sum / size;
+}
+
+int countEven(int arr[], int size) {
+    int count = 0;
+    for (int i = 0; i < size; i++) {
+        if (arr[i] % 2 == 0)
+            count++;
+    }
+    return count;
+}
+
+int countOdd(int arr[], int size) {
+    int count = 0;
+    for (int i = 0; i < size; i++) {
+        if (arr[i] % 2 != 0)
+            count++;
+    }
+    return count;
+}
+
+void reverseArray(int arr[], int size) {
+    int left = 0, right = size - 1;
+
+    while (left < right) {
+        int temp = arr[left];
+        arr[left] = arr[right];
+        arr[right] = temp;
+
+        left++;
+        right--;
+    }
+}
+
+int isSorted(int arr[], int size) {
+    for (int i = 1; i < size; i++) {
+        if (arr[i] < arr[i - 1])
+            return 0;
+    }
+    return 1;
+}
