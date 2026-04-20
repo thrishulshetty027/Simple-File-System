@@ -2670,3 +2670,62 @@ int countInRange(int arr[], int size, int low, int high) {
     }
     return count;
 }
+
+int sumMatrix(int mat[][10], int rows, int cols) {
+    int sum = 0;
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            sum += mat[i][j];
+        }
+    }
+    return sum;
+}
+
+void transposeMatrix(int mat[][10], int result[][10], int rows, int cols) {
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            result[j][i] = mat[i][j];
+        }
+    }
+}
+
+int isIdentityMatrix(int mat[][10], int size) {
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            if (i == j && mat[i][j] != 1)
+                return 0;
+            if (i != j && mat[i][j] != 0)
+                return 0;
+        }
+    }
+    return 1;
+}
+
+int diagonalSum(int mat[][10], int size) {
+    int sum = 0;
+    for (int i = 0; i < size; i++) {
+        sum += mat[i][i];
+    }
+    return sum;
+}
+
+int findMaxInMatrix(int mat[][10], int rows, int cols) {
+    if (rows <= 0 || cols <= 0) return -1;
+
+    int max = mat[0][0];
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            if (mat[i][j] > max)
+                max = mat[i][j];
+        }
+    }
+    return max;
+}
+
+void addMatrices(int a[][10], int b[][10], int result[][10], int rows, int cols) {
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            result[i][j] = a[i][j] + b[i][j];
+        }
+    }
+}
