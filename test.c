@@ -2375,3 +2375,79 @@ int findLastPositive(int arr[], int size) {
     }
     return -1;
 }
+
+
+
+void prefixSum(int arr[], int result[], int size) {
+    if (size <= 0) return;
+
+    result[0] = arr[0];
+    for (int i = 1; i < size; i++) {
+        result[i] = result[i - 1] + arr[i];
+    }
+}
+
+void suffixSum(int arr[], int result[], int size) {
+    if (size <= 0) return;
+
+    result[size - 1] = arr[size - 1];
+    for (int i = size - 2; i >= 0; i--) {
+        result[i] = result[i + 1] + arr[i];
+    }
+}
+
+int maxDifference(int arr[], int size) {
+    if (size < 2) return 0;
+
+    int minVal = arr[0];
+    int maxDiff = arr[1] - arr[0];
+
+    for (int i = 1; i < size; i++) {
+        if (arr[i] - minVal > maxDiff)
+            maxDiff = arr[i] - minVal;
+
+        if (arr[i] < minVal)
+            minVal = arr[i];
+    }
+    return maxDiff;
+}
+
+int hasDuplicates(int arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        for (int j = i + 1; j < size; j++) {
+            if (arr[i] == arr[j])
+                return 1;
+        }
+    }
+    return 0;
+}
+
+int firstUnique(int arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        int unique = 1;
+        for (int j = 0; j < size; j++) {
+            if (i != j && arr[i] == arr[j]) {
+                unique = 0;
+                break;
+            }
+        }
+        if (unique) return i;
+    }
+    return -1;
+}
+
+void swapAdjacent(int arr[], int size) {
+    for (int i = 0; i < size - 1; i += 2) {
+        int temp = arr[i];
+        arr[i] = arr[i + 1];
+        arr[i + 1] = temp;
+    }
+}
+
+int sumAlternate(int arr[], int size) {
+    int sum = 0;
+    for (int i = 0; i < size; i += 2) {
+        sum += arr[i];
+    }
+    return sum;
+}
