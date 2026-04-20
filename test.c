@@ -2451,3 +2451,67 @@ int sumAlternate(int arr[], int size) {
     }
     return sum;
 }
+
+
+int insertAt(int arr[], int size, int capacity, int index, int value) {
+    if (size >= capacity || index < 0 || index > size)
+        return size;
+
+    for (int i = size; i > index; i--) {
+        arr[i] = arr[i - 1];
+    }
+
+    arr[index] = value;
+    return size + 1;
+}
+
+int deleteAt(int arr[], int size, int index) {
+    if (size <= 0 || index < 0 || index >= size)
+        return size;
+
+    for (int i = index; i < size - 1; i++) {
+        arr[i] = arr[i + 1];
+    }
+
+    return size - 1;
+}
+
+void shiftLeft(int arr[], int size) {
+    if (size <= 1) return;
+
+    for (int i = 0; i < size - 1; i++) {
+        arr[i] = arr[i + 1];
+    }
+    arr[size - 1] = 0;
+}
+
+void shiftRight(int arr[], int size) {
+    if (size <= 1) return;
+
+    for (int i = size - 1; i > 0; i--) {
+        arr[i] = arr[i - 1];
+    }
+    arr[0] = 0;
+}
+
+int findMaxIndex(int arr[], int size) {
+    if (size <= 0) return -1;
+
+    int maxIdx = 0;
+    for (int i = 1; i < size; i++) {
+        if (arr[i] > arr[maxIdx])
+            maxIdx = i;
+    }
+    return maxIdx;
+}
+
+int findMinIndex(int arr[], int size) {
+    if (size <= 0) return -1;
+
+    int minIdx = 0;
+    for (int i = 1; i < size; i++) {
+        if (arr[i] < arr[minIdx])
+            minIdx = i;
+    }
+    return minIdx;
+}
