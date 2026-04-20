@@ -2597,3 +2597,76 @@ void reverseSegment(int arr[], int start, int end) {
         end--;
     }
 }
+
+void bubbleSort(int arr[], int size) {
+    if (size <= 1) return;
+
+    for (int i = 0; i < size - 1; i++) {
+        for (int j = 0; j < size - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
+
+int isSortedAscending(int arr[], int size) {
+    for (int i = 1; i < size; i++) {
+        if (arr[i] < arr[i - 1])
+            return 0;
+    }
+    return 1;
+}
+
+int isSortedDescending(int arr[], int size) {
+    for (int i = 1; i < size; i++) {
+        if (arr[i] > arr[i - 1])
+            return 0;
+    }
+    return 1;
+}
+
+int partition(int arr[], int low, int high) {
+    if (low < 0 || high < 0 || low >= high)
+        return -1;
+
+    int pivot = arr[high];
+    int i = low - 1;
+
+    for (int j = low; j < high; j++) {
+        if (arr[j] <= pivot) {
+            i++;
+            int temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+        }
+    }
+
+    int temp = arr[i + 1];
+    arr[i + 1] = arr[high];
+    arr[high] = temp;
+
+    return i + 1;
+}
+
+void quickSort(int arr[], int low, int high) {
+    if (low < high) {
+        int pi = partition(arr, low, high);
+
+        if (pi != -1) {
+            quickSort(arr, low, pi - 1);
+            quickSort(arr, pi + 1, high);
+        }
+    }
+}
+
+int countInRange(int arr[], int size, int low, int high) {
+    int count = 0;
+    for (int i = 0; i < size; i++) {
+        if (arr[i] >= low && arr[i] <= high)
+            count++;
+    }
+    return count;
+}
