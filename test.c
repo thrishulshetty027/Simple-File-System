@@ -2309,3 +2309,69 @@ void rotateRight(int arr[], int size) {
     }
     arr[0] = last;
 }
+
+
+int countGreaterThan(int arr[], int size, int value) {
+    int count = 0;
+    for (int i = 0; i < size; i++) {
+        if (arr[i] > value)
+            count++;
+    }
+    return count;
+}
+
+int countLessThan(int arr[], int size, int value) {
+    int count = 0;
+    for (int i = 0; i < size; i++) {
+        if (arr[i] < value)
+            count++;
+    }
+    return count;
+}
+
+void replaceValue(int arr[], int size, int oldVal, int newVal) {
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == oldVal)
+            arr[i] = newVal;
+    }
+}
+
+int sumPositive(int arr[], int size) {
+    int sum = 0;
+    for (int i = 0; i < size; i++) {
+        if (arr[i] > 0)
+            sum += arr[i];
+    }
+    return sum;
+}
+
+int sumNegative(int arr[], int size) {
+    int sum = 0;
+    for (int i = 0; i < size; i++) {
+        if (arr[i] < 0)
+            sum += arr[i];
+    }
+    return sum;
+}
+
+void multiplyArray(int arr[], int size, int factor) {
+    for (int i = 0; i < size; i++) {
+        arr[i] *= factor;
+    }
+}
+
+int findFirstNegative(int arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        if (arr[i] < 0)
+            return i;
+    }
+    return -1;
+}
+
+int findLastPositive(int arr[], int size) {
+    for (int i = size - 1; i >= 0; i--) {
+        if (arr[i] > 0)
+            return i;
+    }
+    return -1;
+}
