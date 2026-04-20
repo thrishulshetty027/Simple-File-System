@@ -2781,3 +2781,87 @@ int findFirstSetBit(int num) {
     }
     return pos;
 }
+
+
+int stringLength(const char *str) {
+    int len = 0;
+    while (str[len] != '\0') {
+        len++;
+    }
+    return len;
+}
+
+int isDigitString(const char *str) {
+    if (str[0] == '\0') return 0;
+
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (str[i] < '0' || str[i] > '9')
+            return 0;
+    }
+    return 1;
+}
+
+int stringToInt(const char *str) {
+    int result = 0;
+    int sign = 1;
+    int i = 0;
+
+    if (str[0] == '-') {
+        sign = -1;
+        i++;
+    }
+
+    for (; str[i] != '\0'; i++) {
+        if (str[i] < '0' || str[i] > '9')
+            break;
+        result = result * 10 + (str[i] - '0');
+    }
+
+    return sign * result;
+}
+
+void toUpperCase(char *str) {
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (str[i] >= 'a' && str[i] <= 'z') {
+            str[i] = str[i] - ('a' - 'A');
+        }
+    }
+}
+
+int countWords(const char *str) {
+    int count = 0;
+    int inWord = 0;
+
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (str[i] != ' ' && inWord == 0) {
+            inWord = 1;
+            count++;
+        } else if (str[i] == ' ') {
+            inWord = 0;
+        }
+    }
+    return count;
+}
+
+int compareStrings(const char *a, const char *b) {
+    int i = 0;
+    while (a[i] != '\0' && b[i] != '\0') {
+        if (a[i] != b[i])
+            return a[i] - b[i];
+        i++;
+    }
+    return a[i] - b[i];
+}
+
+void reverseString(char *str) {
+    int len = stringLength(str);
+    int start = 0, end = len - 1;
+
+    while (start < end) {
+        char temp = str[start];
+        str[start] = str[end];
+        str[end] = temp;
+        start++;
+        end--;
+    }
+}
