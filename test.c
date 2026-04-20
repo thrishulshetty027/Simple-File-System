@@ -2515,3 +2515,85 @@ int findMinIndex(int arr[], int size) {
     }
     return minIdx;
 }
+
+int removeDuplicates(int arr[], int size) {
+    if (size <= 1) return size;
+
+    int j = 0;
+    for (int i = 1; i < size; i++) {
+        int duplicate = 0;
+        for (int k = 0; k <= j; k++) {
+            if (arr[i] == arr[k]) {
+                duplicate = 1;
+                break;
+            }
+        }
+        if (!duplicate) {
+            j++;
+            arr[j] = arr[i];
+        }
+    }
+    return j + 1;
+}
+
+int mergeArrays(int a[], int sizeA, int b[], int sizeB, int result[]) {
+    int i = 0, j = 0, k = 0;
+
+    while (i < sizeA && j < sizeB) {
+        if (a[i] < b[j])
+            result[k++] = a[i++];
+        else
+            result[k++] = b[j++];
+    }
+
+    while (i < sizeA)
+        result[k++] = a[i++];
+
+    while (j < sizeB)
+        result[k++] = b[j++];
+
+    return k;
+}
+
+int frequencyOfElement(int arr[], int size, int target) {
+    int count = 0;
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == target)
+            count++;
+    }
+    return count;
+}
+
+int mostFrequentElement(int arr[], int size) {
+    if (size <= 0) return -1;
+
+    int maxCount = 0;
+    int element = arr[0];
+
+    for (int i = 0; i < size; i++) {
+        int count = 1;
+        for (int j = i + 1; j < size; j++) {
+            if (arr[i] == arr[j])
+                count++;
+        }
+
+        if (count > maxCount) {
+            maxCount = count;
+            element = arr[i];
+        }
+    }
+    return element;
+}
+
+void reverseSegment(int arr[], int start, int end) {
+    if (start < 0 || end < 0 || start >= end)
+        return;
+
+    while (start < end) {
+        int temp = arr[start];
+        arr[start] = arr[end];
+        arr[end] = temp;
+        start++;
+        end--;
+    }
+}
