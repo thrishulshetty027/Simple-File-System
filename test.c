@@ -2729,3 +2729,55 @@ void addMatrices(int a[][10], int b[][10], int result[][10], int rows, int cols)
         }
     }
 }
+
+
+int setBit(int num, int pos) {
+    return num | (1 << pos);
+}
+
+int clearBit(int num, int pos) {
+    return num & ~(1 << pos);
+}
+
+int toggleBit(int num, int pos) {
+    return num ^ (1 << pos);
+}
+
+int checkBit(int num, int pos) {
+    return (num >> pos) & 1;
+}
+
+int countSetBits(int num) {
+    int count = 0;
+    while (num) {
+        count += num & 1;
+        num >>= 1;
+    }
+    return count;
+}
+
+int isPowerOfTwo(int num) {
+    if (num <= 0) return 0;
+    return (num & (num - 1)) == 0;
+}
+
+int reverseBits(int num) {
+    int result = 0;
+    for (int i = 0; i < 32; i++) {
+        result <<= 1;
+        result |= (num & 1);
+        num >>= 1;
+    }
+    return result;
+}
+
+int findFirstSetBit(int num) {
+    if (num == 0) return -1;
+
+    int pos = 0;
+    while ((num & 1) == 0) {
+        num >>= 1;
+        pos++;
+    }
+    return pos;
+}
