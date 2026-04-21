@@ -3087,3 +3087,81 @@ void clearQueue(struct Queue *q) {
     q->rear = -1;
     q->size = 0;
 }
+
+#include <stdlib.h>
+
+char** createStringArray(int size) {
+    if (size <= 0) return NULL;
+
+    char** arr = (char**)malloc(sizeof(char*) * size);
+    if (arr == NULL) return NULL;
+
+    for (int i = 0; i < size; i++) {
+        arr[i] = NULL;
+    }
+    return arr;
+}
+
+int setString(char** arr, int index, const char* str) {
+    if (arr == NULL || str == NULL || index < 0)
+        return 0;
+
+    int len = 0;
+    while (str[len] != '\0') len++;
+
+    arr[index] = (char*)malloc(len + 1);
+    if (arr[index] == NULL)
+        return 0;
+
+    for (int i = 0; i < len; i++) {
+        arr[index][i] = str[i];
+    }
+    arr[index][len] = '\0';
+
+    return 1;
+}
+
+int getStringLength(char** arr, int index) {
+    if (arr == NULL || arr[index] == NULL)
+        return -1;
+
+    int len = 0;
+    while (arr[index][len] != '\0') len++;
+
+    return len;
+}
+
+int compareStringAt(char** arr, int i, int j) {
+    if (arr == NULL || arr[i] == NULL || arr[j] == NULL)
+        return -2;
+
+    int k = 0;
+    while (arr[i][k] != '\0' && arr[j][k] != '\0') {
+        if (arr[i][k] != arr[j][k])
+            return arr[i][k] - arr[j][k];
+        k++;
+    }
+    return arr[i][k] - arr[j][k];
+}
+
+void freeStringArray(char** arr, int size) {
+    if (arr == NULL) return;
+
+    for (int i = 0; i < size; i++) {
+        if (arr[i] != NULL) {
+            free(arr[i]);
+        }
+    }
+    free(arr);
+}
+
+int countNonEmpty(char** arr, int size) {
+    if (arr == NULL) return 0;
+
+    int count = 0;
+    for (int i = 0; i < size; i++) {
+        if (arr[i] != NULL && arr[i][0] != '\0')
+            count++;
+    }
+    return count;
+}
