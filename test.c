@@ -2919,3 +2919,103 @@ int stackSize(struct Stack *s) {
 void clearStack(struct Stack *s) {
     s->top = -1;
 }
+
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node *next;
+};
+
+struct Node* createNode(int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    if (newNode == NULL)
+        return NULL;
+
+    newNode->data = value;
+    newNode->next = NULL;
+    return newNode;
+}
+
+struct Node* insertAtHead(struct Node* head, int value) {
+    struct Node* newNode = createNode(value);
+    if (newNode == NULL)
+        return head;
+
+    newNode->next = head;
+    return newNode;
+}
+
+struct Node* insertAtTail(struct Node* head, int value) {
+    struct Node* newNode = createNode(value);
+    if (newNode == NULL)
+        return head;
+
+    if (head == NULL)
+        return newNode;
+
+    struct Node* temp = head;
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+    temp->next = newNode;
+    return head;
+}
+
+struct Node* deleteValue(struct Node* head, int value) {
+    if (head == NULL)
+        return NULL;
+
+    struct Node* temp = head;
+    struct Node* prev = NULL;
+
+    while (temp != NULL) {
+        if (temp->data == value) {
+            if (prev == NULL) {
+                struct Node* newHead = temp->next;
+                free(temp);
+                return newHead;
+            } else {
+                prev->next = temp->next;
+                free(temp);
+                return head;
+            }
+        }
+        prev = temp;
+        temp = temp->next;
+    }
+    return head;
+}
+
+int searchList(struct Node* head, int value) {
+    int index = 0;
+    struct Node* temp = head;
+
+    while (temp != NULL) {
+        if (temp->data == value)
+            return index;
+        temp = temp->next;
+        index++;
+    }
+    return -1;
+}
+
+int listLength(struct Node* head) {
+    int count = 0;
+    struct Node* temp = head;
+
+    while (temp != NULL) {
+        count++;
+        temp = temp->next;
+    }
+    return count;
+}
+
+void freeList(struct Node* head) {
+    struct Node* temp;
+    while (head != NULL) {
+        temp = head;
+        head = head->next;
+        free(temp);
+    }
+}
