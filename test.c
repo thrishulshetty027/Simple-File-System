@@ -2865,3 +2865,57 @@ void reverseString(char *str) {
         end--;
     }
 }
+
+
+
+
+#define MAX 100
+
+struct Stack {
+    int data[MAX];
+    int top;
+};
+
+void initStack(struct Stack *s) {
+    s->top = -1;
+}
+
+int isEmpty(struct Stack *s) {
+    return s->top == -1;
+}
+
+int isFull(struct Stack *s) {
+    return s->top == MAX - 1;
+}
+
+int push(struct Stack *s, int value) {
+    if (isFull(s))
+        return 0;
+
+    s->data[++(s->top)] = value;
+    return 1;
+}
+
+int pop(struct Stack *s, int *value) {
+    if (isEmpty(s))
+        return 0;
+
+    *value = s->data[(s->top)--];
+    return 1;
+}
+
+int peek(struct Stack *s, int *value) {
+    if (isEmpty(s))
+        return 0;
+
+    *value = s->data[s->top];
+    return 1;
+}
+
+int stackSize(struct Stack *s) {
+    return s->top + 1;
+}
+
+void clearStack(struct Stack *s) {
+    s->top = -1;
+}
