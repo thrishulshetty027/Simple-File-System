@@ -3019,3 +3019,71 @@ void freeList(struct Node* head) {
         free(temp);
     }
 }
+
+
+struct Queue {
+    int data[MAX];
+    int front;
+    int rear;
+    int size;
+};
+
+void initQueue(struct Queue *q) {
+    q->front = 0;
+    q->rear = -1;
+    q->size = 0;
+}
+
+int isQueueEmpty(struct Queue *q) {
+    return q->size == 0;
+}
+
+int isQueueFull(struct Queue *q) {
+    return q->size == MAX;
+}
+
+int enqueue(struct Queue *q, int value) {
+    if (isQueueFull(q))
+        return 0;
+
+    q->rear = (q->rear + 1) % MAX;
+    q->data[q->rear] = value;
+    q->size++;
+    return 1;
+}
+
+int dequeue(struct Queue *q, int *value) {
+    if (isQueueEmpty(q))
+        return 0;
+
+    *value = q->data[q->front];
+    q->front = (q->front + 1) % MAX;
+    q->size--;
+    return 1;
+}
+
+int peekFront(struct Queue *q, int *value) {
+    if (isQueueEmpty(q))
+        return 0;
+
+    *value = q->data[q->front];
+    return 1;
+}
+
+int peekRear(struct Queue *q, int *value) {
+    if (isQueueEmpty(q))
+        return 0;
+
+    *value = q->data[q->rear];
+    return 1;
+}
+
+int queueSize(struct Queue *q) {
+    return q->size;
+}
+
+void clearQueue(struct Queue *q) {
+    q->front = 0;
+    q->rear = -1;
+    q->size = 0;
+}
