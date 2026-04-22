@@ -3247,3 +3247,43 @@ void freeTree(struct TreeNode* root) {
     freeTree(root->right);
     free(root);
 }
+
+int add(int a, int b) {
+    return a + b;
+}
+
+int subtract(int a, int b) {
+    return a - b;
+}
+
+int multiply(int a, int b) {
+    return a * b;
+}
+
+int divide(int a, int b) {
+    if (b == 0)
+        return 0;  // simple error handling
+    return a / b;
+}
+
+int maxOfThree(int a, int b, int c) {
+    int max = a;
+
+    if (b > max)
+        max = b;
+
+    if (c > max)
+        max = c;
+
+    return max;
+}
+
+int isEven(int num) {
+    return (num % 2 == 0);
+}
+
+int absoluteValue(int num) {
+    if (num < 0)
+        return -num;
+    return num;
+}
