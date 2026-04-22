@@ -3466,3 +3466,67 @@ int replaceIfOutOfRange(int arr[], int size, int lower, int upper, int replaceVa
 
     return changes;
 }
+
+int prefixSum(int arr[], int size, int index) {
+    if (size <= 0 || index < 0 || index >= size)
+        return 0;
+
+    int sum = 0;
+    for (int i = 0; i <= index; i++) {
+        sum += arr[i];
+    }
+    return sum;
+}
+
+int suffixSum(int arr[], int size, int index) {
+    if (size <= 0 || index < 0 || index >= size)
+        return 0;
+
+    int sum = 0;
+    for (int i = index; i < size; i++) {
+        sum += arr[i];
+    }
+    return sum;
+}
+
+int prefixMax(int arr[], int size, int index) {
+    if (size <= 0 || index < 0 || index >= size)
+        return -1;
+
+    int max = arr[0];
+    for (int i = 1; i <= index; i++) {
+        if (arr[i] > max)
+            max = arr[i];
+    }
+    return max;
+}
+
+int suffixMin(int arr[], int size, int index) {
+    if (size <= 0 || index < 0 || index >= size)
+        return -1;
+
+    int min = arr[index];
+    for (int i = index + 1; i < size; i++) {
+        if (arr[i] < min)
+            min = arr[i];
+    }
+    return min;
+}
+
+int countGreaterThanPrefixAvg(int arr[], int size) {
+    if (size <= 0)
+        return 0;
+
+    int count = 0;
+    int sum = 0;
+
+    for (int i = 0; i < size; i++) {
+        sum += arr[i];
+        int avg = sum / (i + 1);
+
+        if (arr[i] > avg)
+            count++;
+    }
+
+    return count;
+}
