@@ -3165,3 +3165,85 @@ int countNonEmpty(char** arr, int size) {
     }
     return count;
 }
+
+#include <stdlib.h>
+
+struct TreeNode {
+    int data;
+    struct TreeNode *left;
+    struct TreeNode *right;
+};
+
+struct TreeNode* createNode(int value) {
+    struct TreeNode* node = (struct TreeNode*)malloc(sizeof(struct TreeNode));
+    if (node == NULL) return NULL;
+
+    node->data = value;
+    node->left = NULL;
+    node->right = NULL;
+    return node;
+}
+
+struct TreeNode* insertNode(struct TreeNode* root, int value) {
+    if (root == NULL)
+        return createNode(value);
+
+    if (value < root->data)
+        root->left = insertNode(root->left, value);
+    else
+        root->right = insertNode(root->right, value);
+
+    return root;
+}
+
+int searchNode(struct TreeNode* root, int value) {
+    if (root == NULL) return 0;
+
+    if (root->data == value)
+        return 1;
+    else if (value < root->data)
+        return searchNode(root->left, value);
+    else
+        return searchNode(root->right, value);
+}
+
+int findMin(struct TreeNode* root) {
+    if (root == NULL) return -1;
+
+    while (root->left != NULL)
+        root = root->left;
+
+    return root->data;
+}
+
+int findMax(struct TreeNode* root) {
+    if (root == NULL) return -1;
+
+    while (root->right != NULL)
+        root = root->right;
+
+    return root->data;
+}
+
+int treeHeight(struct TreeNode* root) {
+    if (root == NULL) return -1;
+
+    int leftHeight = treeHeight(root->left);
+    int rightHeight = treeHeight(root->right);
+
+    return (leftHeight > rightHeight ? leftHeight : rightHeight) + 1;
+}
+
+int countNodes(struct TreeNode* root) {
+    if (root == NULL) return 0;
+
+    return 1 + countNodes(root->left) + countNodes(root->right);
+}
+
+void freeTree(struct TreeNode* root) {
+    if (root == NULL) return;
+
+    freeTree(root->left);
+    freeTree(root->right);
+    free(root);
+}
