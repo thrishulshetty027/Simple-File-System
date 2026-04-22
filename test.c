@@ -3339,3 +3339,72 @@ int averageArray(int arr[], int size) {
     int sum = sumArray(arr, size);
     return sum / size;
 }
+
+int isPrime(int num) {
+    if (num <= 1)
+        return 0;
+
+    for (int i = 2; i * i <= num; i++) {
+        if (num % i == 0)
+            return 0;
+    }
+    return 1;
+}
+
+int factorial(int n) {
+    if (n < 0)
+        return -1;
+
+    int result = 1;
+    for (int i = 1; i <= n; i++) {
+        result *= i;
+    }
+    return result;
+}
+
+int gcd(int a, int b) {
+    if (a < 0) a = -a;
+    if (b < 0) b = -b;
+
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+
+int lcm(int a, int b) {
+    if (a == 0 || b == 0)
+        return 0;
+
+    int gcd_val = gcd(a, b);
+    return (a / gcd_val) * b;
+}
+
+int sumOfDigits(int num) {
+    if (num < 0)
+        num = -num;
+
+    int sum = 0;
+    while (num > 0) {
+        sum += num % 10;
+        num /= 10;
+    }
+    return sum;
+}
+
+int reverseNumber(int num) {
+    int reversed = 0;
+    int sign = (num < 0) ? -1 : 1;
+
+    if (num < 0)
+        num = -num;
+
+    while (num > 0) {
+        reversed = reversed * 10 + (num % 10);
+        num /= 10;
+    }
+
+    return reversed * sign;
+}
