@@ -3408,3 +3408,61 @@ int reverseNumber(int num) {
 
     return reversed * sign;
 }
+
+int isInRange(int value, int lower, int upper) {
+    if (value >= lower && value <= upper)
+        return 1;
+    return 0;
+}
+
+int clampValue(int value, int min, int max) {
+    if (value < min)
+        return min;
+    if (value > max)
+        return max;
+    return value;
+}
+
+int countInRange(int arr[], int size, int lower, int upper) {
+    int count = 0;
+
+    for (int i = 0; i < size; i++) {
+        if (arr[i] >= lower && arr[i] <= upper)
+            count++;
+    }
+
+    return count;
+}
+
+int sumInRange(int arr[], int size, int lower, int upper) {
+    int sum = 0;
+
+    for (int i = 0; i < size; i++) {
+        if (arr[i] >= lower && arr[i] <= upper)
+            sum += arr[i];
+    }
+
+    return sum;
+}
+
+int findFirstInRange(int arr[], int size, int lower, int upper) {
+    for (int i = 0; i < size; i++) {
+        if (arr[i] >= lower && arr[i] <= upper)
+            return i;
+    }
+
+    return -1;
+}
+
+int replaceIfOutOfRange(int arr[], int size, int lower, int upper, int replaceVal) {
+    int changes = 0;
+
+    for (int i = 0; i < size; i++) {
+        if (arr[i] < lower || arr[i] > upper) {
+            arr[i] = replaceVal;
+            changes++;
+        }
+    }
+
+    return changes;
+}
