@@ -3530,3 +3530,90 @@ int countGreaterThanPrefixAvg(int arr[], int size) {
 
     return count;
 }
+
+int maxWindowSum(int arr[], int size, int k) {
+    if (size <= 0 || k <= 0 || k > size)
+        return 0;
+
+    int windowSum = 0;
+
+    for (int i = 0; i < k; i++) {
+        windowSum += arr[i];
+    }
+
+    int maxSum = windowSum;
+
+    for (int i = k; i < size; i++) {
+        windowSum += arr[i] - arr[i - k];
+        if (windowSum > maxSum)
+            maxSum = windowSum;
+    }
+
+    return maxSum;
+}
+
+int minWindowSum(int arr[], int size, int k) {
+    if (size <= 0 || k <= 0 || k > size)
+        return 0;
+
+    int windowSum = 0;
+
+    for (int i = 0; i < k; i++) {
+        windowSum += arr[i];
+    }
+
+    int minSum = windowSum;
+
+    for (int i = k; i < size; i++) {
+        windowSum += arr[i] - arr[i - k];
+        if (windowSum < minSum)
+            minSum = windowSum;
+    }
+
+    return minSum;
+}
+
+int countWindowsAboveThreshold(int arr[], int size, int k, int threshold) {
+    if (size <= 0 || k <= 0 || k > size)
+        return 0;
+
+    int count = 0;
+    int windowSum = 0;
+
+    for (int i = 0; i < k; i++) {
+        windowSum += arr[i];
+    }
+
+    if (windowSum > threshold)
+        count++;
+
+    for (int i = k; i < size; i++) {
+        windowSum += arr[i] - arr[i - k];
+        if (windowSum > threshold)
+            count++;
+    }
+
+    return count;
+}
+
+int firstWindowEqualSum(int arr[], int size, int k, int target) {
+    if (size <= 0 || k <= 0 || k > size)
+        return -1;
+
+    int windowSum = 0;
+
+    for (int i = 0; i < k; i++) {
+        windowSum += arr[i];
+    }
+
+    if (windowSum == target)
+        return 0;
+
+    for (int i = k; i < size; i++) {
+        windowSum += arr[i] - arr[i - k];
+        if (windowSum == target)
+            return i - k + 1;
+    }
+
+    return -1;
+}
