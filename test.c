@@ -3999,3 +3999,98 @@ void transposeMatrix(int mat[][10], int size) {
     }
 }
 
+#define MAX_SIZE 100
+
+/* Global state (useful for testing state reset in Cantata) */
+static int lastResult = 0;
+
+int getLastResult(void) {
+    return lastResult;
+}
+
+void resetLastResult(void) {
+    lastResult = 0;
+}
+
+/* Compute weighted sum of array */
+int weightedSum(int arr[], int weights[], int size) {
+    if (size <= 0)
+        return 0;
+
+    int sum = 0;
+    for (int i = 0; i < size; i++) {
+        sum += arr[i] * weights[i];
+    }
+
+    lastResult = sum;
+    return sum;
+}
+
+/* Normalize array values between 0 and 1 (integer scaled: 0–100) */
+void normalize(int arr[], int size) {
+    if (size <= 0)
+        return;
+
+    int min = arr[0];
+    int max = arr[0];
+
+    for (int i = 1; i < size; i++) {
+        if (arr[i] < min) min = arr[i];
+        if (arr[i] > max) max = arr[i];
+    }
+
+    if (max == min)
+        return;
+
+    for (int i = 0; i < size; i++) {
+        arr[i] = ((arr[i] - min) * 100) / (max - min);
+    }
+}
+
+/* Find equilibrium index (left sum == right sum) */
+int equilibriumIndex(int arr[], int size) {
+    if (size <= 0)
+        return -1;
+
+    int total = 0;
+    for (int i = 0; i < size; i++) {
+        total += arr[i];
+    }
+
+    int leftSum = 0;
+    for (int i = 0; i < size; i++) {
+        int rightSum = total - leftSum - arr[i];
+
+        if (leftSum == rightSum)
+            return i;
+
+        leftSum += arr[i];
+    }
+
+    return -1;
+}
+
+/* Clip values above threshold */
+int clipAbove(int arr[], int size, int threshold) {
+    int changes = 0;
+
+    for (int i = 0; i < size; i++) {
+        if (arr[i] > threshold) {
+            arr[i] = threshold;
+            changes++;
+        }
+    }
+
+    lastResult = changes;
+    return changes;
+}
+
+/* Check if array is strictly increasing */
+int isStrictlyIncreasing(int arr[], int size) {
+    for (int i = 1; i < size; i++) {
+        if (arr[i] <= arr[i - 1])
+            return 0;
+    }
+    return 1;
+}
+
