@@ -3783,3 +3783,73 @@ int countGreaterPairs(int arr[], int size) {
     }
     return count;
 }
+
+void reverseSegment(int arr[], int start, int end) {
+    while (start < end) {
+        int temp = arr[start];
+        arr[start] = arr[end];
+        arr[end] = temp;
+        start++;
+        end--;
+    }
+}
+
+void rotateLeft(int arr[], int size, int k) {
+    if (size <= 0) return;
+
+    k = k % size;
+    if (k < 0) k += size;
+
+    reverseSegment(arr, 0, k - 1);
+    reverseSegment(arr, k, size - 1);
+    reverseSegment(arr, 0, size - 1);
+}
+
+void rotateRight(int arr[], int size, int k) {
+    if (size <= 0) return;
+
+    k = k % size;
+    if (k < 0) k += size;
+
+    reverseSegment(arr, 0, size - 1);
+    reverseSegment(arr, 0, k - 1);
+    reverseSegment(arr, k, size - 1);
+}
+
+int isRotatedSorted(int arr[], int size) {
+    if (size <= 1) return 1;
+
+    int count = 0;
+    for (int i = 0; i < size; i++) {
+        if (arr[i] > arr[(i + 1) % size])
+            count++;
+    }
+    return (count <= 1);
+}
+
+void moveZerosToEnd(int arr[], int size) {
+    int pos = 0;
+
+    for (int i = 0; i < size; i++) {
+        if (arr[i] != 0) {
+            int temp = arr[pos];
+            arr[pos] = arr[i];
+            arr[i] = temp;
+            pos++;
+        }
+    }
+}
+
+int countRotations(int arr[], int size) {
+    if (size <= 0) return 0;
+
+    int minIndex = 0;
+
+    for (int i = 1; i < size; i++) {
+        if (arr[i] < arr[minIndex])
+            minIndex = i;
+    }
+
+    return minIndex;
+}
+
