@@ -3724,3 +3724,62 @@ int mostFrequentElement(int arr[], int size) {
 
     return result;
 }
+
+int findPairWithSum(int arr[], int size, int target, int *out_i, int *out_j) {
+    if (size <= 1) return 0;
+
+    for (int i = 0; i < size; i++) {
+        for (int j = i + 1; j < size; j++) {
+            if (arr[i] + arr[j] == target) {
+                if (out_i) *out_i = i;
+                if (out_j) *out_j = j;
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
+int countPairsWithSum(int arr[], int size, int target) {
+    int count = 0;
+
+    for (int i = 0; i < size; i++) {
+        for (int j = i + 1; j < size; j++) {
+            if (arr[i] + arr[j] == target)
+                count++;
+        }
+    }
+    return count;
+}
+
+int hasDuplicate(int arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        for (int j = i + 1; j < size; j++) {
+            if (arr[i] == arr[j])
+                return 1;
+        }
+    }
+    return 0;
+}
+
+int findFirstDuplicate(int arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        for (int j = i + 1; j < size; j++) {
+            if (arr[i] == arr[j])
+                return arr[i];
+        }
+    }
+    return -1;
+}
+
+int countGreaterPairs(int arr[], int size) {
+    int count = 0;
+
+    for (int i = 0; i < size; i++) {
+        for (int j = i + 1; j < size; j++) {
+            if (arr[i] > arr[j])
+                count++;
+        }
+    }
+    return count;
+}
