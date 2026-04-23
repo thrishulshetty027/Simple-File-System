@@ -3853,3 +3853,76 @@ int countRotations(int arr[], int size) {
     return minIndex;
 }
 
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void bubbleSort(int arr[], int size) {
+    for (int i = 0; i < size - 1; i++) {
+        for (int j = 0; j < size - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                swap(&arr[j], &arr[j + 1]);
+            }
+        }
+    }
+}
+
+int partitionAroundPivot(int arr[], int size, int pivot) {
+    int i = 0;
+
+    for (int j = 0; j < size; j++) {
+        if (arr[j] < pivot) {
+            swap(&arr[i], &arr[j]);
+            i++;
+        }
+    }
+
+    return i;  // index where >= pivot starts
+}
+
+void segregateEvenOdd(int arr[], int size) {
+    int left = 0;
+    int right = size - 1;
+
+    while (left < right) {
+        while (left < right && arr[left] % 2 == 0)
+            left++;
+
+        while (left < right && arr[right] % 2 != 0)
+            right--;
+
+        if (left < right) {
+            swap(&arr[left], &arr[right]);
+            left++;
+            right--;
+        }
+    }
+}
+
+void sort012(int arr[], int size) {
+    int low = 0, mid = 0, high = size - 1;
+
+    while (mid <= high) {
+        if (arr[mid] == 0) {
+            swap(&arr[low], &arr[mid]);
+            low++;
+            mid++;
+        } else if (arr[mid] == 1) {
+            mid++;
+        } else {
+            swap(&arr[mid], &arr[high]);
+            high--;
+        }
+    }
+}
+
+int isSorted(int arr[], int size) {
+    for (int i = 1; i < size; i++) {
+        if (arr[i] < arr[i - 1])
+            return 0;
+    }
+    return 1;
+}
+
