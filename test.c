@@ -3926,3 +3926,76 @@ int isSorted(int arr[], int size) {
     return 1;
 }
 
+int sumMatrix(int mat[][10], int rows, int cols) {
+    int sum = 0;
+
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            sum += mat[i][j];
+        }
+    }
+
+    return sum;
+}
+
+int findMaxInMatrix(int mat[][10], int rows, int cols) {
+    if (rows <= 0 || cols <= 0)
+        return -1;
+
+    int max = mat[0][0];
+
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            if (mat[i][j] > max)
+                max = mat[i][j];
+        }
+    }
+
+    return max;
+}
+
+int sumRow(int mat[][10], int cols, int rowIndex) {
+    int sum = 0;
+
+    for (int j = 0; j < cols; j++) {
+        sum += mat[rowIndex][j];
+    }
+
+    return sum;
+}
+
+int sumColumn(int mat[][10], int rows, int colIndex) {
+    int sum = 0;
+
+    for (int i = 0; i < rows; i++) {
+        sum += mat[i][colIndex];
+    }
+
+    return sum;
+}
+
+int isIdentityMatrix(int mat[][10], int size) {
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            if (i == j) {
+                if (mat[i][j] != 1)
+                    return 0;
+            } else {
+                if (mat[i][j] != 0)
+                    return 0;
+            }
+        }
+    }
+    return 1;
+}
+
+void transposeMatrix(int mat[][10], int size) {
+    for (int i = 0; i < size; i++) {
+        for (int j = i + 1; j < size; j++) {
+            int temp = mat[i][j];
+            mat[i][j] = mat[j][i];
+            mat[j][i] = temp;
+        }
+    }
+}
+
