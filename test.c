@@ -3617,3 +3617,110 @@ int firstWindowEqualSum(int arr[], int size, int k, int target) {
 
     return -1;
 }
+
+
+int countOccurrences(int arr[], int size, int target) {
+    int count = 0;
+
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == target)
+            count++;
+    }
+
+    return count;
+}
+
+int findMajorityElement(int arr[], int size) {
+    if (size <= 0)
+        return -1;
+
+    int candidate = arr[0];
+    int count = 1;
+
+    for (int i = 1; i < size; i++) {
+        if (arr[i] == candidate)
+            count++;
+        else
+            count--;
+
+        if (count == 0) {
+            candidate = arr[i];
+            count = 1;
+        }
+    }
+
+    
+    count = 0;
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == candidate)
+            count++;
+    }
+
+    if (count > size / 2)
+        return candidate;
+
+    return -1;
+}
+
+int findSecondLargest(int arr[], int size) {
+    if (size < 2)
+        return -1;
+
+    int max = arr[0];
+    int second = -2147483648;  
+
+    for (int i = 1; i < size; i++) {
+        if (arr[i] > max) {
+            second = max;
+            max = arr[i];
+        } else if (arr[i] > second && arr[i] != max) {
+            second = arr[i];
+        }
+    }
+
+    return second;
+}
+
+int countDistinct(int arr[], int size) {
+    int count = 0;
+
+    for (int i = 0; i < size; i++) {
+        int isDistinct = 1;
+
+        for (int j = 0; j < i; j++) {
+            if (arr[i] == arr[j]) {
+                isDistinct = 0;
+                break;
+            }
+        }
+
+        if (isDistinct)
+            count++;
+    }
+
+    return count;
+}
+
+int mostFrequentElement(int arr[], int size) {
+    if (size <= 0)
+        return -1;
+
+    int maxCount = 0;
+    int result = arr[0];
+
+    for (int i = 0; i < size; i++) {
+        int count = 1;
+
+        for (int j = i + 1; j < size; j++) {
+            if (arr[j] == arr[i])
+                count++;
+        }
+
+        if (count > maxCount) {
+            maxCount = count;
+            result = arr[i];
+        }
+    }
+
+    return result;
+}
