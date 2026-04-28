@@ -4206,3 +4206,39 @@ void swap_values(int *a, int *b) {
     *a = *b;
     *b = temp;
 }
+
+#include <stddef.h>
+
+/* Find length of a string (manual implementation) */
+int string_length(const char *str) {
+    if (str == NULL)
+        return 0;
+
+    int len = 0;
+    while (str[len] != '\0') {
+        len++;
+    }
+    return len;
+}
+
+/* Check if a number exists in an array */
+int contains_value(int arr[], int size, int value) {
+    if (arr == NULL || size <= 0)
+        return 0;
+
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == value)
+            return 1;
+    }
+    return 0;
+}
+
+/* Copy contents of one array to another */
+void copy_array(int source[], int destination[], int size) {
+    if (source == NULL || destination == NULL || size <= 0)
+        return;
+
+    for (int i = 0; i < size; i++) {
+        destination[i] = source[i];
+    }
+}
