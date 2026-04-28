@@ -4242,3 +4242,44 @@ void copy_array(int source[], int destination[], int size) {
         destination[i] = source[i];
     }
 }
+#include <stddef.h>
+
+/* Define a simple node structure */
+struct Node {
+    int data;
+    struct Node *next;
+};
+
+/* Create a new node */
+struct Node* create_node(int value) {
+    struct Node *new_node = (struct Node*)malloc(sizeof(struct Node));
+    if (new_node == NULL)
+        return NULL;
+
+    new_node->data = value;
+    new_node->next = NULL;
+    return new_node;
+}
+
+/* Insert node at the beginning */
+struct Node* insert_front(struct Node *head, int value) {
+    struct Node *new_node = create_node(value);
+    if (new_node == NULL)
+        return head;
+
+    new_node->next = head;
+    return new_node;
+}
+
+/* Count number of nodes */
+int count_nodes(struct Node *head) {
+    int count = 0;
+    struct Node *current = head;
+
+    while (current != NULL) {
+        count++;
+        current = current->next;
+    }
+
+    return count;
+}
