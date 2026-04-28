@@ -4125,3 +4125,84 @@ int firstZeroIndex(int arr[], int size) {
     return -1;
 }
 
+#include <limits.h>
+
+/* Find minimum element in an array */
+int find_min(int arr[], int size) {
+    if (arr == NULL || size <= 0)
+        return INT_MAX;
+
+    int min = arr[0];
+    for (int i = 1; i < size; i++) {
+        if (arr[i] < min)
+            min = arr[i];
+    }
+    return min;
+}
+
+/* Reverse an array in-place */
+void reverse_array(int arr[], int size) {
+    if (arr == NULL || size <= 0)
+        return;
+
+    int left = 0;
+    int right = size - 1;
+
+    while (left < right) {
+        int temp = arr[left];
+        arr[left] = arr[right];
+        arr[right] = temp;
+
+        left++;
+        right--;
+    }
+}
+
+/* Compute factorial */
+int factorial(int n) {
+    if (n < 0)
+        return -1;
+
+    int result = 1;
+    for (int i = 2; i <= n; i++) {
+        result *= i
+		
+    return result;
+}
+
+#include <stddef.h>
+
+/* Compute sum of elements in an array */
+int sum_array(int arr[], int size) {
+    if (arr == NULL || size <= 0)
+        return 0;
+
+    int sum = 0;
+    for (int i = 0; i < size; i++) {
+        sum += arr[i];
+    }
+    return sum;
+}
+
+/* Count occurrences of a value in an array */
+int count_occurrences(int arr[], int size, int target) {
+    if (arr == NULL || size <= 0)
+        return 0;
+
+    int count = 0;
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == target)
+            count++;
+    }
+    return count;
+}
+
+/* Swap two integers using pointers */
+void swap_values(int *a, int *b) {
+    if (a == NULL || b == NULL)
+        return;
+
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
