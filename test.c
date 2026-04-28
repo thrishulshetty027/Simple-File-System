@@ -4165,8 +4165,44 @@ int factorial(int n) {
 
     int result = 1;
     for (int i = 2; i <= n; i++) {
-        result *= i;
-    }
+        result *= i
+		
     return result;
 }
 
+#include <stddef.h>
+
+/* Compute sum of elements in an array */
+int sum_array(int arr[], int size) {
+    if (arr == NULL || size <= 0)
+        return 0;
+
+    int sum = 0;
+    for (int i = 0; i < size; i++) {
+        sum += arr[i];
+    }
+    return sum;
+}
+
+/* Count occurrences of a value in an array */
+int count_occurrences(int arr[], int size, int target) {
+    if (arr == NULL || size <= 0)
+        return 0;
+
+    int count = 0;
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == target)
+            count++;
+    }
+    return count;
+}
+
+/* Swap two integers using pointers */
+void swap_values(int *a, int *b) {
+    if (a == NULL || b == NULL)
+        return;
+
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
