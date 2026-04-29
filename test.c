@@ -4761,3 +4761,136 @@ Std_ReturnType EngineTemp_GetOverheatStatus(const EngineTempState_t* state, uint
     *status = state->overheat_flag;
     return E_OK;
 }
+#include <stdint.h>
+#include <stddef.h>
+
+/* Standard return type */
+typedef uint8_t Std_ReturnType;
+
+#define E_OK        0U
+#define E_NOT_OK    1U
+
+#define CHARGING_ENABLED     1U
+#define CHARGING_DISABLED    0U
+
+#define SOC_MIN_THRESHOLD    20U   /* % */
+#define SOC_MAX_THRESHOLD    90U   /* % */
+#define SOC_CRITICAL_LOW     5U    /* % */
+
+/* Battery state structure */
+typedef struct
+{
+    uint32_t voltage;        /* mV */
+    uint32_t current;        /* mA */
+    uint8_t soc;             /* State of Charge (%) */
+    uint8_t charging_state;  /* 1 = enabled, 0 = disabled */
+    uint8_t low_battery_flag;
+} BatteryState_t;
+
+/* Initialize battery state */
+Std_ReturnType Battery_Init(BatteryState_t* battery)
+{
+    if (battery == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    battery->voltage = 0U;
+    battery->current = 0U;
+    battery->soc = 50U;
+    battery->charging_state = CHARGING_ENABLED;
+    battery->low_battery_flag = 0U;
+
+    return E_OK;
+}
+
+/* Update battery measurements */
+Std_ReturnType Battery_Update(BatteryState_t* battery, uint32_t voltage, uint32_t current)
+{
+    if (battery == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    battery->voltage = voltage;
+    battery->current = current;
+
+    return E_OK;
+}
+
+/* Estimate State of Charge (simple linear approximation) */
+Std_ReturnType Battery_EstimateSOC(BatteryState_t* battery)
+{
+    if (battery == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    /* Example mapping: 3000mV → 0%, 4200mV → 100% */
+    if (battery->voltage <= 3000U)
+    {
+        battery->soc = 0U;
+    }
+    else if (battery->voltage >= 4200U)
+    {
+        battery->soc = 100U;
+    }
+    else
+    {
+        battery->soc = (uint8_t)(((battery->voltage - 3000U) * 100U) / 1200U);
+    }
+
+    return E_OK;
+}
+
+/* Control charging based on SOC */
+Std_ReturnType Battery_ControlCharging(BatteryState_t* battery)
+{
+    if (battery == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    if (battery->soc >= SOC_MAX_THRESHOLD)
+    {
+        battery->charging_state = CHARGING_DISABLED;
+    }
+    else if (battery->soc <= SOC_MIN_THRESHOLD)
+    {
+        battery->charging_state = CHARGING_ENABLED;
+    }
+
+    return E_OK;
+}
+
+/* Detect low battery condition */
+Std_ReturnType Battery_CheckLow(BatteryState_t* battery)
+{
+    if (battery == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    if (battery->soc <= SOC_CRITICAL_LOW)
+    {
+        battery->low_battery_flag = 1U;
+    }
+    else
+    {
+        battery->low_battery_flag = 0U;
+    }
+
+    return E_OK;
+}
+
+/* Get SOC value */
+Std_ReturnType Battery_GetSOC(const BatteryState_t* battery, uint8_t* soc)
+{
+    if ((battery == NULL) || (soc == NULL))
+    {
+        return E_NOT_OK;
+    }
+
+    *soc = battery->soc;
+    return E_OK;
+}
