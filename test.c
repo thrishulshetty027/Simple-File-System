@@ -4644,3 +4644,120 @@ Std_ReturnType Door_GetLockState(const DoorState_t* door, uint8_t* state)
     *state = door->lock_state;
     return E_OK;
 }
+
+
+#include <stdint.h>
+#include <stddef.h>
+
+/* Standard return type */
+typedef uint8_t Std_ReturnType;
+
+#define E_OK        0U
+#define E_NOT_OK    1U
+
+#define FAN_OFF     0U
+#define FAN_ON      1U
+
+#define TEMP_LOW_THRESHOLD     70U   /* °C */
+#define TEMP_HIGH_THRESHOLD    90U   /* °C */
+#define TEMP_CRITICAL          110U  /* °C */
+
+/* Engine temperature state */
+typedef struct
+{
+    uint32_t current_temp;
+    uint8_t fan_state;
+    uint8_t overheat_flag;
+} EngineTempState_t;
+
+/* Initialize system */
+Std_ReturnType EngineTemp_Init(EngineTempState_t* state)
+{
+    if (state == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    state->current_temp = 0U;
+    state->fan_state = FAN_OFF;
+    state->overheat_flag = 0U;
+
+    return E_OK;
+}
+
+/* Update temperature reading */
+Std_ReturnType EngineTemp_Update(EngineTempState_t* state, uint32_t new_temp)
+{
+    if (state == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    state->current_temp = new_temp;
+    return E_OK;
+}
+
+/* Control cooling fan based on temperature */
+Std_ReturnType EngineTemp_ControlFan(EngineTempState_t* state)
+{
+    if (state == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    if (state->current_temp >= TEMP_HIGH_THRESHOLD)
+    {
+        state->fan_state = FAN_ON;
+    }
+    else if (state->current_temp <= TEMP_LOW_THRESHOLD)
+    {
+        state->fan_state = FAN_OFF;
+    }
+
+    return E_OK;
+}
+
+/* Check for overheat condition */
+Std_ReturnType EngineTemp_CheckOverheat(EngineTempState_t* state)
+{
+    if (state == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    if (state->current_temp >= TEMP_CRITICAL)
+    {
+        state->overheat_flag = 1U;
+        state->fan_state = FAN_ON;
+    }
+    else
+    {
+        state->overheat_flag = 0U;
+    }
+
+    return E_OK;
+}
+
+/* Get fan state */
+Std_ReturnType EngineTemp_GetFanState(const EngineTempState_t* state, uint8_t* fan_state)
+{
+    if ((state == NULL) || (fan_state == NULL))
+    {
+        return E_NOT_OK;
+    }
+
+    *fan_state = state->fan_state;
+    return E_OK;
+}
+
+/* Get overheat status */
+Std_ReturnType EngineTemp_GetOverheatStatus(const EngineTempState_t* state, uint8_t* status)
+{
+    if ((state == NULL) || (status == NULL))
+    {
+        return E_NOT_OK;
+    }
+
+    *status = state->overheat_flag;
+    return E_OK;
+}
