@@ -4332,3 +4332,47 @@ int second_largest(int arr[], int size) {
 
     return second;
 }
+
+#include <stddef.h>
+
+/* Insertion sort (ascending) */
+void insertion_sort(int arr[], int size) {
+    if (arr == NULL || size <= 0)
+        return;
+
+    for (int i = 1; i < size; i++) {
+        int key = arr[i];
+        int j = i - 1;
+
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j--;
+        }
+        arr[j + 1] = key;
+    }
+}
+
+/* Find index of first occurrence of a value */
+int find_index(int arr[], int size, int target) {
+    if (arr == NULL || size <= 0)
+        return -1;
+
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == target)
+            return i;
+    }
+    return -1;
+}
+
+/* Compute average of array elements */
+double compute_average(int arr[], int size) {
+    if (arr == NULL || size <= 0)
+        return 0.0;
+
+    int sum = 0;
+    for (int i = 0; i < size; i++) {
+        sum += arr[i];
+    }
+
+    return (double)sum / size;
+}
