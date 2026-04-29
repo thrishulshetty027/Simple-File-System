@@ -4894,3 +4894,134 @@ Std_ReturnType Battery_GetSOC(const BatteryState_t* battery, uint8_t* soc)
     *soc = battery->soc;
     return E_OK;
 }
+
+#include <stdint.h>
+#include <stddef.h>
+
+/* Standard return type */
+typedef uint8_t Std_ReturnType;
+
+#define E_OK        0U
+#define E_NOT_OK    1U
+
+#define CRUISE_OFF      0U
+#define CRUISE_ON       1U
+
+#define MAX_SPEED_LIMIT     180U   /* km/h */
+#define MIN_CRUISE_SPEED    30U    /* km/h */
+#define MAX_CRUISE_SPEED    150U   /* km/h */
+
+/* Vehicle speed state */
+typedef struct
+{
+    uint32_t current_speed;
+    uint32_t target_speed;
+    uint8_t cruise_state;
+    uint8_t overspeed_flag;
+} VehicleSpeedState_t;
+
+/* Initialize speed system */
+Std_ReturnType Speed_Init(VehicleSpeedState_t* state)
+{
+    if (state == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    state->current_speed = 0U;
+    state->target_speed = 0U;
+    state->cruise_state = CRUISE_OFF;
+    state->overspeed_flag = 0U;
+
+    return E_OK;
+}
+
+/* Update current vehicle speed */
+Std_ReturnType Speed_Update(VehicleSpeedState_t* state, uint32_t speed)
+{
+    if (state == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    state->current_speed = speed;
+
+    /* Overspeed detection */
+    if (speed > MAX_SPEED_LIMIT)
+    {
+        state->overspeed_flag = 1U;
+    }
+    else
+    {
+        state->overspeed_flag = 0U;
+    }
+
+    return E_OK;
+}
+
+/* Enable cruise control */
+Std_ReturnType Cruise_Enable(VehicleSpeedState_t* state)
+{
+    if (state == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    if ((state->current_speed >= MIN_CRUISE_SPEED) &&
+        (state->current_speed <= MAX_CRUISE_SPEED))
+    {
+        state->cruise_state = CRUISE_ON;
+        state->target_speed = state->current_speed;
+        return E_OK;
+    }
+
+    return E_NOT_OK;
+}
+
+/* Disable cruise control */
+Std_ReturnType Cruise_Disable(VehicleSpeedState_t* state)
+{
+    if (state == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    state->cruise_state = CRUISE_OFF;
+    state->target_speed = 0U;
+
+    return E_OK;
+}
+
+/* Adjust target speed */
+Std_ReturnType Cruise_SetTargetSpeed(VehicleSpeedState_t* state, uint32_t target)
+{
+    if (state == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    if ((target < MIN_CRUISE_SPEED) || (target > MAX_CRUISE_SPEED))
+    {
+        return E_NOT_OK;
+    }
+
+    if (state->cruise_state == CRUISE_ON)
+    {
+        state->target_speed = target;
+        return E_OK;
+    }
+
+    return E_NOT_OK;
+}
+
+/* Get overspeed status */
+Std_ReturnType Speed_GetOverspeed(const VehicleSpeedState_t* state, uint8_t* flag)
+{
+    if ((state == NULL) || (flag == NULL))
+    {
+        return E_NOT_OK;
+    }
+
+    *flag = state->overspeed_flag;
+    return E_OK;
+}
