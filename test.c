@@ -4376,3 +4376,87 @@ double compute_average(int arr[], int size) {
 
     return (double)sum / size;
 }
+#include <stdint.h>
+#include <stddef.h>
+
+/* AUTOSAR standard return type */
+typedef uint8_t Std_ReturnType;
+
+#define E_OK        0U
+#define E_NOT_OK    1U
+
+#define MAX_ARRAY_SIZE  10U
+
+/* Check if array is sorted (AUTOSAR style) */
+Std_ReturnType Array_IsSorted(const int32_t* arr, uint32_t size, uint8_t* result)
+{
+    if ((arr == NULL) || (result == NULL) || (size == 0U))
+    {
+        return E_NOT_OK;
+    }
+
+    *result = 1U;
+
+    for (uint32_t i = 1U; i < size; i++)
+    {
+        if (arr[i] < arr[i - 1U])
+        {
+            *result = 0U;
+            break;
+        }
+    }
+
+    return E_OK;
+}
+
+/* Sort array using simple selection sort (AUTOSAR style) */
+Std_ReturnType Array_SelectionSort(int32_t* arr, uint32_t size)
+{
+    if ((arr == NULL) || (size == 0U))
+    {
+        return E_NOT_OK;
+    }
+
+    for (uint32_t i = 0U; i < size - 1U; i++)
+    {
+        uint32_t min_index = i;
+
+        for (uint32_t j = i + 1U; j < size; j++)
+        {
+            if (arr[j] < arr[min_index])
+            {
+                min_index = j;
+            }
+        }
+
+        if (min_index != i)
+        {
+            int32_t temp = arr[i];
+            arr[i] = arr[min_index];
+            arr[min_index] = temp;
+        }
+    }
+
+    return E_OK;
+}
+
+/* Find maximum value in array */
+Std_ReturnType Array_FindMax(const int32_t* arr, uint32_t size, int32_t* max_value)
+{
+    if ((arr == NULL) || (max_value == NULL) || (size == 0U))
+    {
+        return E_NOT_OK;
+    }
+
+    *max_value = arr[0];
+
+    for (uint32_t i = 1U; i < size; i++)
+    {
+        if (arr[i] > *max_value)
+        {
+            *max_value = arr[i];
+        }
+    }
+
+    return E_OK;
+}
