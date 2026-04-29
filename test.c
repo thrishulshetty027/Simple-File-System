@@ -4283,3 +4283,52 @@ int count_nodes(struct Node *head) {
 
     return count;
 }
+#include <stddef.h>
+
+/* Bubble sort (ascending) */
+void bubble_sort(int arr[], int size) {
+    if (arr == NULL || size <= 0)
+        return;
+
+    for (int i = 0; i < size - 1; i++) {
+        for (int j = 0; j < size - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
+
+/* Check if array is sorted */
+int is_sorted(int arr[], int size) {
+    if (arr == NULL || size <= 0)
+        return 0;
+
+    for (int i = 1; i < size; i++) {
+        if (arr[i] < arr[i - 1])
+            return 0;
+    }
+    return 1;
+}
+
+/* Find second largest element */
+int second_largest(int arr[], int size) {
+    if (arr == NULL || size < 2)
+        return -1;
+
+    int max = arr[0];
+    int second = arr[0];
+
+    for (int i = 1; i < size; i++) {
+        if (arr[i] > max) {
+            second = max;
+            max = arr[i];
+        } else if (arr[i] > second && arr[i] != max) {
+            second = arr[i];
+        }
+    }
+
+    return second;
+}
