@@ -4527,3 +4527,120 @@ Std_ReturnType Array_FindMinIndex(const int32_t* arr, uint32_t size, uint32_t* i
 
     return E_OK;
 }
+
+
+#include <stdint.h>
+#include <stddef.h>
+
+/* Standard return type */
+typedef uint8_t Std_ReturnType;
+
+#define E_OK        0U
+#define E_NOT_OK    1U
+
+#define DOOR_LOCKED     1U
+#define DOOR_UNLOCKED   0U
+
+#define SPEED_LIMIT_LOCK 10U  /* km/h */
+
+/* Door state structure */
+typedef struct
+{
+    uint8_t lock_state;     /* 1 = locked, 0 = unlocked */
+    uint8_t door_open;      /* 1 = open, 0 = closed */
+} DoorState_t;
+
+/* Initialize door state */
+Std_ReturnType Door_Init(DoorState_t* door)
+{
+    if (door == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    door->lock_state = DOOR_UNLOCKED;
+    door->door_open = 0U;
+
+    return E_OK;
+}
+
+/* Lock the door */
+Std_ReturnType Door_Lock(DoorState_t* door)
+{
+    if (door == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    door->lock_state = DOOR_LOCKED;
+    return E_OK;
+}
+
+/* Unlock the door */
+Std_ReturnType Door_Unlock(DoorState_t* door)
+{
+    if (door == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    door->lock_state = DOOR_UNLOCKED;
+    return E_OK;
+}
+
+/* Update door open/close state */
+Std_ReturnType Door_SetOpenState(DoorState_t* door, uint8_t is_open)
+{
+    if (door == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    door->door_open = is_open ? 1U : 0U;
+    return E_OK;
+}
+
+/* Automatic lock logic based on vehicle speed */
+Std_ReturnType Door_AutoLock(DoorState_t* door, uint32_t vehicle_speed)
+{
+    if (door == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    if ((vehicle_speed > SPEED_LIMIT_LOCK) && (door->door_open == 0U))
+    {
+        door->lock_state = DOOR_LOCKED;
+    }
+
+    return E_OK;
+}
+
+/* Safety check: prevent unlock while moving fast */
+Std_ReturnType Door_SafetyUnlock(DoorState_t* door, uint32_t vehicle_speed)
+{
+    if (door == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    if (vehicle_speed <= SPEED_LIMIT_LOCK)
+    {
+        door->lock_state = DOOR_UNLOCKED;
+        return E_OK;
+    }
+
+    return E_NOT_OK;
+}
+
+/* Get current lock state */
+Std_ReturnType Door_GetLockState(const DoorState_t* door, uint8_t* state)
+{
+    if ((door == NULL) || (state == NULL))
+    {
+        return E_NOT_OK;
+    }
+
+    *state = door->lock_state;
+    return E_OK;
+}
