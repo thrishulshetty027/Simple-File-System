@@ -5152,3 +5152,127 @@ Std_ReturnType Fuel_ResetWarnings(FuelState_t* state)
 
     return E_OK;
 }
+
+#include <stdint.h>
+#include <stddef.h>
+
+/* Standard return type */
+typedef uint8_t Std_ReturnType;
+
+#define E_OK        0U
+#define E_NOT_OK    1U
+
+#define LIGHT_OFF       0U
+#define LIGHT_ON        1U
+#define LIGHT_AUTO      2U
+
+#define AMBIENT_DARK_THRESHOLD   300U
+#define AMBIENT_BRIGHT_THRESHOLD 700U
+
+/* Headlight system state */
+typedef struct
+{
+    uint32_t ambient_light;   /* sensor value */
+    uint8_t headlight_state;  /* OFF / ON / AUTO */
+    uint8_t manual_override;  /* 1 = user override */
+} HeadlightState_t;
+
+/* Initialize headlight system */
+Std_ReturnType Headlight_Init(HeadlightState_t* state)
+{
+    if (state == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    state->ambient_light = 0U;
+    state->headlight_state = LIGHT_OFF;
+    state->manual_override = 0U;
+
+    return E_OK;
+}
+
+/* Update ambient light sensor */
+Std_ReturnType Headlight_UpdateAmbient(HeadlightState_t* state, uint32_t light_value)
+{
+    if (state == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    state->ambient_light = light_value;
+    return E_OK;
+}
+
+/* Set manual headlight state */
+Std_ReturnType Headlight_SetManual(HeadlightState_t* state, uint8_t mode)
+{
+    if (state == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    if (mode > LIGHT_AUTO)
+    {
+        return E_NOT_OK;
+    }
+
+    state->headlight_state = mode;
+    state->manual_override = 1U;
+
+    return E_OK;
+}
+
+/* Enable auto mode */
+Std_ReturnType Headlight_EnableAuto(HeadlightState_t* state)
+{
+    if (state == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    state->headlight_state = LIGHT_AUTO;
+    state->manual_override = 0U;
+
+    return E_OK;
+}
+
+/* Control headlights based on ambient light */
+Std_ReturnType Headlight_Control(HeadlightState_t* state)
+{
+    if (state == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    if (state->manual_override == 1U)
+    {
+        return E_OK;
+    }
+
+    if (state->headlight_state == LIGHT_AUTO)
+    {
+        if (state->ambient_light < AMBIENT_DARK_THRESHOLD)
+        {
+            state->headlight_state = LIGHT_ON;
+        }
+        else if (state->ambient_light > AMBIENT_BRIGHT_THRESHOLD)
+        {
+            state->headlight_state = LIGHT_OFF;
+        }
+    }
+
+    return E_OK;
+}
+
+/* Get headlight state */
+Std_ReturnType Headlight_GetState(const HeadlightState_t* state, uint8_t* result)
+{
+    if ((state == NULL) || (result == NULL))
+    {
+        return E_NOT_OK;
+    }
+
+    *result = state->headlight_state;
+    return E_OK;
+}
