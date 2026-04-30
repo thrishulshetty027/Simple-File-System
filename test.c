@@ -5025,3 +5025,130 @@ Std_ReturnType Speed_GetOverspeed(const VehicleSpeedState_t* state, uint8_t* fla
     *flag = state->overspeed_flag;
     return E_OK;
 }
+
+#include <stdint.h>
+#include <stddef.h>
+
+/* Standard return type */
+typedef uint8_t Std_ReturnType;
+
+#define E_OK        0U
+#define E_NOT_OK    1U
+
+#define FUEL_OK         0U
+#define FUEL_LOW        1U
+#define FUEL_CRITICAL   2U
+
+#define FUEL_TANK_CAPACITY   50U   /* liters */
+#define LOW_FUEL_THRESHOLD   10U   /* liters */
+#define CRITICAL_THRESHOLD   5U    /* liters */
+
+/* Fuel system state */
+typedef struct
+{
+    uint32_t fuel_level;      /* liters */
+    uint8_t warning_level;    /* 0 = OK, 1 = LOW, 2 = CRITICAL */
+    uint8_t engine_cutoff;    /* 1 = engine restricted */
+} FuelState_t;
+
+/* Initialize fuel system */
+Std_ReturnType Fuel_Init(FuelState_t* state)
+{
+    if (state == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    state->fuel_level = FUEL_TANK_CAPACITY;
+    state->warning_level = FUEL_OK;
+    state->engine_cutoff = 0U;
+
+    return E_OK;
+}
+
+/* Update fuel level */
+Std_ReturnType Fuel_UpdateLevel(FuelState_t* state, uint32_t new_level)
+{
+    if (state == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    if (new_level > FUEL_TANK_CAPACITY)
+    {
+        return E_NOT_OK;
+    }
+
+    state->fuel_level = new_level;
+    return E_OK;
+}
+
+/* Evaluate warning level */
+Std_ReturnType Fuel_EvaluateWarning(FuelState_t* state)
+{
+    if (state == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    if (state->fuel_level <= CRITICAL_THRESHOLD)
+    {
+        state->warning_level = FUEL_CRITICAL;
+    }
+    else if (state->fuel_level <= LOW_FUEL_THRESHOLD)
+    {
+        state->warning_level = FUEL_LOW;
+    }
+    else
+    {
+        state->warning_level = FUEL_OK;
+    }
+
+    return E_OK;
+}
+
+/* Apply safety restrictions based on fuel */
+Std_ReturnType Fuel_ApplySafety(FuelState_t* state)
+{
+    if (state == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    if (state->warning_level == FUEL_CRITICAL)
+    {
+        state->engine_cutoff = 1U;
+    }
+    else
+    {
+        state->engine_cutoff = 0U;
+    }
+
+    return E_OK;
+}
+
+/* Calculate fuel consumption percentage */
+Std_ReturnType Fuel_GetConsumption(const FuelState_t* state, uint32_t* percentage)
+{
+    if ((state == NULL) || (percentage == NULL))
+    {
+        return E_NOT_OK;
+    }
+
+    *percentage = ((FUEL_TANK_CAPACITY - state->fuel_level) * 100U) / FUEL_TANK_CAPACITY;
+    return E_OK;
+}
+
+/* Reset fuel warnings */
+Std_ReturnType Fuel_ResetWarnings(FuelState_t* state)
+{
+    if (state == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    state->warning_level = FUEL_OK;
+    state->engine_cutoff =0U;
+
+    return E_OK;
+}
