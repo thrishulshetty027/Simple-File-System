@@ -5276,3 +5276,132 @@ Std_ReturnType Headlight_GetState(const HeadlightState_t* state, uint8_t* result
     *result = state->headlight_state;
     return E_OK;
 }
+
+#include <stdint.h>
+#include <stddef.h>
+
+/* Standard return type */
+typedef uint8_t Std_ReturnType;
+
+#define E_OK        0U
+#define E_NOT_OK    1U
+
+#define WIPER_OFF       0U
+#define WIPER_LOW       1U
+#define WIPER_HIGH      2U
+#define WIPER_AUTO      3U
+
+#define RAIN_LOW_THRESHOLD     20U
+#define RAIN_HIGH_THRESHOLD    60U
+
+/* Wiper system state */
+typedef struct
+{
+    uint32_t rain_intensity;  /* sensor value */
+    uint8_t wiper_mode;       /* OFF / LOW / HIGH / AUTO */
+    uint8_t manual_override;  /* 1 = user override */
+} WiperState_t;
+
+/* Initialize wiper system */
+Std_ReturnType Wiper_Init(WiperState_t* state)
+{
+    if (state == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    state->rain_intensity = 0U;
+    state->wiper_mode = WIPER_OFF;
+    state->manual_override = 0U;
+
+    return E_OK;
+}
+
+/* Update rain sensor value */
+Std_ReturnType Wiper_UpdateRain(WiperState_t* state, uint32_t rain)
+{
+    if (state == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    state->rain_intensity = rain;
+    return E_OK;
+}
+
+/* Set manual wiper mode */
+Std_ReturnType Wiper_SetManualMode(WiperState_t* state, uint8_t mode)
+{
+    if (state == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    if (mode > WIPER_AUTO)
+    {
+        return E_NOT_OK;
+    }
+
+    state->wiper_mode = mode;
+    state->manual_override = 1U;
+
+    return E_OK;
+}
+
+/* Enable automatic mode */
+Std_ReturnType Wiper_EnableAuto(WiperState_t* state)
+{
+    if (state == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    state->wiper_mode = WIPER_AUTO;
+    state->manual_override = 0U;
+
+    return E_OK;
+}
+
+/* Control wiper based on rain intensity */
+Std_ReturnType Wiper_Control(WiperState_t* state)
+{
+    if (state == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    if (state->manual_override == 1U)
+    {
+        return E_OK;
+    }
+
+    if (state->wiper_mode == WIPER_AUTO)
+    {
+        if (state->rain_intensity >= RAIN_HIGH_THRESHOLD)
+        {
+            state->wiper_mode = WIPER_HIGH;
+        }
+        else if (state->rain_intensity >= RAIN_LOW_THRESHOLD)
+        {
+            state->wiper_mode = WIPER_LOW;
+        }
+        else
+        {
+            state->wiper_mode = WIPER_OFF;
+        }
+    }
+
+    return E_OK;
+}
+
+/* Get current wiper mode */
+Std_ReturnType Wiper_GetMode(const WiperState_t* state, uint8_t* mode)
+{
+    if ((state == NULL) || (mode == NULL))
+    {
+        return E_NOT_OK;
+    }
+
+    *mode = state->wiper_mode;
+    return E_OK;
+}
