@@ -5626,3 +5626,132 @@ Std_ReturnType TempSensor_Reset(TempSensorState_t* sensor)
 
     return E_OK;
 }
+
+#include <stdint.h>
+#include <stddef.h>
+
+typedef uint8_t Std_ReturnType;
+
+#define E_OK        0U
+#define E_NOT_OK    1U
+
+#define BRAKE_RELEASED     0U
+#define BRAKE_APPLIED      1U
+
+#define ABS_INACTIVE       0U
+#define ABS_ACTIVE         1U
+
+#define SLIP_THRESHOLD     15U
+
+/* Brake system state */
+typedef struct
+{
+    uint32_t vehicle_speed;
+    uint32_t wheel_speed;
+    uint8_t brake_status;
+    uint8_t abs_status;
+    uint8_t slip_detected;
+} BrakeSystemState_t;
+
+/* Initialize brake system */
+Std_ReturnType BrakeSystem_Init(BrakeSystemState_t* brake_state)
+{
+    if (brake_state == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    brake_state->vehicle_speed = 0U;
+    brake_state->wheel_speed = 0U;
+    brake_state->brake_status = BRAKE_RELEASED;
+    brake_state->abs_status = ABS_INACTIVE;
+    brake_state->slip_detected = 0U;
+
+    return E_OK;
+}
+
+/* Update speed values */
+Std_ReturnType BrakeSystem_UpdateSpeed(
+    BrakeSystemState_t* brake_state,
+    uint32_t vehicle_speed,
+    uint32_t wheel_speed)
+{
+    if (brake_state == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    brake_state->vehicle_speed = vehicle_speed;
+    brake_state->wheel_speed = wheel_speed;
+
+    return E_OK;
+}
+
+/* Apply brake */
+Std_ReturnType BrakeSystem_ApplyBrake(BrakeSystemState_t* brake_state)
+{
+    if (brake_state == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    brake_state->brake_status = BRAKE_APPLIED;
+
+    return E_OK;
+}
+
+/* Release brake */
+Std_ReturnType BrakeSystem_ReleaseBrake(BrakeSystemState_t* brake_state)
+{
+    if (brake_state == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    brake_state->brake_status = BRAKE_RELEASED;
+    brake_state->abs_status = ABS_INACTIVE;
+    brake_state->slip_detected = 0U;
+
+    return E_OK;
+}
+
+/* Evaluate wheel slip and ABS activation */
+Std_ReturnType BrakeSystem_EvaluateSlip(BrakeSystemState_t* brake_state)
+{
+    if (brake_state == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    if (brake_state->brake_status == BRAKE_APPLIED)
+    {
+        if ((brake_state->vehicle_speed > brake_state->wheel_speed) &&
+            ((brake_state->vehicle_speed - brake_state->wheel_speed) >= SLIP_THRESHOLD))
+        {
+            brake_state->slip_detected = 1U;
+            brake_state->abs_status = ABS_ACTIVE;
+        }
+        else
+        {
+            brake_state->slip_detected = 0U;
+            brake_state->abs_status = ABS_INACTIVE;
+        }
+    }
+
+    return E_OK;
+}
+
+/* Get ABS status */
+Std_ReturnType BrakeSystem_GetABSStatus(
+    const BrakeSystemState_t* brake_state,
+    uint8_t* abs_state)
+{
+    if ((brake_state == NULL) || (abs_state == NULL))
+    {
+        return E_NOT_OK;
+    }
+
+    *abs_state = brake_state->abs_status;
+
+    return E_OK;
+}
