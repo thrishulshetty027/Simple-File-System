@@ -5519,3 +5519,110 @@ int power(int base, int exponent) {
 
     return result;
 }
+
+
+typedef uint8_t Std_ReturnType;
+
+#define E_OK        0U
+#define E_NOT_OK    1U
+
+#define SENSOR_ACTIVE      1U
+#define SENSOR_INACTIVE    0U
+
+#define TEMP_WARNING_LIMIT   85U
+#define TEMP_SHUTDOWN_LIMIT  105U
+
+/* Temperature sensor state */
+typedef struct
+{
+    uint32_t temperature;
+    uint8_t sensor_status;
+    uint8_t warning_flag;
+    uint8_t shutdown_flag;
+} TempSensorState_t;
+
+/* Initialize temperature sensor module */
+Std_ReturnType TempSensor_Init(TempSensorState_t* sensor)
+{
+   if (sensor == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    sensor->temperature = 0U;
+    sensor->sensor_status = SENSOR_ACTIVE;
+    sensor->warning_flag = 0U;
+    sensor->shutdown_flag = 0U;
+
+    return E_OK;
+}
+
+/* Update temperature value */
+Std_ReturnType TempSensor_Update(TempSensorState_t* sensor, uint32_t new_temp)
+{
+    if ((sensor == NULL) || (sensor->sensor_status == SENSOR_INACTIVE))
+    {
+        return E_NOT_OK;
+    }
+
+    sensor->temperature = new_temp;
+
+    return E_OK;
+}
+
+/* Evaluate temperature conditions */
+Std_ReturnType TempSensor_Evaluate(TempSensorState_t* sensor)
+{
+    if (sensor == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    if (sensor->temperature >= TEMP_SHUTDOWN_LIMIT)
+    {
+        sensor->shutdown_flag = 1U;
+        sensor->warning_flag = 1U;
+    }
+    else if (sensor->temperature >= TEMP_WARNING_LIMIT)
+    {
+        sensor->warning_flag = 1U;
+        sensor->shutdown_flag = 0U;
+    }
+    else
+    {
+        sensor->warning_flag = 0U;
+        sensor->shutdown_flag = 0U;
+    }
+
+    return E_OK;
+}
+
+/* Get warning status */
+Std_ReturnType TempSensor_GetWarning(
+    const TempSensorState_t* sensor,
+    uint8_t* warning_status)
+{
+    if ((sensor == NULL) || (warning_status == NULL))
+    {
+        return E_NOT_OK;
+    }
+
+    *warning_status = sensor->warning_flag;
+
+    return E_OK;
+}
+
+/* Reset sensor state */
+Std_ReturnType TempSensor_Reset(TempSensorState_t* sensor)
+{
+    if (sensor == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    sensor->temperature = 0U;
+    sensor->warning_flag = 0U;
+    sensor->shutdown_flag = 0U;
+
+    return E_OK;
+}
