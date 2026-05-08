@@ -5755,3 +5755,159 @@ Std_ReturnType BrakeSystem_GetABSStatus(
 
     return E_OK;
 }
+
+#include <stdint.h>
+#include <stddef.h>
+
+typedef uint8_t Std_ReturnType;
+
+#define E_OK        0U
+#define E_NOT_OK    1U
+
+#define AC_OFF          0U
+#define AC_ON           1U
+
+#define FAN_OFF         0U
+#define FAN_LOW         1U
+#define FAN_MEDIUM      2U
+#define FAN_HIGH        3U
+
+#define TEMP_MIN        18U
+#define TEMP_MAX        30U
+#define TEMP_THRESHOLD  2U
+
+/* Climate control system state */
+typedef struct
+{
+    uint32_t cabin_temperature;
+    uint32_t target_temperature;
+    uint8_t ac_status;
+    uint8_t fan_speed;
+} ClimateControlState_t;
+
+/* Initialize climate control system */
+Std_ReturnType ClimateControl_Init(ClimateControlState_t* climate_state)
+{
+    if (climate_state == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    climate_state->cabin_temperature = 25U;
+    climate_state->target_temperature = 22U;
+    climate_state->ac_status = AC_OFF;
+    climate_state->fan_speed = FAN_OFF;
+
+    return E_OK;
+}
+
+/* Update cabin temperature */
+Std_ReturnType ClimateControl_UpdateCabinTemp(
+    ClimateControlState_t* climate_state,
+    uint32_t temperature)
+{
+    if (climate_state == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    climate_state->cabin_temperature = temperature;
+
+    return E_OK;
+}
+
+/* Set target temperature */
+Std_ReturnType ClimateControl_SetTargetTemp(
+    ClimateControlState_t* climate_state,
+    uint32_t target_temp)
+{
+    if (climate_state == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    if ((target_temp < TEMP_MIN) || (target_temp > TEMP_MAX))
+    {
+        return E_NOT_OK;
+    }
+
+    climate_state->target_temperature = target_temp;
+
+    return E_OK;
+}
+
+/* Control AC and fan speed */
+Std_ReturnType ClimateControl_Adjust(
+    ClimateControlState_t* climate_state)
+{
+    if (climate_state == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    if (climate_state->cabin_temperature >
+        climate_state->target_temperature)
+    {
+        climate_state->ac_status = AC_ON;
+
+        uint32_t difference =
+            climate_state->cabin_temperature -
+            climate_state->target_temperature;
+
+        if (difference >= 8U)
+        {
+            climate_state->fan_speed = FAN_HIGH;
+        }
+        else if (difference >= 5U)
+        {
+            climate_state->fan_speed = FAN_MEDIUM;
+        }
+        else
+        {
+            climate_state->fan_speed = FAN_LOW;
+        }
+    }
+    else if (climate_state->target_temperature >
+             climate_state->cabin_temperature)
+    {
+        climate_state->ac_status = AC_OFF;
+        climate_state->fan_speed = FAN_LOW;
+    }
+    else
+    {
+        climate_state->ac_status = AC_OFF;
+        climate_state->fan_speed = FAN_OFF;
+    }
+
+    return E_OK;
+}
+
+/* Get fan speed */
+Std_ReturnType ClimateControl_GetFanSpeed(
+    const ClimateControlState_t* climate_state,
+    uint8_t* speed)
+{
+    if ((climate_state == NULL) || (speed == NULL))
+    {
+        return E_NOT_OK;
+    }
+
+    *speed = climate_state->fan_speed;
+
+    return E_OK;
+}
+
+/* Turn off climate system */
+Std_ReturnType ClimateControl_Shutdown(
+    ClimateControlState_t* climate_state)
+{
+    if (climate_state == NULL)
+    {
+        return E_NOT_OK;
+    }
+
+    climate_state->ac_status = AC_OFF;
+    climate_state->fan_speed = FAN_OFF;
+
+    return E_OK;
+}
