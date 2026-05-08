@@ -5405,3 +5405,49 @@ Std_ReturnType Wiper_GetMode(const WiperState_t* state, uint8_t* mode)
     *mode = state->wiper_mode;
     return E_OK;
 }
+
+#include <math.h>
+
+/* Calculate square of a number */
+int square(int num) {
+    return num * num;
+}
+
+/* Calculate cube of a number */
+int cube(int num) {
+    return num * num * num;
+}
+
+/* Find absolute difference between two numbers */
+int absolute_difference(int a, int b) {
+    int diff = a - b;
+
+    if (diff < 0)
+        diff = -diff;
+
+    return diff;
+}
+
+/* Check if a number is prime */
+int is_prime(int num) {
+    if (num <= 1)
+        return 0;
+
+    for (int i = 2; i <= sqrt(num); i++) {
+        if (num % i == 0)
+            return 0;
+    }
+
+    return 1;
+}
+
+/* Compute greatest common divisor */
+int gcd(int a, int b) {
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+
+    return a;
+}
