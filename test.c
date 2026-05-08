@@ -5911,3 +5911,108 @@ Std_ReturnType ClimateControl_Shutdown(
 
     return E_OK;
 }
+
+#include <stdio.h>
+
+/* Find maximum value in array */
+int find_max(int arr[], int size)
+{
+    if ((arr == NULL) || (size <= 0))
+    {
+        return -1;
+    }
+
+    int max = arr[0];
+
+    for (int i = 1; i < size; i++)
+    {
+        if (arr[i] > max)
+        {
+            max = arr[i];
+        }
+    }
+
+    return max;
+}
+
+/* Find minimum value in array */
+int find_min(int arr[], int size)
+{
+    if ((arr == NULL) || (size <= 0))
+    {
+        return -1;
+    }
+
+    int min = arr[0];
+
+    for (int i = 1; i < size; i++)
+    {
+        if (arr[i] < min)
+        {
+            min = arr[i];
+        }
+    }
+
+    return min;
+}
+
+/* Calculate average of array */
+float calculate_average(int arr[], int size)
+{
+    if ((arr == NULL) || (size <= 0))
+    {
+        return 0.0f;
+    }
+
+    int sum = 0;
+
+    for (int i = 0; i < size; i++)
+    {
+        sum += arr[i];
+    }
+
+    return (float)sum / size;
+}
+
+/* Reverse array elements */
+void reverse_array(int arr[], int size)
+{
+    if ((arr == NULL) || (size <= 0))
+    {
+        return;
+    }
+
+    int start = 0;
+    int end = size - 1;
+
+    while (start < end)
+    {
+        int temp = arr[start];
+        arr[start] = arr[end];
+        arr[end] = temp;
+
+        start++;
+        end--;
+    }
+}
+
+/* Count even numbers in array */
+int count_even_numbers(int arr[], int size)
+{
+    if ((arr == NULL) || (size <= 0))
+    {
+        return 0;
+    }
+
+    int count = 0;
+
+    for (int i = 0; i < size; i++)
+    {
+        if (arr[i] % 2 == 0)
+        {
+            count++;
+        }
+    }
+
+    return count;
+}
