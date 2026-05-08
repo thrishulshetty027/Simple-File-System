@@ -5451,3 +5451,71 @@ int gcd(int a, int b) {
 
     return a;
 }
+
+#include <math.h>
+
+/* Calculate factorial of a number */
+int factorial(int n) {
+    if (n < 0)
+        return -1;
+
+    int result = 1;
+
+    for (int i = 1; i <= n; i++) {
+        result *= i;
+    }
+
+    return result;
+}
+
+/* Calculate nth Fibonacci number */
+int fibonacci(int n) {
+    if (n < 0)
+        return -1;
+
+    if (n == 0)
+        return 0;
+
+    if (n == 1)
+        return 1;
+
+    int first = 0;
+    int second = 1;
+    int next = 0;
+
+    for (int i = 2; i <= n; i++) {
+        next = first + second;
+        first = second;
+        second = next;
+    }
+
+    return next;
+}
+
+/* Check if a number is Armstrong */
+int is_armstrong(int num) {
+    int original = num;
+    int sum = 0;
+
+    while (num > 0) {
+        int digit = num % 10;
+        sum += digit * digit * digit;
+        num /= 10;
+    }
+
+    return (sum == original);
+}
+
+/* Calculate power using loop */
+int power(int base, int exponent) {
+    if (exponent < 0)
+        return -1;
+
+    int result = 1;
+
+    for (int i = 0; i < exponent; i++) {
+        result *= base;
+    }
+
+    return result;
+}
