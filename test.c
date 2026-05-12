@@ -6016,3 +6016,109 @@ int count_even_numbers(int arr[], int size)
 
     return count;
 }
+
+#include <string.h>
+
+/* Calculate length of string */
+int string_length(const char str[])
+{
+    if (str == NULL)
+    {
+        return 0;
+    }
+
+    int length = 0;
+
+    while (str[length] != '\0')
+    {
+        length++;
+    }
+
+    return length;
+}
+
+/* Count vowels in string */
+int count_vowels(const char str[])
+{
+    if (str == NULL)
+    {
+        return 0;
+    }
+
+    int count = 0;
+
+    for (int i = 0; str[i] != '\0'; i++)
+    {
+        char ch = str[i];
+
+        if ((ch == 'a') || (ch == 'e') || (ch == 'i') ||
+            (ch == 'o') || (ch == 'u') ||
+            (ch == 'A') || (ch == 'E') || (ch == 'I') ||
+            (ch == 'O') || (ch == 'U'))
+        {
+            count++;
+        }
+    }
+
+    return count;
+}
+
+/* Convert string to uppercase */
+void to_uppercase(char str[])
+{
+    if (str == NULL)
+    {
+        return;
+    }
+
+    for (int i = 0; str[i] != '\0'; i++)
+    {
+        if ((str[i] >= 'a') && (str[i] <= 'z'))
+        {
+            str[i] = str[i] - ('a' - 'A');
+        }
+    }
+}
+
+/* Check if string is palindrome */
+int is_palindrome(const char str[])
+{
+    if (str == NULL)
+    {
+        return 0;
+    }
+
+    int start = 0;
+    int end = string_length(str) - 1;
+
+    while (start < end)
+    {
+        if (str[start] != str[end])
+        {
+            return 0;
+        }
+
+        start++;
+        end--;
+    }
+
+    return 1;
+}
+
+/* Copy string safely */
+void safe_string_copy(char destination[], const char source[], int max_size)
+{
+    if ((destination == NULL) || (source == NULL) || (max_size <= 0))
+    {
+        return;
+    }
+
+    int i;
+
+    for (i = 0; (i < max_size - 1) && (source[i] != '\0'); i++)
+    {
+        destination[i] = source[i];
+    }
+
+    destination[i] = '\0';
+}
