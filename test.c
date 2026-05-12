@@ -6122,3 +6122,24 @@ void safe_string_copy(char destination[], const char source[], int max_size)
 
     destination[i] = '\0';
 }
+
+
+void bubbleSort(int *arr, int n) {
+    for (int i = 0; i < n - 1; i++) {
+        int swapped = 0; // optimization flag
+
+        for (int j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                // swap
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+                swapped = 1;
+            }
+        }
+
+        // If no swaps happened, array is already sorted
+        if (swapped == 0)
+            break;
+    }
+}
